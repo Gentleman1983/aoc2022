@@ -7,6 +7,24 @@ class CaloriesCounter(val filename: String) {
         return maxCaloriesElf.sumCalories().toString()
     }
 
+    fun processFileTopThree(): String {
+        var elves: List<Elf> = readFile()
+
+        var topElves: List<Elf> = emptyList()
+        for(index in 1..3) {
+            var maxCaloriesElf: Elf = findElfWithMaxCalories(elves)
+            topElves += maxCaloriesElf
+            elves -= maxCaloriesElf
+        }
+
+        var sumCalories: Int = 0
+        for(index in topElves.indices) {
+            sumCalories += topElves[index].sumCalories()
+        }
+
+        return sumCalories.toString()
+    }
+
     private fun readFile(): List<Elf>
             {
                 val contentRows = getResourceAsText(filename)

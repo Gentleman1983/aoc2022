@@ -4,7 +4,8 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println(CaloriesCounter("day01.txt").processFile())
+            println("Top Elf has '${CaloriesCounter("day01.txt").processFile()}' calories")
+            println("Top three Elves have '${CaloriesCounter("day01.txt").processFileTopThree()}' calories")
         }
     }
 }

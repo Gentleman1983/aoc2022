@@ -22,6 +22,12 @@ class Day01Test {
             CaloriesCounter("sample.txt")
                     .processFile()
                     .shouldBe("24000")
+
+    @Test
+    fun sampleTopThree() =
+            CaloriesCounter("sample.txt")
+                    .processFileTopThree()
+                    .shouldBe("45000")
 }
 
 private fun String.shouldBe(expectation: String) = assertEquals(expectation, this)
