@@ -11,7 +11,7 @@ def subDirs = rootDir.listFiles(new FileFilter() {
         if (file.name == 'buildSrc') {
             return false
         }
-        return new File(file, 'build.gradle').isFile()
+        return new File(file, 'build.gradle').isFile() || new File(file, 'build.gradle.kts').isFile()
     }
 });
 

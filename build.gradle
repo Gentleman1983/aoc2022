@@ -3,3 +3,10 @@ wrapper {
     distributionType = Wrapper.DistributionType.ALL
     gradleVersion '7.5.1'
 }
+
+// Add maven central for all projects
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
