@@ -34,10 +34,10 @@ jar {
     manifest {
         attributes 'Implementation-Title': project.name
         attributes 'Implementation-Version': project.version
-        attributes 'Main-Class': 'de.havox_design.aoc2022.day01.MainClass'
+        attributes 'Main-Class': 'de.havox_design.aoc2022.day03.MainClass'
     }
 }
 
 application {
-    mainClass = 'de.havox_design.aoc2022.day01.MainClass'
+    mainClass = 'de.havox_design.aoc2022.day03.MainClass'
 }
