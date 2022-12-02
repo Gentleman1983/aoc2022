@@ -5,6 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Score of Guide: ${RockPaperScissorsGame("input.txt").getResultForGuide()}")
+            println("Score by expected result: ${RockPaperScissorsGame("input.txt").getResultForExpectedResult()}")
         }
     }
 }

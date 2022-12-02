@@ -25,6 +25,25 @@ class Day02Test {
             .getResultForGuide()
             .shouldBe(expectedScore)
     }
+
+    @ParameterizedTest
+    @CsvSource(
+        "rock_win.txt, 8",
+        "rock_draw.txt, 4",
+        "rock_loss.txt, 3",
+        "paper_win.txt, 9",
+        "paper_draw.txt, 5",
+        "paper_loss.txt, 1",
+        "scissors_win.txt, 7",
+        "scissors_draw.txt, 6",
+        "scissors_loss.txt, 2",
+        "sample.txt, 12"
+    )
+    fun testGameByExpectedResults(filename: String, expectedScore: Int) {
+        RockPaperScissorsGame(filename)
+            .getResultForExpectedResult()
+            .shouldBe(expectedScore)
+    }
 }
 
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
