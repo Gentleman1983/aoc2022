@@ -10,10 +10,13 @@ enum class RockPaperScissorsFigures(val symbol: String, val counterSymbol: Strin
 
     companion object {
         fun getValueBySymbol(s: String): RockPaperScissorsFigures {
-            for(index in RockPaperScissorsFigures.values().indices) {
+            for (index in RockPaperScissorsFigures.values().indices) {
                 var currentFigure: RockPaperScissorsFigures = RockPaperScissorsFigures.values()[index]
 
-                if(currentFigure.symbol == s.uppercase(Locale.getDefault()) || currentFigure.counterSymbol == s.uppercase(Locale.getDefault())) {
+                if (currentFigure.symbol == s.uppercase(Locale.getDefault()) || currentFigure.counterSymbol == s.uppercase(
+                        Locale.getDefault()
+                    )
+                ) {
                     return currentFigure
                 }
             }

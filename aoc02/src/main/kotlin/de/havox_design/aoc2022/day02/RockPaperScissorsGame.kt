@@ -6,11 +6,11 @@ class RockPaperScissorsGame(val filename: String) {
 
         var turns: List<String>? = getResourceAsText(filename)
 
-        if(!turns.isNullOrEmpty()) {
+        if (!turns.isNullOrEmpty()) {
             for (index in turns.indices) {
                 var actions: List<String>? = turns[index].split(" ")
 
-                if(!actions.isNullOrEmpty()) {
+                if (!actions.isNullOrEmpty()) {
                     var opponent: RockPaperScissorsFigures = RockPaperScissorsFigures.getValueBySymbol(actions[0])
                     var turn: RockPaperScissorsFigures = RockPaperScissorsFigures.getValueBySymbol(actions[1])
                     score += turn.score
@@ -28,15 +28,15 @@ class RockPaperScissorsGame(val filename: String) {
 
         var turns: List<String>? = getResourceAsText(filename)
 
-        if(!turns.isNullOrEmpty()) {
+        if (!turns.isNullOrEmpty()) {
             for (index in turns.indices) {
                 var actions: List<String>? = turns[index].split(" ")
 
-                if(!actions.isNullOrEmpty()) {
+                if (!actions.isNullOrEmpty()) {
                     var opponent: RockPaperScissorsFigures = RockPaperScissorsFigures.getValueBySymbol(actions[0])
                     var expectedResult: RockPaperScissorsResult = RockPaperScissorsResult.getValueBySymbol(actions[1])
                     var turn: RockPaperScissorsFigures = getTurnByExpectedResult(opponent, expectedResult)
-                        score += turn.score
+                    score += turn.score
 
                     score += getScoreByResult(opponent, turn)
                 }
@@ -47,54 +47,45 @@ class RockPaperScissorsGame(val filename: String) {
     }
 
     private fun getScoreByResult(opponentTurn: RockPaperScissorsFigures, yourTurn: RockPaperScissorsFigures): Int {
-        if(opponentTurn == RockPaperScissorsFigures.ROCK && yourTurn == RockPaperScissorsFigures.SCISSORS) {
+        if (opponentTurn == RockPaperScissorsFigures.ROCK && yourTurn == RockPaperScissorsFigures.SCISSORS) {
             return RockPaperScissorsResult.LOSS.score
-        }
-        else if(opponentTurn == RockPaperScissorsFigures.ROCK && yourTurn == RockPaperScissorsFigures.PAPER) {
+        } else if (opponentTurn == RockPaperScissorsFigures.ROCK && yourTurn == RockPaperScissorsFigures.PAPER) {
             return RockPaperScissorsResult.WIN.score
-        }
-        else if(opponentTurn == RockPaperScissorsFigures.PAPER && yourTurn == RockPaperScissorsFigures.ROCK) {
+        } else if (opponentTurn == RockPaperScissorsFigures.PAPER && yourTurn == RockPaperScissorsFigures.ROCK) {
             return RockPaperScissorsResult.LOSS.score
-        }
-        else if(opponentTurn == RockPaperScissorsFigures.PAPER && yourTurn == RockPaperScissorsFigures.SCISSORS) {
+        } else if (opponentTurn == RockPaperScissorsFigures.PAPER && yourTurn == RockPaperScissorsFigures.SCISSORS) {
             return RockPaperScissorsResult.WIN.score
-        }
-        else if(opponentTurn == RockPaperScissorsFigures.SCISSORS && yourTurn == RockPaperScissorsFigures.ROCK) {
+        } else if (opponentTurn == RockPaperScissorsFigures.SCISSORS && yourTurn == RockPaperScissorsFigures.ROCK) {
             return RockPaperScissorsResult.WIN.score
-        }
-        else if(opponentTurn == RockPaperScissorsFigures.SCISSORS && yourTurn == RockPaperScissorsFigures.PAPER) {
+        } else if (opponentTurn == RockPaperScissorsFigures.SCISSORS && yourTurn == RockPaperScissorsFigures.PAPER) {
             return RockPaperScissorsResult.LOSS.score
-        }
-        else {
+        } else {
             return RockPaperScissorsResult.DRAW.score
         }
     }
 
-    private fun getTurnByExpectedResult(opponentTurn: RockPaperScissorsFigures, expectedResult: RockPaperScissorsResult): RockPaperScissorsFigures {
-        if(expectedResult == RockPaperScissorsResult.DRAW) {
+    private fun getTurnByExpectedResult(
+        opponentTurn: RockPaperScissorsFigures,
+        expectedResult: RockPaperScissorsResult
+    ): RockPaperScissorsFigures {
+        if (expectedResult == RockPaperScissorsResult.DRAW) {
             return opponentTurn
-        }
-        else if(opponentTurn == RockPaperScissorsFigures.ROCK) {
-            if(expectedResult == RockPaperScissorsResult.WIN) {
-                return  RockPaperScissorsFigures.PAPER
-            }
-            else {
+        } else if (opponentTurn == RockPaperScissorsFigures.ROCK) {
+            if (expectedResult == RockPaperScissorsResult.WIN) {
+                return RockPaperScissorsFigures.PAPER
+            } else {
                 return RockPaperScissorsFigures.SCISSORS
             }
-        }
-        else if(opponentTurn == RockPaperScissorsFigures.PAPER) {
-            if(expectedResult == RockPaperScissorsResult.WIN) {
+        } else if (opponentTurn == RockPaperScissorsFigures.PAPER) {
+            if (expectedResult == RockPaperScissorsResult.WIN) {
                 return RockPaperScissorsFigures.SCISSORS
-            }
-            else {
+            } else {
                 return RockPaperScissorsFigures.ROCK
             }
-        }
-        else {
-            if(expectedResult == RockPaperScissorsResult.WIN) {
+        } else {
+            if (expectedResult == RockPaperScissorsResult.WIN) {
                 return RockPaperScissorsFigures.ROCK
-            }
-            else {
+            } else {
                 return RockPaperScissorsFigures.PAPER
             }
         }

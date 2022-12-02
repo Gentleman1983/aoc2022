@@ -10,10 +10,10 @@ enum class RockPaperScissorsResult(val symbol: String, val score: Int) {
 
     companion object {
         fun getValueBySymbol(s: String): RockPaperScissorsResult {
-            for(index in RockPaperScissorsResult.values().indices) {
+            for (index in RockPaperScissorsResult.values().indices) {
                 var currentFigure: RockPaperScissorsResult = RockPaperScissorsResult.values()[index]
 
-                if(currentFigure.symbol == s.uppercase(Locale.getDefault())) {
+                if (currentFigure.symbol == s.uppercase(Locale.getDefault())) {
                     return currentFigure
                 }
             }
