@@ -56,8 +56,8 @@ enum class ItemValue(val lowerCaseValue: Int, val upperCaseValue: Int, val symbo
     }
 }
 
-fun String.isUpperCase(): Boolean =
+private fun String.isUpperCase(): Boolean =
     this.uppercase(Locale.getDefault()) == this
 
-fun String.isLowerCase(): Boolean =
+private fun String.isLowerCase(): Boolean =
     !this.isUpperCase()
