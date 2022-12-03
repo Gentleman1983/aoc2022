@@ -11,7 +11,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
 
     testImplementation gav_junit5
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
 }
 
