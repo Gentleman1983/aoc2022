@@ -2,7 +2,11 @@ package de.havox_design.aoc2022.day03
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.MethodSource
+import org.junit.jupiter.params.provider.ValueSource
+import java.util.stream.Stream
 
 class Day03Test {
     @ParameterizedTest
@@ -60,11 +64,10 @@ class Day03Test {
         "Y,51",
         "Z,52"
     )
-    fun testGetItemValueScores(symbol: String, expectedScore: Int) {
+    fun testGetItemValueScores(symbol: String, expectedScore: Int) =
         ItemValue
             .getScoreByDefault(symbol)
             .shouldBe(expectedScore)
-    }
 
     @ParameterizedTest
     @CsvSource(
@@ -121,11 +124,10 @@ class Day03Test {
         "Y,Y",
         "Z,Z"
     )
-    fun testGetItemValueBySymbol(symbol: String, expectedItemValue: ItemValue) {
+    fun testGetItemValueBySymbol(symbol: String, expectedItemValue: ItemValue) =
         ItemValue
             .getValueBySymbol(symbol)
             .shouldBe(expectedItemValue)
-    }
 
     @ParameterizedTest
     @CsvSource(
@@ -183,11 +185,10 @@ class Day03Test {
         "Z,52",
         "foo, 0"
     )
-    fun testGetScoresByItem(symbol: String, expectedScore: Int) {
+    fun testGetScoresByItem(symbol: String, expectedScore: Int) =
         Item(symbol)
             .getScoreForItem()
             .shouldBe(expectedScore)
-    }
 
     @ParameterizedTest
     @CsvSource(
@@ -218,13 +219,59 @@ class Day03Test {
         "ttgJtRGJQctTZtZT,20",
         "CrZsJsPPZsGzwwsLwLmpwMDw,19"
     )
-    fun testGetScoresByContent(knapsackContent: String, expectedScore: Int) {
+    fun testGetScoresByContent(knapsackContent: String, expectedScore: Int) =
         Knapsack
             .getKnapsackForString(knapsackContent)
             .calculateScoreOfDuplicateItems()
             .shouldBe(expectedScore)
+
+    companion object {
+        @JvmStatic
+        private fun getDataForTestGetDuplicatesForFile(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sampleRow1.txt", listOf(Item("p"))),
+                Arguments.of("sampleRow2.txt", listOf(Item("L"))),
+                Arguments.of("sampleRow3.txt", listOf(Item("P"))),
+                Arguments.of("sampleRow4.txt", listOf(Item("v"))),
+                Arguments.of("sampleRow5.txt", listOf(Item("t"))),
+                Arguments.of("sampleRow6.txt", listOf(Item("s"))),
+                Arguments.of(
+                    "sample.txt", listOf(
+                        Item("p"),
+                        Item("L"),
+                        Item("P"),
+                        Item("v"),
+                        Item("t"),
+                        Item("s")
+                    )
+                )
+            )
     }
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestGetDuplicatesForFile")
+    fun testGetDuplicatesForFile(filename: String, expectedDuplicates: List<Item>) =
+        RucksackReorganization(filename)
+            .getDuplicatesFromList()
+            .shouldContainAll(expectedDuplicates)
+
+    @ParameterizedTest
+    @CsvSource(
+        "sampleRow1.txt,16",
+        "sampleRow2.txt,38",
+        "sampleRow3.txt,42",
+        "sampleRow4.txt,22",
+        "sampleRow5.txt,20",
+        "sampleRow6.txt,19",
+        "sample.txt,157"
+    )
+    fun testGetScoresForFile(filename: String, expectedScore: Int) =
+        RucksackReorganization(filename)
+            .getDuplicatesScoreFromList()
+            .shouldBe(expectedScore)
 }
 
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun ItemValue.shouldBe(expectation: ItemValue) = Assertions.assertEquals(expectation, this)
+private fun List<Item>.shouldContainAll(expectation: Collection<Item>) =
+    Assertions.assertTrue(this.containsAll(expectation))

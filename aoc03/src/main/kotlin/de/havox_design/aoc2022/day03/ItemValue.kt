@@ -47,7 +47,7 @@ enum class ItemValue(val lowerCaseValue: Int, val upperCaseValue: Int, val symbo
         fun getScoreByDefault(s: String): Int {
             var v: ItemValue = getValueBySymbol(s)
 
-            return if(s.isLowerCase()) {
+            return if (s.isLowerCase()) {
                 v.lowerCaseValue
             } else {
                 v.upperCaseValue

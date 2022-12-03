@@ -4,7 +4,7 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("please implement me")
+            println("Sum of priorities: ${RucksackReorganization("input.txt").getDuplicatesScoreFromList()}")
         }
     }
 }

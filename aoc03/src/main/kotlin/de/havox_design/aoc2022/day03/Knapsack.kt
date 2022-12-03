@@ -4,22 +4,22 @@ class Knapsack(val leftCompartment: List<Item>, val rightCompartment: List<Item>
     fun findDuplicateItems(): Set<Item> {
         var duplicateItems: Set<Item> = emptySet()
 
-        for(leftItem: Item in leftCompartment) {
-            for(rightItem: Item in rightCompartment) {
-                if(leftItem == rightItem) {
+        for (leftItem: Item in leftCompartment) {
+            for (rightItem: Item in rightCompartment) {
+                if (leftItem == rightItem) {
                     duplicateItems += leftItem
                 }
             }
         }
 
-        return  duplicateItems
+        return duplicateItems
     }
 
     fun calculateScoreOfDuplicateItems(): Int {
         var duplicateItems: Set<Item> = findDuplicateItems()
         var duplicateScore: Int = 0
 
-        for(item: Item in duplicateItems) {
+        for (item: Item in duplicateItems) {
             duplicateScore += item.getScoreForItem()
         }
 
@@ -33,11 +33,11 @@ class Knapsack(val leftCompartment: List<Item>, val rightCompartment: List<Item>
             var leftString: String = s.substring(0, s.length / 2)
             var rightString: String = s.substring(s.length / 2, s.length)
 
-            for(index in leftString.indices) {
+            for (index in leftString.indices) {
                 leftCompartment += Item(leftString.substring(index, index + 1))
             }
 
-            for(index in rightString.indices) {
+            for (index in rightString.indices) {
                 rightCompartment += Item(rightString.substring(index, index + 1))
             }
 
