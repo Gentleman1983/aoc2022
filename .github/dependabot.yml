@@ -5,7 +5,107 @@
 
 version: 2
 updates:
-  - package-ecosystem: "gradle" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc01/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc02/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc03/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc04/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc05/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc06/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc07/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc08/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc09/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc10/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc11/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc12/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc13/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc14/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc15/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc16/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc17/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc18/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc19/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc20/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc21/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc22/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc23/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc24/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/aoc25/"
     schedule:
       interval: "daily"
