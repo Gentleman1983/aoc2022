@@ -1,7 +1,17 @@
+plugins {
+    id 'org.sonarqube' version '3.4.0.2513'
+}
+
 // Switch to gradle "all" distribution.
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
     gradleVersion '7.5.1'
+}
+
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+    }
 }
 
 // Add maven central for all projects
