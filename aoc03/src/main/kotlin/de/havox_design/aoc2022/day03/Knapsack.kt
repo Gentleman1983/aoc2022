@@ -4,10 +4,10 @@ class Knapsack(val leftCompartment: List<Item>, val rightCompartment: List<Item>
     fun findDuplicateItems(): Set<Item> {
         var duplicateItems: Set<Item> = emptySet()
 
-        for(lefItem: Item in leftCompartment) {
+        for(leftItem: Item in leftCompartment) {
             for(rightItem: Item in rightCompartment) {
-                if(lefItem == rightItem) {
-                    duplicateItems += lefItem
+                if(leftItem == rightItem) {
+                    duplicateItems += leftItem
                 }
             }
         }
