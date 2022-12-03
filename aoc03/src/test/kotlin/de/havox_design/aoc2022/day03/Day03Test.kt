@@ -225,29 +225,6 @@ class Day03Test {
             .calculateScoreOfDuplicateItems()
             .shouldBe(expectedScore)
 
-    companion object {
-        @JvmStatic
-        private fun getDataForTestGetDuplicatesForFile(): Stream<Arguments> =
-            Stream.of(
-                Arguments.of("sampleRow1.txt", listOf(Item("p"))),
-                Arguments.of("sampleRow2.txt", listOf(Item("L"))),
-                Arguments.of("sampleRow3.txt", listOf(Item("P"))),
-                Arguments.of("sampleRow4.txt", listOf(Item("v"))),
-                Arguments.of("sampleRow5.txt", listOf(Item("t"))),
-                Arguments.of("sampleRow6.txt", listOf(Item("s"))),
-                Arguments.of(
-                    "sample.txt", listOf(
-                        Item("p"),
-                        Item("L"),
-                        Item("P"),
-                        Item("v"),
-                        Item("t"),
-                        Item("s")
-                    )
-                )
-            )
-    }
-
     @ParameterizedTest
     @MethodSource("getDataForTestGetDuplicatesForFile")
     fun testGetDuplicatesForFile(filename: String, expectedDuplicates: List<Item>) =
@@ -269,6 +246,93 @@ class Day03Test {
         RucksackReorganization(filename)
             .getDuplicatesScoreFromList()
             .shouldBe(expectedScore)
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "vJrwpWtwJgWrhcsFMMfFFhFp",
+            "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+            "PmmdzqPrVvPwwTWBwg",
+            "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+            "ttgJtRGJQctTZtZT",
+            "CrZsJsPPZsGzwwsLwLmpwMDw"
+        ]
+
+    )
+    fun testDistinctItemsForKnapsack(data: String) {
+        for (index in data.indices) {
+            var currentLetter: Item = Item(data.substring(index, index + 1))
+
+            Assertions
+                .assertTrue(
+                    Knapsack
+                        .getKnapsackForString(data)
+                        .listDistinctItems()
+                        .contains(currentLetter)
+                )
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestGetBadgesFromFile")
+    fun testGetBadgesFromFile(filename: String, expectedBadges: List<Item>) {
+        RucksackReorganization(filename)
+            .detectBadgesFromList()
+            .shouldContainAll(expectedBadges)
+    }
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestGetBadgeScoreFromFile")
+    fun testGetBadgeScoreFromFile(filename: String, expectedScore: Int) {
+        RucksackReorganization(filename)
+            .getBadgesScoreFromList()
+            .shouldBe(expectedScore)
+    }
+
+
+    companion object {
+        @JvmStatic
+        private fun getDataForTestGetDuplicatesForFile(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sampleRow1.txt", listOf(Item("p"))),
+                Arguments.of("sampleRow2.txt", listOf(Item("L"))),
+                Arguments.of("sampleRow3.txt", listOf(Item("P"))),
+                Arguments.of("sampleRow4.txt", listOf(Item("v"))),
+                Arguments.of("sampleRow5.txt", listOf(Item("t"))),
+                Arguments.of("sampleRow6.txt", listOf(Item("s"))),
+                Arguments.of(
+                    "sample.txt", listOf(
+                        Item("p"),
+                        Item("L"),
+                        Item("P"),
+                        Item("v"),
+                        Item("t"),
+                        Item("s")
+                    )
+                )
+            )
+
+        @JvmStatic
+        private fun getDataForTestGetBadgesFromFile(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("badges1.txt", listOf(Item("r"))),
+                Arguments.of("badges2.txt", listOf(Item("Z"))),
+                Arguments.of(
+                    "sample.txt", listOf(
+                        Item("r"),
+                        Item("Z")
+                    )
+                )
+            )
+
+        @JvmStatic
+        private fun getDataForTestGetBadgeScoreFromFile(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("badges1.txt", 18),
+                Arguments.of("badges2.txt", 52),
+                Arguments.of("sample.txt", 70)
+            )
+    }
 }
 
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)

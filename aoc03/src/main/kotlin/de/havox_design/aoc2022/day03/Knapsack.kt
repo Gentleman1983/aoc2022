@@ -26,6 +26,19 @@ class Knapsack(val leftCompartment: List<Item>, val rightCompartment: List<Item>
         return duplicateScore
     }
 
+    fun listDistinctItems(): Set<Item> {
+        var items: Set<Item> = emptySet()
+
+        for (item: Item in leftCompartment) {
+            items += item
+        }
+        for (item: Item in rightCompartment) {
+            items += item
+        }
+
+        return items
+    }
+
     companion object {
         fun getKnapsackForString(s: String): Knapsack {
             var leftCompartment: List<Item> = emptyList()

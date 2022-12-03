@@ -5,6 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Sum of priorities: ${RucksackReorganization("input.txt").getDuplicatesScoreFromList()}")
+            println("Badgesscore: ${RucksackReorganization("input.txt").getBadgesScoreFromList()}")
         }
     }
 }
