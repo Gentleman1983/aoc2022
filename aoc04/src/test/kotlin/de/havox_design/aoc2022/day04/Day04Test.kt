@@ -31,14 +31,16 @@ class Day04Test {
         row: String,
         expectedLeftAssignment: Assignment,
         expectedRightAssignment: Assignment,
-        expectedOneAssignmentContainsTheOther: Boolean
+        expectedOneAssignmentContainsTheOther: Boolean,
+        expectedOneAssignmentOverlapsTheOther: Boolean
     ) {
         val objectUnderTest: AssignmentPair = AssignmentPair.processInputRow(row)
 
         assertAll(
             { objectUnderTest.leftAssignment.shouldBe(expectedLeftAssignment) },
             { objectUnderTest.rightAssignment.shouldBe(expectedRightAssignment) },
-            { objectUnderTest.oneAssignmentContainsTheOther().shouldBe(expectedOneAssignmentContainsTheOther) }
+            { objectUnderTest.oneAssignmentContainsTheOther().shouldBe(expectedOneAssignmentContainsTheOther) },
+            { objectUnderTest.oneAssignmentOverlapsTheOther().shouldBe(expectedOneAssignmentOverlapsTheOther) }
         )
     }
 
@@ -75,37 +77,43 @@ class Day04Test {
                     "2-4,6-8",
                     Assignment.processSectionString("2-4"),
                     Assignment.processSectionString("6-8"),
+                    false,
                     false
                 ),
                 Arguments.of(
                     "2-3,4-5",
                     Assignment.processSectionString("2-3"),
                     Assignment.processSectionString("4-5"),
+                    false,
                     false
                 ),
                 Arguments.of(
                     "5-7,7-9",
                     Assignment.processSectionString("5-7"),
                     Assignment.processSectionString("7-9"),
-                    false
+                    false,
+                    true
                 ),
                 Arguments.of(
                     "2-8,3-7",
                     Assignment.processSectionString("2-8"),
                     Assignment.processSectionString("3-7"),
+                    true,
                     true
                 ),
                 Arguments.of(
                     "6-6,4-6",
                     Assignment.processSectionString("6-6"),
                     Assignment.processSectionString("4-6"),
+                    true,
                     true
                 ),
                 Arguments.of(
                     "2-6,4-8",
                     Assignment.processSectionString("2-6"),
                     Assignment.processSectionString("4-8"),
-                    false
+                    false,
+                    true
                 )
             )
 

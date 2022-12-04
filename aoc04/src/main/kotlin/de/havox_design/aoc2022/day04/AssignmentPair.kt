@@ -5,6 +5,9 @@ data class AssignmentPair(val leftAssignment: Assignment, val rightAssignment: A
         ((leftAssignment.lowerSection <= rightAssignment.lowerSection) && (leftAssignment.upperSection >= rightAssignment.upperSection)) ||
                 ((rightAssignment.lowerSection <= leftAssignment.lowerSection) && (rightAssignment.upperSection >= leftAssignment.upperSection))
 
+    fun oneAssignmentOverlapsTheOther(): Boolean =
+        leftAssignment.getSections().any { rightAssignment.getSections().contains(it) }
+
     companion object {
         fun processInputRow(data: String): AssignmentPair {
             val cleanUpSections = data.split(",")
