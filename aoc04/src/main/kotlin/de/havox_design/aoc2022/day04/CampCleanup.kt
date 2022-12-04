@@ -14,6 +14,19 @@ class CampCleanup(private val filename: String) {
         return number
     }
 
+    fun findAssignmentPairsWithOneAssignmentOverlappingTheOther(): Int {
+        val assignmentPairs = readAssignmentPairs()
+        var number = 0
+
+        for (assignmentPair in assignmentPairs) {
+            if (assignmentPair.oneAssignmentOverlapsTheOther()) {
+                number++
+            }
+        }
+
+        return number
+    }
+
     private fun readAssignmentPairs(): List<AssignmentPair> {
         val dataRows = getResourceAsText(filename)
         var assignmentPairs: List<AssignmentPair> = emptyList()

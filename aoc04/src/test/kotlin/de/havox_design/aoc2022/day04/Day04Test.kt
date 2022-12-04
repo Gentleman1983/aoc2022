@@ -46,10 +46,21 @@ class Day04Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestFindAssignmentPairsWithOneAssignmentContainingTheOther")
-    fun testFindAssignmentPairsWithOneAssignmentContainingTheOther(filename: String, expectedNumber: Int) =
-        CampCleanup(filename)
-            .findAssignmentPairsWithOneAssignmentContainingTheOther()
-            .shouldBe(expectedNumber)
+    fun testFindAssignmentPairsWithOneAssignmentContainingTheOther(
+        filename: String,
+        expectedNumberOfContainedAssignments: Int,
+        expectedNumberOfOverlappingAssignments: Int
+    ) =
+        assertAll(
+            {
+                CampCleanup(filename).findAssignmentPairsWithOneAssignmentContainingTheOther()
+                    .shouldBe(expectedNumberOfContainedAssignments)
+            },
+            {
+                CampCleanup(filename).findAssignmentPairsWithOneAssignmentOverlappingTheOther()
+                    .shouldBe(expectedNumberOfOverlappingAssignments)
+            }
+        )
 
     companion object {
         @JvmStatic
@@ -120,13 +131,13 @@ class Day04Test {
         @JvmStatic
         private fun getDataForTestFindAssignmentPairsWithOneAssignmentContainingTheOther(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sampleRow1.txt", 0),
-                Arguments.of("sampleRow2.txt", 0),
-                Arguments.of("sampleRow3.txt", 0),
-                Arguments.of("sampleRow4.txt", 1),
-                Arguments.of("sampleRow5.txt", 1),
-                Arguments.of("sampleRow6.txt", 0),
-                Arguments.of("sample.txt", 2)
+                Arguments.of("sampleRow1.txt", 0, 0),
+                Arguments.of("sampleRow2.txt", 0, 0),
+                Arguments.of("sampleRow3.txt", 0, 1),
+                Arguments.of("sampleRow4.txt", 1, 1),
+                Arguments.of("sampleRow5.txt", 1, 1),
+                Arguments.of("sampleRow6.txt", 0, 1),
+                Arguments.of("sample.txt", 2, 4)
             )
     }
 }

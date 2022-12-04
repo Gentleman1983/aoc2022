@@ -5,6 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Assignments containing the other: ${CampCleanup("input.txt").findAssignmentPairsWithOneAssignmentContainingTheOther()}")
+            println("Assignments overlapping the other: ${CampCleanup("input.txt").findAssignmentPairsWithOneAssignmentOverlappingTheOther()}")
         }
     }
 }
