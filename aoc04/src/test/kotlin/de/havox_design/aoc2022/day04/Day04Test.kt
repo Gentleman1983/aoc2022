@@ -42,6 +42,13 @@ class Day04Test {
         )
     }
 
+    @ParameterizedTest
+    @MethodSource("getDataForTestFindAssignmentPairsWithOneAssignmentContainingTheOther")
+    fun testFindAssignmentPairsWithOneAssignmentContainingTheOther(filename: String, expectedNumber: Int) =
+        CampCleanup(filename)
+            .findAssignmentPairsWithOneAssignmentContainingTheOther()
+            .shouldBe(expectedNumber)
+
     companion object {
         @JvmStatic
         private fun getDataForTestAssignment(): Stream<Arguments> =
@@ -100,6 +107,18 @@ class Day04Test {
                     Assignment.processSectionString("4-8"),
                     false
                 )
+            )
+
+        @JvmStatic
+        private fun getDataForTestFindAssignmentPairsWithOneAssignmentContainingTheOther(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sampleRow1.txt", 0),
+                Arguments.of("sampleRow2.txt", 0),
+                Arguments.of("sampleRow3.txt", 0),
+                Arguments.of("sampleRow4.txt", 1),
+                Arguments.of("sampleRow5.txt", 1),
+                Arguments.of("sampleRow6.txt", 0),
+                Arguments.of("sample.txt", 2)
             )
     }
 }
