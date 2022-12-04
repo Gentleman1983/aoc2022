@@ -28,6 +28,23 @@ tasks.withType(Test).configureEach {
         exceptionFormat = TestExceptionFormat.FULL
         events("passed", "failed", "skipped")
     }
+
+    reports {
+        junitXml.required = true
+        html.required = true
+    }
+
+    jacocoTestReport.dependsOn(it)
+}
+
+jacocoTestReport {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        xml.outputLocation.set(file("${buildDir}/jacoco/jacoco.xml"))
+    }
+
+    rootProject.tasks.sonarqube.dependsOn(it)
 }
 
 jar {

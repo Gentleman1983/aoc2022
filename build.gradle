@@ -10,13 +10,38 @@ wrapper {
 
 sonarqube {
     properties {
+        property "sonar.projectkey", "de.havox_design.aoc2022"
+        property "sonar.organization", "havox"
         property "sonar.sourceEncoding", "UTF-8"
+
     }
 }
+
+
 
 // Add maven central for all projects
 allprojects {
     repositories {
         mavenCentral()
     }
+}
+
+// Add tasks to subprojects
+subprojects {
+    apply plugin: 'jacoco'
+
+    repositories {
+        mavenCentral()
+    }
+
+    jacoco {
+        toolVersion = '0.8.8'
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.coverage.jacoco.xmlReportPath", "${buildDir}/jacoco/jacoco.xml"
+        }
+    }
+
 }

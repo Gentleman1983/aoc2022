@@ -30,6 +30,16 @@ tasks.withType(Test).configureEach {
     }
 }
 
+jacocoTestReport {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        xml.outputLocation.set(file("${buildDir}/jacoco/jacoco.xml"))
+    }
+
+    rootProject.tasks.sonarqube.dependsOn(it)
+}
+
 jar {
     manifest {
         attributes 'Implementation-Title': project.name
