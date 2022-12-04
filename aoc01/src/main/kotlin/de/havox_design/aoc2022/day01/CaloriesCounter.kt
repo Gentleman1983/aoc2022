@@ -1,9 +1,9 @@
 package de.havox_design.aoc2022.day01
 
-class CaloriesCounter(val filename: String) {
+class CaloriesCounter(private val filename: String) {
     fun processFile(): String {
-        var elves: List<Elf> = readFile()
-        var maxCaloriesElf: Elf = findElfWithMaxCalories(elves)
+        val elves: List<Elf> = readFile()
+        val maxCaloriesElf: Elf = findElfWithMaxCalories(elves)
         return maxCaloriesElf.sumCalories().toString()
     }
 
@@ -12,12 +12,12 @@ class CaloriesCounter(val filename: String) {
 
         var topElves: List<Elf> = emptyList()
         for (index in 1..3) {
-            var maxCaloriesElf: Elf = findElfWithMaxCalories(elves)
+            val maxCaloriesElf: Elf = findElfWithMaxCalories(elves)
             topElves += maxCaloriesElf
             elves -= maxCaloriesElf
         }
 
-        var sumCalories: Int = 0
+        var sumCalories = 0
         for (index in topElves.indices) {
             sumCalories += topElves[index].sumCalories()
         }
@@ -48,20 +48,20 @@ class CaloriesCounter(val filename: String) {
 
         if (!rows.isNullOrEmpty()) {
             for (index in rows.indices) {
-                var row: String = rows.get(index)
-                if (row.isNullOrBlank()) {
-                    var elf: Elf = Elf(currentItems)
+                val row: String = rows[index]
+                if (row.isBlank()) {
+                    val elf = Elf(currentItems)
                     elves += elf
                     currentItems = emptyList()
                 } else {
-                    var item: Item = Item(row.toInt())
+                    val item = Item(row.toInt())
                     currentItems += item
                 }
             }
         }
 
         if (currentItems.isNotEmpty()) {
-            var elf: Elf = Elf(currentItems)
+            val elf = Elf(currentItems)
             elves += elf
         }
 

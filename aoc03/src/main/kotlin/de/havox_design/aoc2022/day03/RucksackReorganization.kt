@@ -1,9 +1,9 @@
 package de.havox_design.aoc2022.day03
 
-class RucksackReorganization(val filename: String) {
+class RucksackReorganization(private val filename: String) {
     fun getDuplicatesFromList(): List<Item> {
         var duplicates: List<Item> = emptyList()
-        var input: List<String>? = getResourceAsText(filename)
+        val input: List<String>? = getResourceAsText(filename)
 
         if (!input.isNullOrEmpty()) {
             for (knapsackContent: String in input) {
@@ -17,8 +17,8 @@ class RucksackReorganization(val filename: String) {
     }
 
     fun getDuplicatesScoreFromList(): Int {
-        var score: Int = 0
-        var input: List<String>? = getResourceAsText(filename)
+        var score = 0
+        val input: List<String>? = getResourceAsText(filename)
 
         if (!input.isNullOrEmpty()) {
             for (knapsackContent: String in input) {
@@ -33,20 +33,20 @@ class RucksackReorganization(val filename: String) {
 
     fun detectBadgesFromList(): List<Item> {
         var badges: List<Item> = emptyList()
-        var input: List<String>? = getResourceAsText(filename)
+        val input: List<String>? = getResourceAsText(filename)
 
         if (!input.isNullOrEmpty()) {
             for (index in 0..(input.size - 1) / 3) {
-                var idxTeam1: Int = index * 3
-                var itemsTeam1: Set<Item> = Knapsack
+                val idxTeam1: Int = index * 3
+                val itemsTeam1: Set<Item> = Knapsack
                     .getKnapsackForString(input[idxTeam1])
                     .listDistinctItems()
-                var idxTeam2: Int = index * 3 + 1
-                var itemsTeam2: Set<Item> = Knapsack
+                val idxTeam2: Int = index * 3 + 1
+                val itemsTeam2: Set<Item> = Knapsack
                     .getKnapsackForString(input[idxTeam2])
                     .listDistinctItems()
-                var idxTeam3: Int = index * 3 + 2
-                var itemsTeam3: Set<Item> = Knapsack
+                val idxTeam3: Int = index * 3 + 2
+                val itemsTeam3: Set<Item> = Knapsack
                     .getKnapsackForString(input[idxTeam3])
                     .listDistinctItems()
 
@@ -58,7 +58,7 @@ class RucksackReorganization(val filename: String) {
     }
 
     fun getBadgesScoreFromList(): Int {
-        var score: Int = 0
+        var score = 0
 
         for (item in detectBadgesFromList()) {
             score += item.getScoreForItem()

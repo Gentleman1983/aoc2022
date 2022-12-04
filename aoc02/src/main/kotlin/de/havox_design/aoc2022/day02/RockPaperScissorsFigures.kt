@@ -11,7 +11,7 @@ enum class RockPaperScissorsFigures(val symbol: String, val counterSymbol: Strin
     companion object {
         fun getValueBySymbol(s: String): RockPaperScissorsFigures {
             for (index in RockPaperScissorsFigures.values().indices) {
-                var currentFigure: RockPaperScissorsFigures = RockPaperScissorsFigures.values()[index]
+                val currentFigure: RockPaperScissorsFigures = RockPaperScissorsFigures.values()[index]
 
                 if (currentFigure.symbol == s.uppercase(Locale.getDefault()) || currentFigure.counterSymbol == s.uppercase(
                         Locale.getDefault()
@@ -21,7 +21,7 @@ enum class RockPaperScissorsFigures(val symbol: String, val counterSymbol: Strin
                 }
             }
 
-            return RockPaperScissorsFigures.UNDEFINED
+            return UNDEFINED
         }
     }
 }

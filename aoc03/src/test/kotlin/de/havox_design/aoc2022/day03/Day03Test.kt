@@ -200,9 +200,9 @@ class Day03Test {
         "CrZsJsPPZsGzwwsLwLmpwMDw,s"
     )
     fun testDuplicateByContent(knapsackContent: String, expectedDuplicateSymbol: String) {
-        var expectedDuplicateItem: Item = Item(expectedDuplicateSymbol)
+        val expectedDuplicateItem = Item(expectedDuplicateSymbol)
 
-        var duplicates: Set<Item> = Knapsack
+        val duplicates: Set<Item> = Knapsack
             .getKnapsackForString(knapsackContent)
             .findDuplicateItems()
 
@@ -261,7 +261,7 @@ class Day03Test {
     )
     fun testDistinctItemsForKnapsack(data: String) {
         for (index in data.indices) {
-            var currentLetter: Item = Item(data.substring(index, index + 1))
+            val currentLetter = Item(data.substring(index, index + 1))
 
             Assertions
                 .assertTrue(

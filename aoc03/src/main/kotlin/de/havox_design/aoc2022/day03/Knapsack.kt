@@ -1,6 +1,6 @@
 package de.havox_design.aoc2022.day03
 
-class Knapsack(val leftCompartment: List<Item>, val rightCompartment: List<Item>) {
+class Knapsack(private val leftCompartment: List<Item>, private val rightCompartment: List<Item>) {
     fun findDuplicateItems(): Set<Item> {
         var duplicateItems: Set<Item> = emptySet()
 
@@ -16,8 +16,8 @@ class Knapsack(val leftCompartment: List<Item>, val rightCompartment: List<Item>
     }
 
     fun calculateScoreOfDuplicateItems(): Int {
-        var duplicateItems: Set<Item> = findDuplicateItems()
-        var duplicateScore: Int = 0
+        val duplicateItems: Set<Item> = findDuplicateItems()
+        var duplicateScore = 0
 
         for (item: Item in duplicateItems) {
             duplicateScore += item.getScoreForItem()
@@ -43,8 +43,8 @@ class Knapsack(val leftCompartment: List<Item>, val rightCompartment: List<Item>
         fun getKnapsackForString(s: String): Knapsack {
             var leftCompartment: List<Item> = emptyList()
             var rightCompartment: List<Item> = emptyList()
-            var leftString: String = s.substring(0, s.length / 2)
-            var rightString: String = s.substring(s.length / 2, s.length)
+            val leftString: String = s.substring(0, s.length / 2)
+            val rightString: String = s.substring(s.length / 2, s.length)
 
             for (index in leftString.indices) {
                 leftCompartment += Item(leftString.substring(index, index + 1))

@@ -34,18 +34,18 @@ enum class ItemValue(val lowerCaseValue: Int, val upperCaseValue: Int, val symbo
     companion object {
         fun getValueBySymbol(s: String): ItemValue {
             for (index in ItemValue.values().indices) {
-                var currentFigure: ItemValue = ItemValue.values()[index]
+                val currentFigure: ItemValue = ItemValue.values()[index]
 
                 if (currentFigure.symbol == s.uppercase(Locale.getDefault())) {
                     return currentFigure
                 }
             }
 
-            return ItemValue.UNDEFINED
+            return UNDEFINED
         }
 
         fun getScoreByDefault(s: String): Int {
-            var v: ItemValue = getValueBySymbol(s)
+            val v: ItemValue = getValueBySymbol(s)
 
             return if (s.isLowerCase()) {
                 v.lowerCaseValue
