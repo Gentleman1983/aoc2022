@@ -23,10 +23,10 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Execute Gradle assemble
-        run: ./gradlew assemble
+        run: ./gradlew assemble --scan
 
       - name: Execute Gradle check
-        run: ./gradlew check
+        run: ./gradlew check --scan
 
       - name: Execute Gradle sonarqube
-        run: ./gradlew sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }} --scan
