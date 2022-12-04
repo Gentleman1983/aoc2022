@@ -1,6 +1,10 @@
 package de.havox_design.aoc2022.day04
 
 data class AssignmentPair(val leftAssignment: Assignment, val rightAssignment: Assignment) {
+    fun oneAssignmentContainsTheOther(): Boolean =
+        ((leftAssignment.lowerSection <= rightAssignment.lowerSection) && (leftAssignment.upperSection >= rightAssignment.upperSection)) ||
+                ((rightAssignment.lowerSection <= leftAssignment.lowerSection) && (rightAssignment.upperSection >= leftAssignment.upperSection))
+
     companion object {
         fun processInputRow(data: String): AssignmentPair {
             val cleanUpSections = data.split(",")

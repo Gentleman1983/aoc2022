@@ -27,12 +27,18 @@ class Day04Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestAssignmentPair")
-    fun testAssignmentPair(row: String, expectedLeftAssignment: Assignment, expectedRightAssignment: Assignment) {
+    fun testAssignmentPair(
+        row: String,
+        expectedLeftAssignment: Assignment,
+        expectedRightAssignment: Assignment,
+        expectedOneAssignmentContainsTheOther: Boolean
+    ) {
         val objectUnderTest: AssignmentPair = AssignmentPair.processInputRow(row)
 
         assertAll(
             { objectUnderTest.leftAssignment.shouldBe(expectedLeftAssignment) },
-            { objectUnderTest.rightAssignment.shouldBe(expectedRightAssignment) }
+            { objectUnderTest.rightAssignment.shouldBe(expectedRightAssignment) },
+            { objectUnderTest.oneAssignmentContainsTheOther().shouldBe(expectedOneAssignmentContainsTheOther) }
         )
     }
 
@@ -58,12 +64,42 @@ class Day04Test {
         @JvmStatic
         private fun getDataForTestAssignmentPair(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("2-4,6-8", Assignment.processSectionString("2-4"), Assignment.processSectionString("6-8")),
-                Arguments.of("2-3,4-5", Assignment.processSectionString("2-3"), Assignment.processSectionString("4-5")),
-                Arguments.of("5-7,7-9", Assignment.processSectionString("5-7"), Assignment.processSectionString("7-9")),
-                Arguments.of("2-8,3-7", Assignment.processSectionString("2-8"), Assignment.processSectionString("3-7")),
-                Arguments.of("6-6,4-6", Assignment.processSectionString("6-6"), Assignment.processSectionString("4-6")),
-                Arguments.of("2-6,4-8", Assignment.processSectionString("2-6"), Assignment.processSectionString("4-8"))
+                Arguments.of(
+                    "2-4,6-8",
+                    Assignment.processSectionString("2-4"),
+                    Assignment.processSectionString("6-8"),
+                    false
+                ),
+                Arguments.of(
+                    "2-3,4-5",
+                    Assignment.processSectionString("2-3"),
+                    Assignment.processSectionString("4-5"),
+                    false
+                ),
+                Arguments.of(
+                    "5-7,7-9",
+                    Assignment.processSectionString("5-7"),
+                    Assignment.processSectionString("7-9"),
+                    false
+                ),
+                Arguments.of(
+                    "2-8,3-7",
+                    Assignment.processSectionString("2-8"),
+                    Assignment.processSectionString("3-7"),
+                    true
+                ),
+                Arguments.of(
+                    "6-6,4-6",
+                    Assignment.processSectionString("6-6"),
+                    Assignment.processSectionString("4-6"),
+                    true
+                ),
+                Arguments.of(
+                    "2-6,4-8",
+                    Assignment.processSectionString("2-6"),
+                    Assignment.processSectionString("4-8"),
+                    false
+                )
             )
     }
 }
@@ -71,4 +107,6 @@ class Day04Test {
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun List<Int>.shouldContainAll(expectation: Collection<Int>) =
     Assertions.assertTrue(this.containsAll(expectation))
+
 private fun Assignment.shouldBe(expectation: Assignment) = Assertions.assertEquals(expectation, this)
+private fun Boolean.shouldBe(expectation: Boolean) = Assertions.assertEquals(expectation, this)
