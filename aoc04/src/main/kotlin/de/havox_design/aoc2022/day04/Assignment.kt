@@ -2,7 +2,7 @@ package de.havox_design.aoc2022.day04
 
 data class Assignment(val lowerSection: Int, val upperSection: Int) {
     fun getSections(): List<Int> {
-        var result: List<Int> = emptyList()
+        val result = emptyList<Int>().toMutableList()
 
         for(index in lowerSection..upperSection) {
             result += index

@@ -2,7 +2,7 @@ package de.havox_design.aoc2022.day03
 
 class RucksackReorganization(private val filename: String) {
     fun getDuplicatesFromList(): List<Item> {
-        var duplicates: List<Item> = emptyList()
+        val duplicates = emptyList<Item>().toMutableList()
         val input: List<String>? = getResourceAsText(filename)
 
         if (!input.isNullOrEmpty()) {
@@ -32,7 +32,7 @@ class RucksackReorganization(private val filename: String) {
     }
 
     fun detectBadgesFromList(): List<Item> {
-        var badges: List<Item> = emptyList()
+        val badges = emptyList<Item>().toMutableList()
         val input: List<String>? = getResourceAsText(filename)
 
         if (!input.isNullOrEmpty()) {
@@ -68,7 +68,7 @@ class RucksackReorganization(private val filename: String) {
     }
 
     private fun findElementsContainedInAllKnapsacks(ks1: Set<Item>, ks2: Set<Item>, ks3: Set<Item>): List<Item> {
-        var badges: List<Item> = emptyList()
+        val badges = emptyList<Item>().toMutableList()
 
         for (currentItem in ks1) {
             for (itemKs2 in ks2) {

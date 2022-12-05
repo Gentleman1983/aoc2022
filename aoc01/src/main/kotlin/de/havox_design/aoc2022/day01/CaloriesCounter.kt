@@ -8,9 +8,9 @@ class CaloriesCounter(private val filename: String) {
     }
 
     fun processFileTopThree(): String {
-        var elves: List<Elf> = readFile()
+        val elves = readFile().toMutableList()
 
-        var topElves: List<Elf> = emptyList()
+        val topElves = emptyList<Elf>().toMutableList()
         for (index in 1..3) {
             val maxCaloriesElf: Elf = findElfWithMaxCalories(elves)
             topElves += maxCaloriesElf
@@ -43,8 +43,8 @@ class CaloriesCounter(private val filename: String) {
     }
 
     private fun convertDataToSetOfElves(rows: List<String>?): List<Elf> {
-        var elves: List<Elf> = emptyList()
-        var currentItems: List<Item> = emptyList()
+        val elves = emptyList<Elf>().toMutableList()
+        var currentItems = emptyList<Item>().toMutableList()
 
         if (!rows.isNullOrEmpty()) {
             for (index in rows.indices) {
@@ -52,7 +52,7 @@ class CaloriesCounter(private val filename: String) {
                 if (row.isBlank()) {
                     val elf = Elf(currentItems)
                     elves += elf
-                    currentItems = emptyList()
+                    currentItems = emptyList<Item>().toMutableList()
                 } else {
                     val item = Item(row.toInt())
                     currentItems += item

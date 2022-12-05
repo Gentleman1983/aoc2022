@@ -29,7 +29,7 @@ class CampCleanup(private val filename: String) {
 
     private fun readAssignmentPairs(): List<AssignmentPair> {
         val dataRows = getResourceAsText(filename)
-        var assignmentPairs: List<AssignmentPair> = emptyList()
+        val assignmentPairs = emptyList<AssignmentPair>().toMutableList()
 
         if (!dataRows.isNullOrEmpty()) {
             for (row in dataRows) {
