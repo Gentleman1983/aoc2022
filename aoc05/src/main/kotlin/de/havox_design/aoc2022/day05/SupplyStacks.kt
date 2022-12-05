@@ -38,9 +38,7 @@ class SupplyStacks(private val filename: String) {
 
                                 if (element.isNotBlank()) {
                                     val currentStack = data[s]
-                                    if (currentStack != null) {
-                                        currentStack.stack += Crate(element)
-                                    }
+                                    currentStack!!.stack += Crate(element)
                                     data.plus(Pair(s, currentStack))
                                 }
                             }
@@ -60,6 +58,15 @@ class SupplyStacks(private val filename: String) {
 
                     procedure += Step(numberOfElements, fromStack, toStack)
                 }
+            }
+        }
+    }
+
+    fun followProcedure() {
+        for(step in procedure) {
+            for(i in 1 .. step.numberOfItems) {
+                val topElement = step.fromStack.stack.removeLast()
+                step.toStack.stack.addLast(topElement)
             }
         }
     }
