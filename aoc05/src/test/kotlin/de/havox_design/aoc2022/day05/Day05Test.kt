@@ -108,6 +108,10 @@ class Day05Test {
         )
     }
 
+    @Test
+    fun testSolutionPart1() =
+        SupplyStacks("sample.txt").evaluateTask1().shouldBe("CMZ")
+
     private fun getDataForTestReadStacks(): Map<Int, Stack> {
         val stack1 = Stack.emptyStackWithId(1)
         stack1.stack += Crate("Z")
@@ -165,5 +169,6 @@ class Day05Test {
 private fun Crate.shouldBe(expectation: Crate) = Assertions.assertEquals(expectation, this)
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun Step.shouldBe(expectation: Step) = Assertions.assertEquals(expectation, this)
+private fun String.shouldBe(expectation: String) = Assertions.assertEquals(expectation, this)
 private fun Collection<*>.shouldContainAll(expectation: Collection<*>) =
     Assertions.assertTrue(this.containsAll(expectation))

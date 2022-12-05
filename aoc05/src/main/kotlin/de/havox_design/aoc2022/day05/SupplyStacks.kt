@@ -71,6 +71,19 @@ class SupplyStacks(private val filename: String) {
         }
     }
 
+    fun evaluateTask1(): String {
+        var solution = ""
+
+        readData()
+        followProcedure()
+
+        for(index in data.keys) {
+            solution += data[index]!!.stack.last.content
+        }
+
+        return solution
+    }
+
     private fun getResourceAsText(path: String): List<String>? =
         this.javaClass.classLoader.getResourceAsStream(path)?.bufferedReader()?.readLines()
 }
