@@ -1,41 +1,42 @@
 package de.havox_design.aoc2022.day05
 
-class SupplyStacks(val filename: String) {
+class SupplyStacks(private val filename: String) {
     var data: Map<Int, Stack> = emptyMap()
+    var procedure: List<Step> = emptyList()
 
     fun readData() {
         val rows = getResourceAsText(filename)
 
-        if(!rows.isNullOrEmpty()) {
+        if (!rows.isNullOrEmpty()) {
             var isReadingStacks = true
             val stackRows: MutableList<String> = emptyList<String>().toMutableList()
 
             for (row in rows) {
-                if(isReadingStacks) {
-                    if(row.isBlank()) {
+                if (isReadingStacks) {
+                    if (row.isBlank()) {
                         isReadingStacks = false
 
                         // Read stack numbers
                         val lastRow = stackRows[stackRows.size - 1]
-                        for(index in 0 until lastRow.length) {
+                        for (index in lastRow.indices) {
                             val currentPos = lastRow.substring(index, index + 1)
 
-                            if(currentPos.isNotBlank()) {
+                            if (currentPos.isNotBlank()) {
                                 val id = currentPos.toInt()
                                 data += Pair(id, Stack.emptyStackWithId(id))
                             }
                         }
 
                         // Read data
-                        for(index in 2 .. stackRows.size) {
+                        for (index in 2..stackRows.size) {
                             val currentRow = stackRows[stackRows.size - index]
 
-                            for(s in 1 .. (currentRow.length + 1) / 4) {
+                            for (s in 1..(currentRow.length + 1) / 4) {
                                 val selectionStart = 4 * s - 3
                                 val selectionEnd = 4 * s - 2
                                 val element = currentRow.substring(selectionStart, selectionEnd)
 
-                                if(element.isNotBlank()) {
+                                if (element.isNotBlank()) {
                                     val currentStack = data[s]
                                     if (currentStack != null) {
                                         currentStack.stack += Crate(element)
@@ -44,13 +45,20 @@ class SupplyStacks(val filename: String) {
                                 }
                             }
                         }
-                    }
-                    else {
+                    } else {
                         stackRows += row
                     }
-                }
-                else {
-                    println("read data...")
+                } else {
+                    // Read procedure
+                    val regex = Regex("\\d+")
+                    // Results should Contain entries in format [numberOfItems, fromStackNumber, toStackNumber].
+                    val results = regex.findAll(row).map { it.value.toInt() }.toList()
+
+                    val numberOfElements = results[0]
+                    val fromStack = data[results[1]]!!
+                    val toStack = data[results[2]]!!
+
+                    procedure += Step(numberOfElements, fromStack, toStack)
                 }
             }
         }

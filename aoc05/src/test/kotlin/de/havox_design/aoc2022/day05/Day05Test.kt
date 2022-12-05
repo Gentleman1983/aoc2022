@@ -49,13 +49,32 @@ class Day05Test {
                     val expectedStack = expectedData[index]?.stack
                     val objectUnderTestStack = objectUnderTest.data[index]?.stack
 
-                    if(!expectedStack.isNullOrEmpty()) {
+                    if (!expectedStack.isNullOrEmpty()) {
                         for (i in expectedStack.indices) {
                             objectUnderTestStack?.get(i)?.shouldBe(expectedStack[i])
                         }
                     }
                 }
             }
+        )
+    }
+
+    @Test
+    fun testReadProcedures() {
+        val objectUnderTest = SupplyStacks("sample.txt")
+
+        objectUnderTest.readData()
+        val expectedData = getDataForTestReadProcedures(objectUnderTest.data)
+
+        assertAll(
+            { assertNotNull(objectUnderTest.procedure) },
+            // All procedure steps in correct order
+            {
+                for (index in expectedData.indices) {
+                    objectUnderTest.procedure[index].shouldBe(expectedData[index])
+                }
+            }
+
         )
     }
 
@@ -79,9 +98,21 @@ class Day05Test {
 
         return testData
     }
+
+    private fun getDataForTestReadProcedures(data: Map<Int, Stack>): List<Step> {
+        var proc: MutableList<Step> = emptyList<Step>().toMutableList()
+
+        proc += Step(1, data[2]!!, data[1]!!)
+        proc += Step(3, data[1]!!, data[3]!!)
+        proc += Step(2, data[2]!!, data[1]!!)
+        proc += Step(1, data[1]!!, data[2]!!)
+
+        return proc
+    }
 }
 
 private fun Crate.shouldBe(expectation: Crate) = Assertions.assertEquals(expectation, this)
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
+private fun Step.shouldBe(expectation: Step) = Assertions.assertEquals(expectation, this)
 private fun Collection<*>.shouldContainAll(expectation: Collection<*>) =
     Assertions.assertTrue(this.containsAll(expectation))
