@@ -13,7 +13,6 @@ sonarqube {
         property "sonar.projectkey", "de.havox_design.aoc2022"
         property "sonar.organization", "havox"
         property "sonar.sourceEncoding", "UTF-8"
-
     }
 }
 
