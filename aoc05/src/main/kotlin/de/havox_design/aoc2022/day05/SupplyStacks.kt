@@ -1,5 +1,7 @@
 package de.havox_design.aoc2022.day05
 
+import java.util.LinkedList
+
 class SupplyStacks(private val filename: String) {
     var data: Map<Int, Stack> = emptyMap()
     var procedure: List<Step> = emptyList()
@@ -63,9 +65,24 @@ class SupplyStacks(private val filename: String) {
     }
 
     fun followProcedure() {
-        for(step in procedure) {
-            for(i in 1 .. step.numberOfItems) {
+        for (step in procedure) {
+            for (i in 1..step.numberOfItems) {
                 val topElement = step.fromStack.stack.removeLast()
+                step.toStack.stack.addLast(topElement)
+            }
+        }
+    }
+
+    fun followProcedureCratemaster9001() {
+        for (step in procedure) {
+            val tmpStack: LinkedList<Crate> = LinkedList()
+
+            for (i in 1..step.numberOfItems) {
+                val topElement = step.fromStack.stack.removeLast()
+                tmpStack.addLast(topElement)
+            }
+            for (i in 1..step.numberOfItems) {
+                val topElement = tmpStack.removeLast()
                 step.toStack.stack.addLast(topElement)
             }
         }
@@ -77,7 +94,20 @@ class SupplyStacks(private val filename: String) {
         readData()
         followProcedure()
 
-        for(index in data.keys) {
+        for (index in data.keys) {
+            solution += data[index]!!.stack.last.content
+        }
+
+        return solution
+    }
+
+    fun evaluateTask2(): String {
+        var solution = ""
+
+        readData()
+        followProcedureCratemaster9001()
+
+        for (index in data.keys) {
             solution += data[index]!!.stack.last.content
         }
 
