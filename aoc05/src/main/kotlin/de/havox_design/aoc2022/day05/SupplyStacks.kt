@@ -1,4 +1,61 @@
 package de.havox_design.aoc2022.day05
 
-class SupplyStacks {
+class SupplyStacks(val filename: String) {
+    var data: Map<Int, Stack> = emptyMap()
+
+    fun readData() {
+        val rows = getResourceAsText(filename)
+
+        if(!rows.isNullOrEmpty()) {
+            var isReadingStacks = true
+            val stackRows: MutableList<String> = emptyList<String>().toMutableList()
+
+            for (row in rows) {
+                if(isReadingStacks) {
+                    if(row.isBlank()) {
+                        isReadingStacks = false
+
+                        // Read stack numbers
+                        val lastRow = stackRows[stackRows.size - 1]
+                        for(index in 0 until lastRow.length) {
+                            val currentPos = lastRow.substring(index, index + 1)
+
+                            if(currentPos.isNotBlank()) {
+                                val id = currentPos.toInt()
+                                data += Pair(id, Stack.emptyStackWithId(id))
+                            }
+                        }
+
+                        // Read data
+                        for(index in 2 .. stackRows.size) {
+                            val currentRow = stackRows[stackRows.size - index]
+
+                            for(s in 1 .. (currentRow.length + 1) / 4) {
+                                val selectionStart = 4 * s - 3
+                                val selectionEnd = 4 * s - 2
+                                val element = currentRow.substring(selectionStart, selectionEnd)
+
+                                if(element.isNotBlank()) {
+                                    val currentStack = data[s]
+                                    if (currentStack != null) {
+                                        currentStack.stack += Crate(element)
+                                    }
+                                    data.plus(Pair(s, currentStack))
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        stackRows += row
+                    }
+                }
+                else {
+                    println("read data...")
+                }
+            }
+        }
+    }
+
+    private fun getResourceAsText(path: String): List<String>? =
+        this.javaClass.classLoader.getResourceAsStream(path)?.bufferedReader()?.readLines()
 }
