@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test
 
 class Day01Test {
     @Test
+    fun testMainClass() {
+        MainClass.main(arrayOf())
+    }
+
+    @Test
     fun singleEntry() =
         CaloriesCounter("singleEntry.txt")
             .processFile()

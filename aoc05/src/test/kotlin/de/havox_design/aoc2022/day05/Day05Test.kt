@@ -7,6 +7,11 @@ import kotlin.test.assertNotNull
 
 class Day05Test {
     @Test
+    fun testMainClass() {
+        MainClass.main(arrayOf())
+    }
+
+    @Test
     fun testStack() {
         val expectedId = 42
         val expectedCrate1 = Crate("DEEP THOUGHT")
