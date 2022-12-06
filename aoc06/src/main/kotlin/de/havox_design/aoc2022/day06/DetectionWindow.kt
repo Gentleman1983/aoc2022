@@ -8,19 +8,18 @@ data class DetectionWindow(val data: String) {
     private fun isMarker(windowLength: Int): Boolean {
         var isMarker = true
 
-        if( hasCorrectLength(windowLength) ) {
+        if (hasCorrectLength(windowLength)) {
             val charMap = emptySet<Char>().toMutableSet()
 
-            for(c in data.toCharArray()) {
-                if(charMap.contains(c)) {
+            for (c in data.toCharArray()) {
+                if (charMap.contains(c)) {
                     isMarker = false
                     break;
                 }
 
                 charMap += c
             }
-        }
-        else {
+        } else {
             isMarker = false
         }
 

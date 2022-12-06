@@ -1,7 +1,7 @@
 package de.havox_design.aoc2022.day06
 
 class TuningTrouble(private val filename: String) {
-    var data: String = ""
+    private var data: String = ""
 
     fun processPart1(): Int {
         readData()
