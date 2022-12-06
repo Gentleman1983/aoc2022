@@ -33,6 +33,18 @@ class Day06Test {
     )
     fun testIsDetectionWindowPacketMarker(data: String, expectedLengthCorrect: Boolean) =
         DetectionWindow(data).isPacketMarker().shouldBe(expectedLengthCorrect)
+
+    @ParameterizedTest
+    @CsvSource(
+        "sample1.txt,7",
+        "sample2.txt,5",
+        "sample3.txt,6",
+        "sample4.txt,10",
+        "sample5.txt,11"
+    )
+    fun testProcessPart1(filename: String, expectedValue: Int) =
+        TuningTrouble(filename).processPart1().shouldBe(expectedValue)
 }
 
 private fun Boolean.shouldBe(expectation: Boolean) = Assertions.assertEquals(expectation, this)
+private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
