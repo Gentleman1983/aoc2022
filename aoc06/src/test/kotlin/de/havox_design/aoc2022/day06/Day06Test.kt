@@ -18,7 +18,7 @@ class Day06Test {
         "abcde,false"
     )
     fun testHasDetectionWindowCorrectLength(data: String, expectedLengthCorrect: Boolean) =
-        DetectionWindow(data).hasCorrectLength().shouldBe(expectedLengthCorrect)
+        DetectionWindow(data).hasCorrectLength(4).shouldBe(expectedLengthCorrect)
 
     @ParameterizedTest
     @CsvSource(
@@ -36,6 +36,18 @@ class Day06Test {
 
     @ParameterizedTest
     @CsvSource(
+        "abcdefghijklm,false",
+        "aaaaaaaaaaaaaa,false",
+        "aaaaaabbbbbbbb,false",
+        "abcdefghijklmn,true",
+        "aabbccddeeffgg,false",
+        "abcdefghijklmno,false"
+    )
+    fun testIsDetectionWindowMessageMarker(data: String, expectedLengthCorrect: Boolean) =
+        DetectionWindow(data).isMessageMarker().shouldBe(expectedLengthCorrect)
+
+    @ParameterizedTest
+    @CsvSource(
         "sample1.txt,7",
         "sample2.txt,5",
         "sample3.txt,6",
@@ -44,6 +56,17 @@ class Day06Test {
     )
     fun testProcessPart1(filename: String, expectedValue: Int) =
         TuningTrouble(filename).processPart1().shouldBe(expectedValue)
+
+    @ParameterizedTest
+    @CsvSource(
+        "sample1.txt,19",
+        "sample2.txt,23",
+        "sample3.txt,23",
+        "sample4.txt,29",
+        "sample5.txt,26"
+    )
+    fun testProcessPart2(filename: String, expectedValue: Int) =
+        TuningTrouble(filename).processPart2().shouldBe(expectedValue)
 }
 
 private fun Boolean.shouldBe(expectation: Boolean) = Assertions.assertEquals(expectation, this)

@@ -17,6 +17,20 @@ class TuningTrouble(private val filename: String) {
         return -666
     }
 
+    fun processPart2(): Int {
+        readData()
+
+        for (index in 14..data.length) {
+            val window = data.substring(index - 14, index)
+
+            if (DetectionWindow(window).isMessageMarker()) {
+                return index
+            }
+        }
+
+        return -666
+    }
+
     private fun readData() {
         val fileData = getResourceAsText(filename)
         data = fileData!![0]

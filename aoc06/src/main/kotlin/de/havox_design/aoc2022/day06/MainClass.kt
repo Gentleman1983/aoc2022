@@ -5,6 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("packet marker: ${TuningTrouble("input.txt").processPart1()}")
+            println("message marker: ${TuningTrouble("input.txt").processPart2()}")
         }
     }
 }
