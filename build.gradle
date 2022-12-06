@@ -2,14 +2,19 @@ plugins {
     id 'org.sonarqube' version '3.5.0.2730'
 }
 
+// project meta data
+group 'de.havox_design.aoc2022'
+version '0.7.0'
+
 // Switch to gradle "all" distribution.
 wrapper {
     distributionType = Wrapper.DistributionType.ALL
-    gradleVersion '7.5.1'
+    gradleVersion '7.6'
 }
 
 sonarqube {
     properties {
+        property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.projectkey", "de.havox_design.aoc2022"
         property "sonar.organization", "havox"
         property "sonar.sourceEncoding", "UTF-8"
