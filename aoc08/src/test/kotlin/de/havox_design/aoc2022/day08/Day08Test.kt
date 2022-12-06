@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 
 class Day08Test {
     @Test
-    fun test() {
-
+    fun testMainClass() {
+        MainClass.main(arrayOf())
     }
 }

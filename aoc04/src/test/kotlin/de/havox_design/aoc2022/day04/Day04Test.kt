@@ -1,6 +1,7 @@
 package de.havox_design.aoc2022.day04
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -8,6 +9,11 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 class Day04Test {
+    @Test
+    fun testMainClass() {
+        MainClass.main(arrayOf())
+    }
+
     @ParameterizedTest
     @MethodSource("getDataForTestAssignment")
     fun testAssignment(

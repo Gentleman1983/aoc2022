@@ -2,7 +2,7 @@ package de.havox_design.aoc2022.day03
 
 class Knapsack(private val leftCompartment: List<Item>, private val rightCompartment: List<Item>) {
     fun findDuplicateItems(): Set<Item> {
-        var duplicateItems: Set<Item> = emptySet()
+        val duplicateItems = emptySet<Item>().toMutableSet()
 
         for (leftItem: Item in leftCompartment) {
             for (rightItem: Item in rightCompartment) {
@@ -27,7 +27,7 @@ class Knapsack(private val leftCompartment: List<Item>, private val rightCompart
     }
 
     fun listDistinctItems(): Set<Item> {
-        var items: Set<Item> = emptySet()
+        val items = emptySet<Item>().toMutableSet()
 
         for (item: Item in leftCompartment) {
             items += item
@@ -41,8 +41,8 @@ class Knapsack(private val leftCompartment: List<Item>, private val rightCompart
 
     companion object {
         fun getKnapsackForString(s: String): Knapsack {
-            var leftCompartment: List<Item> = emptyList()
-            var rightCompartment: List<Item> = emptyList()
+            var leftCompartment = emptyList<Item>()
+            var rightCompartment = emptyList<Item>()
             val leftString: String = s.substring(0, s.length / 2)
             val rightString: String = s.substring(s.length / 2, s.length)
 

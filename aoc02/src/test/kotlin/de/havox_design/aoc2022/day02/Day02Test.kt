@@ -1,10 +1,16 @@
 package de.havox_design.aoc2022.day02
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class Day02Test {
+    @Test
+    fun testMainClass() {
+        MainClass.main(arrayOf())
+    }
+
     @ParameterizedTest
     @CsvSource(
         "rock_rock.txt, 4",
