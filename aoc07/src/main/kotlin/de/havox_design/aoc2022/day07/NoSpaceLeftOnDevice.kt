@@ -18,6 +18,18 @@ class NoSpaceLeftOnDevice(private var filename: String) {
         return totalSize
     }
 
+    fun processPart2(): Int {
+        val totalDiskSpace = 70000000
+        val updateSize = 30000000
+
+        readData()
+
+        val freeDiskSize = totalDiskSpace - filesystem.calculateSizeOfFilesInDirAndSubDirs()
+        val neededSize = (updateSize - freeDiskSize).coerceAtLeast(0)
+
+        return filesystem.findSmallestDirLargerThanLimit(neededSize)
+    }
+
     private fun collectAllDirs(source: Directory): Set<Directory> {
         val dirs = setOf(source).toMutableSet()
 

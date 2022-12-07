@@ -71,10 +71,29 @@ class Day07Test {
 
     @ParameterizedTest
     @CsvSource(
+        "sample.txt,24933642"
+    )
+    fun testFindSmallestDirLargerThanLimit(filename: String, expectedSize: Int) {
+        val missingSpace = 8381165
+        val data = NoSpaceLeftOnDevice(filename)
+        data.readData()
+
+        data.getFs().findSmallestDirLargerThanLimit(missingSpace).shouldBe(expectedSize)
+    }
+
+    @ParameterizedTest
+    @CsvSource(
         "sample.txt,95437"
     )
     fun testProcessPart1(filename: String, expectedSize: Int) =
         NoSpaceLeftOnDevice(filename).processPart1().shouldBe(expectedSize)
+
+    @ParameterizedTest
+    @CsvSource(
+        "sample.txt,24933642"
+    )
+    fun testProcessPart2(filename: String, expectedSize: Int) =
+        NoSpaceLeftOnDevice(filename).processPart2().shouldBe(expectedSize)
 
     companion object {
         @JvmStatic

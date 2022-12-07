@@ -31,6 +31,19 @@ data class Directory(var parent: Directory?, var name: String, var dirs: Set<Dir
         }
     }
 
+    fun findSmallestDirLargerThanLimit(limit: Int): Int {
+        var size = calculateSizeOfFilesInDirAndSubDirs()
+        if (size < limit) {
+            return Int.MAX_VALUE
+        }
+
+        for (dir in dirs) {
+            size = dir.findSmallestDirLargerThanLimit(limit).coerceAtMost(size)
+        }
+
+        return size
+    }
+
     fun file(name: String, size: Int): File {
         val file = File(name, size)
         files += file
