@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
@@ -14,26 +15,26 @@ class Day07Test {
     }
 
     @ParameterizedTest
-    @MethodSource("getDataForTestDirectoryCaculateSizeOfFilesInDir")
-    fun testDirectoryCaculateSizeOfFilesInDir(fileSizes: List<Int>, expectedSize: Int) {
-        var dir = Directory(null, "/", emptySet<Directory>(), emptySet<File>())
+    @MethodSource("getDataForTestDirectoryCalculateSizeOfFilesInDir")
+    fun testDirectoryCalculateSizeOfFilesInDir(fileSizes: List<Int>, expectedSize: Int) {
+        val dir = Directory(null, "/", emptySet(), emptySet())
 
         for (size in fileSizes) {
             dir.files += File("file$size", size)
         }
 
-        dir.caculateSizeOfFilesInDir().shouldBe(expectedSize)
+        dir.calculateSizeOfFilesInDir().shouldBe(expectedSize)
     }
 
     @ParameterizedTest
-    @MethodSource("getDataForTestDirectoryCaculateSizeOfFilesInDirAndSubdirs")
-    fun testDirectoryCaculateSizeOfFilesInDirAndSubdirs(
+    @MethodSource("getDataForTestDirectoryCalculateSizeOfFilesInDirAndSubdirs")
+    fun testDirectoryCalculateSizeOfFilesInDirAndSubdirs(
         fileSizes: List<Int>,
         subDirFileSizes: List<Int>,
         expectedSize: Int
     ) {
-        var dir = Directory(null, "/", emptySet<Directory>(), emptySet<File>())
-        var subDir = Directory(dir, "subDir", emptySet<Directory>(), emptySet<File>())
+        val dir = Directory(null, "/", emptySet(), emptySet())
+        val subDir = Directory(dir, "subDir", emptySet(), emptySet())
 
         dir.dirs += subDir
 
@@ -45,7 +46,7 @@ class Day07Test {
             dir.files += File("file$size", size)
         }
 
-        dir.caculateSizeOfFilesInDirAndSubDirs().shouldBe(expectedSize)
+        dir.calculateSizeOfFilesInDirAndSubDirs().shouldBe(expectedSize)
     }
 
     @ParameterizedTest
@@ -54,12 +55,30 @@ class Day07Test {
         val objectUnderTest = NoSpaceLeftOnDevice(filename)
         objectUnderTest.readData()
 
-        objectUnderTest.filesystem.toString().shouldBe(expectedFileSystem.toString())
+        objectUnderTest.getFs().toString().shouldBe(expectedFileSystem.toString())
     }
+
+    @ParameterizedTest
+    @CsvSource(
+        "sample.txt,48381165"
+    )
+    fun testSumAllFiles(filename: String, expectedSize: Int) {
+        val data = NoSpaceLeftOnDevice(filename)
+        data.readData()
+
+        data.getFs().calculateSizeOfFilesInDirAndSubDirs().shouldBe(expectedSize)
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "sample.txt,95437"
+    )
+    fun testProcessPart1(filename: String, expectedSize: Int) =
+        NoSpaceLeftOnDevice(filename).processPart1().shouldBe(expectedSize)
 
     companion object {
         @JvmStatic
-        private fun getDataForTestDirectoryCaculateSizeOfFilesInDir(): Stream<Arguments> =
+        private fun getDataForTestDirectoryCalculateSizeOfFilesInDir(): Stream<Arguments> =
             Stream.of(
                 Arguments.of(listOf(1), 1),
                 Arguments.of(listOf(1, 2), 3),
@@ -70,7 +89,7 @@ class Day07Test {
             )
 
         @JvmStatic
-        private fun getDataForTestDirectoryCaculateSizeOfFilesInDirAndSubdirs(): Stream<Arguments> =
+        private fun getDataForTestDirectoryCalculateSizeOfFilesInDirAndSubdirs(): Stream<Arguments> =
             Stream.of(
                 Arguments.of(listOf(99, 98, 97, 6), listOf(1), 301),
                 Arguments.of(listOf(99, 98, 97, 6), listOf(1, 2), 303),
@@ -82,7 +101,7 @@ class Day07Test {
 
         @JvmStatic
         private fun getDataForTestReadFolder(): Stream<Arguments> {
-            val dirE = Directory(null, "e", emptySet<Directory>(), setOf(File("i", 584)))
+            val dirE = Directory(null, "e", emptySet(), setOf(File("i", 584)))
             val dirA = Directory(
                 null,
                 "a",
@@ -97,7 +116,7 @@ class Day07Test {
             val dirD = Directory(
                 null,
                 "d",
-                emptySet<Directory>(),
+                emptySet(),
                 setOf(
                     File("j", 4060174),
                     File("d.log", 8033020),
@@ -122,6 +141,5 @@ class Day07Test {
     }
 }
 
-private fun Directory.shouldBe(expectation: Directory) = Assertions.assertEquals(expectation, this)
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun String.shouldBe(expectation: String) = Assertions.assertEquals(expectation, this)

@@ -1,10 +1,38 @@
 package de.havox_design.aoc2022.day07
 
 class NoSpaceLeftOnDevice(private var filename: String) {
-    var filesystem: Directory = Directory(null, "/", emptySet(), emptySet())
+    private var filesystem: Directory = Directory(null, "/", emptySet(), emptySet())
     private var currentPosition: Directory = filesystem
+
+    fun processPart1(): Int {
+        var totalSize = 0
+        val limit = 100000
+
+        readData()
+        val dirs = collectAllDirs(filesystem)
+
+        for (dir in dirs) {
+            totalSize += dir.calculateSizeOfFilesInDirAndSubDirs(limit)
+        }
+
+        return totalSize
+    }
+
+    private fun collectAllDirs(source: Directory): Set<Directory> {
+        val dirs = setOf(source).toMutableSet()
+
+        for (dir in source.dirs) {
+            dirs += collectAllDirs(dir)
+        }
+
+        return dirs
+    }
+
+
+    fun getFs(): Directory = filesystem
+
     fun readData() {
-        var fileData = getResourceAsText(filename)
+        val fileData = getResourceAsText(filename)
 
         for (row in fileData) {
             if (row.startsWith("$ ")) {
@@ -16,14 +44,13 @@ class NoSpaceLeftOnDevice(private var filename: String) {
     }
 
     private fun readFileOrFolder(call: String) {
-        if(call.startsWith("dir ")) {
+        if (call.startsWith("dir ")) {
             val target = call.substring(4)
 
             if (currentPosition.dirs.none { dir -> dir.name == target }) {
                 currentPosition.subDir(target)
             }
-        }
-        else {
+        } else {
             val elements = call.split(" ")
             val fileName = elements[1]
             val fileSize = elements[0].toInt()
@@ -49,5 +76,5 @@ class NoSpaceLeftOnDevice(private var filename: String) {
     }
 
     private fun getResourceAsText(path: String): List<String> =
-        this.javaClass.classLoader.getResourceAsStream(path)!!.bufferedReader()!!.readLines()
+        this.javaClass.classLoader.getResourceAsStream(path)!!.bufferedReader().readLines()
 }
