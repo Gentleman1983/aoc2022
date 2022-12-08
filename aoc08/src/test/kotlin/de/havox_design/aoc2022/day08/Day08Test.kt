@@ -106,26 +106,74 @@ class Day08Test {
         assertAll(
             {
                 wood.isTreeVisibleFrom(row, col, Direction.NORTH).shouldBe(
-                    expectedVisibileFromNorth,
-                    "Expected visibility from North to be $expectedVisibileFromNorth, but was ${!expectedVisibileFromNorth}"
+                    expectedVisibileFromNorth, "Visibility from North"
                 )
             },
             {
                 wood.isTreeVisibleFrom(row, col, Direction.EAST).shouldBe(
-                    expectedVisibileFromEast,
-                    "Expected visibility from East to be $expectedVisibileFromEast, but was ${!expectedVisibileFromEast}"
+                    expectedVisibileFromEast, "Visibility from East"
                 )
             },
             {
                 wood.isTreeVisibleFrom(row, col, Direction.SOUTH).shouldBe(
-                    expectedVisibileFromSouth,
-                    "Expected visibility from South to be $expectedVisibileFromSouth, but was ${!expectedVisibileFromSouth}"
+                    expectedVisibileFromSouth, "Visibility from South"
                 )
             },
             {
                 wood.isTreeVisibleFrom(row, col, Direction.WEST).shouldBe(
-                    expectedVisibileFromWest,
-                    "Expected visibility from West to be $expectedVisibileFromWest, but was ${!expectedVisibileFromWest}"
+                    expectedVisibileFromWest, "Visibility from West"
+                )
+            }
+        )
+
+    }
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestCalculateScenicScore")
+    fun testCalculateScenicScore(filename: String, row: Int, col: Int, expectedScore: Int) {
+        val objectUnderTest = TreetopTreeHouse(filename)
+        objectUnderTest.readFile()
+
+        val wood = objectUnderTest.getWood()
+
+        wood.calculateScenicScoreOfTree(row, col).shouldBe(expectedScore)
+    }
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestCalculateScenicScoreByDirection")
+    fun testCalculateScenicScore(
+        filename: String,
+        row: Int,
+        col: Int,
+        expectedScoreFromNorth: Int,
+        expectedScoreFromEast: Int,
+        expectedScoreFromSouth: Int,
+        expectedScoreFromWest: Int
+    ) {
+        val objectUnderTest = TreetopTreeHouse(filename)
+        objectUnderTest.readFile()
+
+        val wood = objectUnderTest.getWood()
+
+        assertAll(
+            {
+                wood.calculateScenicScoreOfTreeInDirection(row, col, Direction.NORTH).shouldBe(
+                    expectedScoreFromNorth, "Expected scenic score from North"
+                )
+            },
+            {
+                wood.calculateScenicScoreOfTreeInDirection(row, col, Direction.EAST).shouldBe(
+                    expectedScoreFromEast, "Expected scenic score from East"
+                )
+            },
+            {
+                wood.calculateScenicScoreOfTreeInDirection(row, col, Direction.SOUTH).shouldBe(
+                    expectedScoreFromSouth, "Expected scenic score from South"
+                )
+            },
+            {
+                wood.calculateScenicScoreOfTreeInDirection(row, col, Direction.WEST).shouldBe(
+                    expectedScoreFromWest, "Expected scenic score from West"
                 )
             }
         )
@@ -205,6 +253,20 @@ class Day08Test {
                 Arguments.of("sample.txt", 3, 2, false, false, true, true),
                 Arguments.of("sample.txt", 3, 3, false, false, false, false)
             )
+
+        @JvmStatic
+        private fun getDataForTestCalculateScenicScore(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sample.txt", 1, 2, 4),
+                Arguments.of("sample.txt", 3, 2, 8)
+            )
+
+        @JvmStatic
+        private fun getDataForTestCalculateScenicScoreByDirection(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sample.txt", 1, 2, 1, 2, 2, 1),
+                Arguments.of("sample.txt", 3, 2, 2, 2, 1, 2)
+            )
     }
 }
 
@@ -213,4 +275,5 @@ private fun Boolean.shouldBe(expectation: Boolean, message: String) =
     Assertions.assertEquals(expectation, this, message)
 
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
+private fun Int.shouldBe(expectation: Int, message: String) = Assertions.assertEquals(expectation, this, message)
 private fun Tree.shouldBe(expectation: Tree) = Assertions.assertEquals(expectation, this)

@@ -27,6 +27,20 @@ class Wood {
 
     fun getTree(row: Int, col: Int): Tree = rows[row][col]
 
+    fun calculateScenicScoreOfTree(row: Int, col: Int): Int =
+        calculateScenicScoreOfTreeInDirection(row, col, Direction.NORTH) *
+                calculateScenicScoreOfTreeInDirection(row, col, Direction.EAST) *
+                calculateScenicScoreOfTreeInDirection(row, col, Direction.SOUTH) *
+                calculateScenicScoreOfTreeInDirection(row, col, Direction.WEST)
+
+    fun calculateScenicScoreOfTreeInDirection(row: Int, col: Int, direction: Direction): Int =
+        when (direction) {
+            Direction.NORTH -> calculateScenicScoreFromColumn(row, col, 0, row, true)
+            Direction.SOUTH -> calculateScenicScoreFromColumn(row, col, row + 1, getRows())
+            Direction.WEST -> calculateScenicScoreFromRow(row, col, 0, col, true)
+            Direction.EAST -> calculateScenicScoreFromRow(row, col, col + 1, getCols())
+        }
+
     fun isTreeVisible(row: Int, col: Int): Boolean =
         isTreeVisibleFrom(row, col, Direction.NORTH) ||
                 isTreeVisibleFrom(row, col, Direction.EAST) ||
@@ -59,5 +73,57 @@ class Wood {
         }
 
         return visible
+    }
+
+    private fun calculateScenicScoreFromColumn(
+        row: Int,
+        col: Int,
+        start: Int,
+        end: Int,
+        reverseIndices: Boolean = false
+    ): Int {
+        val limit = getTree(row, col).height
+        var scenicScore = 0
+
+        for (index in start until end) {
+            val currentTreeHeight = if (reverseIndices) {
+                getTree(end - index - 1, col).height
+            } else {
+                getTree(index, col).height
+            }
+
+            scenicScore++
+            if (currentTreeHeight >= limit) {
+                break
+            }
+        }
+
+        return scenicScore
+    }
+
+    private fun calculateScenicScoreFromRow(
+        row: Int,
+        col: Int,
+        start: Int,
+        end: Int,
+        reverseIndices: Boolean = false
+    ): Int {
+        val limit = getTree(row, col).height
+        var scenicScore = 0
+
+        for (index in start until end) {
+            val currentTreeHeight = if (reverseIndices) {
+                getTree(row, end - index - 1).height
+            } else {
+                getTree(row, index).height
+            }
+
+            scenicScore++
+            if (currentTreeHeight >= limit) {
+                break
+            }
+        }
+
+        return scenicScore
     }
 }
