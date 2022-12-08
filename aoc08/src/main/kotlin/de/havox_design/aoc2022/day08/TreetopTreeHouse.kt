@@ -6,12 +6,12 @@ class TreetopTreeHouse(private var filename: String) {
     fun readFile() {
         val data = getResourceAsText(filename)
 
-        for(row in data) {
+        for (row in data) {
             wood.addRow(row)
         }
     }
 
-    fun getWood():Wood = wood
+    fun getWood(): Wood = wood
 
     private fun getResourceAsText(path: String): List<String> =
         this.javaClass.classLoader.getResourceAsStream(path)!!.bufferedReader().readLines()

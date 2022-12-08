@@ -26,4 +26,38 @@ class Wood {
         }
 
     fun getTree(row: Int, col: Int): Tree = rows[row][col]
+
+    fun isTreeVisible(row: Int, col: Int): Boolean =
+        isTreeVisibleFrom(row, col, Direction.NORTH) ||
+                isTreeVisibleFrom(row, col, Direction.EAST) ||
+                isTreeVisibleFrom(row, col, Direction.SOUTH) ||
+                isTreeVisibleFrom(row, col, Direction.WEST)
+
+    fun isTreeVisibleFrom(row: Int, col: Int, direction: Direction): Boolean =
+        when (direction) {
+            Direction.NORTH -> isTreeVisibleFromColumn(row, col, 0, row)
+            Direction.SOUTH -> isTreeVisibleFromColumn(row, col, row + 1, getRows())
+            Direction.WEST -> isTreeVisibleFromRow(row, col, 0, col)
+            Direction.EAST -> isTreeVisibleFromRow(row, col, col + 1, getCols())
+        }
+
+    private fun isTreeVisibleFromColumn(row: Int, col: Int, start: Int, end: Int): Boolean {
+        var visible = true
+
+        for (index in start until end) {
+            visible = getTree(index, col).height < getTree(row, col).height && visible
+        }
+
+        return visible
+    }
+
+    private fun isTreeVisibleFromRow(row: Int, col: Int, start: Int, end: Int): Boolean {
+        var visible = true
+
+        for (index in start until end) {
+            visible = getTree(row, index).height < getTree(row, col).height && visible
+        }
+
+        return visible
+    }
 }
