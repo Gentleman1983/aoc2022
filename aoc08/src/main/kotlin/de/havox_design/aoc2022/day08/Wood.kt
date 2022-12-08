@@ -8,7 +8,7 @@ class Wood {
     }
 
     fun addRow(row: String) {
-        var trees = emptyList<Tree>().toMutableList()
+        val trees = emptyList<Tree>().toMutableList()
 
         for (index in row.indices) {
             trees += Tree(row.substring(index, index + 1).toInt())
