@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
@@ -130,6 +131,11 @@ class Day08Test {
         )
 
     }
+
+    @ParameterizedTest
+    @CsvSource("sample.txt,21")
+    fun testProcessPart1(filename: String, expectedNumberOfTrees: Int) =
+        TreetopTreeHouse(filename).processPart1().shouldBe(expectedNumberOfTrees)
 
     companion object {
         @JvmStatic
