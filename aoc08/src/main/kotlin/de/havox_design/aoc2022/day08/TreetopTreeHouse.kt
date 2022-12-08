@@ -19,6 +19,21 @@ class TreetopTreeHouse(private var filename: String) {
         return visibleTrees
     }
 
+    fun processPart2(): Int {
+        readFile()
+        wood.calculateScenicScores()
+
+        var topScore = 0
+
+        for (rowIndex in 0 until wood.getRows()) {
+            for (colIndex in 0 until wood.getCols()) {
+                topScore = wood.getTree(rowIndex, colIndex).scenicScore.coerceAtLeast(topScore)
+            }
+        }
+
+        return topScore
+    }
+
     fun readFile() {
         val data = getResourceAsText(filename)
 

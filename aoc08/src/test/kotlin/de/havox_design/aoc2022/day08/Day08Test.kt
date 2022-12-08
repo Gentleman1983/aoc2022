@@ -141,7 +141,7 @@ class Day08Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestCalculateScenicScoreByDirection")
-    fun testCalculateScenicScore(
+    fun testCalculateScenicScoreByDirection(
         filename: String,
         row: Int,
         col: Int,
@@ -177,13 +177,29 @@ class Day08Test {
                 )
             }
         )
+    }
 
+    @ParameterizedTest
+    @MethodSource("getDataForTestCalculateScenicScore")
+    fun testCalculatedScenicScores(filename: String, row: Int, col: Int, expectedScore: Int) {
+        val objectUnderTest = TreetopTreeHouse(filename)
+        objectUnderTest.readFile()
+
+        val wood = objectUnderTest.getWood()
+        wood.calculateScenicScores()
+
+        wood.getTree(row, col).scenicScore.shouldBe(expectedScore)
     }
 
     @ParameterizedTest
     @CsvSource("sample.txt,21")
     fun testProcessPart1(filename: String, expectedNumberOfTrees: Int) =
         TreetopTreeHouse(filename).processPart1().shouldBe(expectedNumberOfTrees)
+
+    @ParameterizedTest
+    @CsvSource("sample.txt,8")
+    fun testProcessPart2(filename: String, expectedScenicScore: Int) =
+        TreetopTreeHouse(filename).processPart2().shouldBe(expectedScenicScore)
 
     companion object {
         @JvmStatic

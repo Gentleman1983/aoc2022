@@ -27,6 +27,14 @@ class Wood {
 
     fun getTree(row: Int, col: Int): Tree = rows[row][col]
 
+    fun calculateScenicScores() {
+        for(rowIndex in rows.indices) {
+            for(colIndex in rows[rowIndex].indices) {
+                getTree(rowIndex, colIndex).scenicScore = calculateScenicScoreOfTree(rowIndex, colIndex)
+            }
+        }
+    }
+
     fun calculateScenicScoreOfTree(row: Int, col: Int): Int =
         calculateScenicScoreOfTreeInDirection(row, col, Direction.NORTH) *
                 calculateScenicScoreOfTreeInDirection(row, col, Direction.EAST) *

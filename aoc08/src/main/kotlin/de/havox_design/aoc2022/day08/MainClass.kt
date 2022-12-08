@@ -5,6 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Number of visible trees: ${TreetopTreeHouse("input.txt").processPart1()}")
+            println("Top scenic score: ${TreetopTreeHouse("input.txt").processPart2()}")
         }
     }
 }
