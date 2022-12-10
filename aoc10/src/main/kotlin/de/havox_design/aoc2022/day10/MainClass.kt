@@ -4,7 +4,10 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("please implement me")
+            println("Signal Strength: ${CathodeRayTube("input.txt").processPart1()}")
+            println("CRT preview:")
+            println("===========")
+            println(CathodeRayTube("input.txt").processPart2())
         }
     }
 }
