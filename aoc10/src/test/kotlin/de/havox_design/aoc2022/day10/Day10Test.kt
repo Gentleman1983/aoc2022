@@ -35,6 +35,11 @@ class Day10Test {
     fun testProcessPart1(filename: String, expectedSignalStrength: Int) =
         CathodeRayTube(filename).processPart1().shouldBe(expectedSignalStrength)
 
+    @ParameterizedTest
+    @MethodSource("getDataForProcessPart2")
+    fun testProcessPart2(filename: String, expectedOutput: String) =
+        CathodeRayTube(filename).processPart2().shouldBe(expectedOutput)
+
     companion object {
         @JvmStatic
         private fun getDataForTestFindOrderByOrderName(): Stream<Arguments> =
@@ -65,11 +70,26 @@ class Day10Test {
                 Arguments.of("sample1.txt", 0),
                 Arguments.of("sample2.txt", 13140)
             )
+
+        @JvmStatic
+        private fun getDataForProcessPart2(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(
+                    "sample2.txt",
+                    "##..##..##..##..##..##..##..##..##..##..\n" +
+                            "###...###...###...###...###...###...###.\n" +
+                            "####....####....####....####....####....\n" +
+                            "#####.....#####.....#####.....#####.....\n" +
+                            "######......######......######......####\n" +
+                            "#######.......#######.......#######....."
+                )
+            )
     }
 }
 
 private fun Int.shouldBe(expectation: Int) = org.junit.jupiter.api.Assertions.assertEquals(expectation, this)
 private fun Order?.shouldBe(expectation: Order?) = org.junit.jupiter.api.Assertions.assertEquals(expectation, this)
+private fun String.shouldBe(expectation: String) = org.junit.jupiter.api.Assertions.assertEquals(expectation, this)
 private fun Collection<*>?.shouldBe(expectation: Collection<*>?) = Assertions.assertEquals(expectation, this)
 private fun Collection<*>.shouldContainAll(expectation: Collection<*>) =
     Assertions.assertTrue(this.containsAll(expectation))

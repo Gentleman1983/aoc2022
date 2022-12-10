@@ -5,6 +5,9 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Signal Strength: ${CathodeRayTube("input.txt").processPart1()}")
+            println("CRT preview:")
+            println("===========")
+            println(CathodeRayTube("input.txt").processPart2())
         }
     }
 }
