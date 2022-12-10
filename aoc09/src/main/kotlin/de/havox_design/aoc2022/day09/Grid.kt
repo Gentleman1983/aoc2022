@@ -88,6 +88,25 @@ data class Grid(var rows: Int, var cols: Int) {
         }
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Grid
+
+        if (data != other.data) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return data.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Grid(rows=$rows, cols=$cols, data=$data, posHead=${posHead.contentToString()}, posTail=${posTail.contentToString()})"
+    }
+
     private fun init(): List<List<Position>> {
         val initialData = emptyList<List<Position>>().toMutableList()
 
