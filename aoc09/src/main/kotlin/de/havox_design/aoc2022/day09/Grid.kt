@@ -34,7 +34,10 @@ data class Grid(var rows: Int, var cols: Int) {
 
         move(posHead[ROW_INDEX], posHead[COL_INDEX], move)
 
-        return Direction.findDirectionByMovement(posTail[ROW_INDEX] - oldTailRow, posTail[COL_INDEX] - oldTailCol)
+        return Direction.findDirectionByMovement(
+            posTail[ROW_INDEX] - oldTailRow,
+            posTail[COL_INDEX] - oldTailCol
+        )
     }
 
     fun move(row: Int, col: Int, move: Move) {

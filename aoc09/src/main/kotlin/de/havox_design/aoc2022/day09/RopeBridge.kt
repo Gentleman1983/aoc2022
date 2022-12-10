@@ -54,7 +54,7 @@ class RopeBridge(private var filename: String) {
             val direction = move.direction
             val fields = move.numberOfFields
 
-            for(step in 0 until fields) {
+            for (step in 0 until fields) {
                 var d = gridSegmentH1.moveHead(Move(direction))
                 d = gridSegment12.moveHead(Move(d))
                 d = gridSegment23.moveHead(Move(d))
