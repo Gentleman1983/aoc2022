@@ -21,5 +21,15 @@ enum class Direction(var modRow: Int, var modCol: Int, var symbol: String) {
 
             return UNKNOWN
         }
+
+        fun findDirectionByMovement(rowDiff: Int, colDiff: Int): Direction {
+            for (direction in values()) {
+                if (direction.modRow == rowDiff && direction.modCol == colDiff) {
+                    return direction
+                }
+            }
+
+            return UNKNOWN
+        }
     }
 }

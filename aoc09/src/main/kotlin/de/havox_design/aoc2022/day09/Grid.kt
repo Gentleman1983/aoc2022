@@ -28,8 +28,13 @@ data class Grid(var rows: Int, var cols: Int) {
         }
     }
 
-    fun moveHead(move: Move) {
+    fun moveHead(move: Move): Direction {
+        val oldTailRow = posTail[ROW_INDEX]
+        val oldTailCol = posTail[COL_INDEX]
+
         move(posHead[ROW_INDEX], posHead[COL_INDEX], move)
+
+        return Direction.findDirectionByMovement(posTail[ROW_INDEX] - oldTailRow, posTail[COL_INDEX] - oldTailCol)
     }
 
     fun move(row: Int, col: Int, move: Move) {

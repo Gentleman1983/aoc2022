@@ -70,6 +70,11 @@ class Day09Test {
         Direction.findDirectionBySymbol(symbol).shouldBe(expectedDirection)
 
     @ParameterizedTest
+    @MethodSource("getDataForFindDirectionByMovement")
+    fun findDirectionByMovement(row: Int, col: Int, expectedDirection: Direction) =
+        Direction.findDirectionByMovement(row, col).shouldBe(expectedDirection)
+
+    @ParameterizedTest
     @MethodSource("getDataForReadFile")
     fun readFile(filename: String, expectedMoves: List<Move>) {
         val objectUnderTest = RopeBridge(filename)
@@ -84,6 +89,12 @@ class Day09Test {
     @MethodSource("getDataForTestPart1")
     fun testPart1(filename: String, expectedVisitedFields: Int) {
         RopeBridge(filename).processPart1().shouldBe(expectedVisitedFields)
+    }
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestPart2")
+    fun testPart2(filename: String, expectedVisitedFields: Int) {
+        RopeBridge(filename).processPart2().shouldBe(expectedVisitedFields)
     }
 
     companion object {
@@ -120,6 +131,22 @@ class Day09Test {
             )
 
         @JvmStatic
+        private fun getDataForFindDirectionByMovement(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(Direction.UP_LEFT.modRow, Direction.UP_LEFT.modCol, Direction.UP_LEFT),
+                Arguments.of(Direction.UP.modRow, Direction.UP.modCol, Direction.UP),
+                Arguments.of(Direction.UP_RIGHT.modRow, Direction.UP_RIGHT.modCol, Direction.UP_RIGHT),
+                Arguments.of(Direction.RIGHT.modRow, Direction.RIGHT.modCol, Direction.RIGHT),
+                Arguments.of(Direction.DOWN_RIGHT.modRow, Direction.DOWN_RIGHT.modCol, Direction.DOWN_RIGHT),
+                Arguments.of(Direction.DOWN.modRow, Direction.DOWN.modCol, Direction.DOWN),
+                Arguments.of(Direction.DOWN_LEFT.modRow, Direction.DOWN_LEFT.modCol, Direction.DOWN_LEFT),
+                Arguments.of(Direction.LEFT.modRow, Direction.LEFT.modCol, Direction.LEFT),
+                Arguments.of(Direction.UNKNOWN.modRow, Direction.UNKNOWN.modCol, Direction.UNKNOWN),
+                Arguments.of(47, 11, Direction.UNKNOWN),
+                Arguments.of(-8, 15, Direction.UNKNOWN)
+            )
+
+        @JvmStatic
         private fun getDataForReadFile(): Stream<Arguments> =
             Stream.of(
                 Arguments.of(
@@ -140,7 +167,14 @@ class Day09Test {
         @JvmStatic
         private fun getDataForTestPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt",13)
+                Arguments.of("sample.txt", 13)
+            )
+
+        @JvmStatic
+        private fun getDataForTestPart2(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sample.txt", 1),
+                Arguments.of("sample2.txt", 36)
             )
     }
 }
