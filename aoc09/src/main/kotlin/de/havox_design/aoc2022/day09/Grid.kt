@@ -28,11 +28,17 @@ data class Grid(var rows: Int, var cols: Int) {
         }
     }
 
+    fun move(row: Int, col: Int, direction: Direction, numberOfFields: Int) {
+        for (move in 0 until numberOfFields) {
+            move(row, col, direction)
+        }
+    }
+
     fun move(row: Int, col: Int, direction: Direction) {
         val targetRow = row + direction.modRow
-        val targetCol= col + direction.modCol
+        val targetCol = col + direction.modCol
 
-        move(row,col,targetRow,targetCol)
+        move(row, col, targetRow, targetCol)
     }
 
     private fun move(row: Int, col: Int, targetRow: Int, targetCol: Int) {

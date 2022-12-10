@@ -4,13 +4,13 @@ data class Position(var knot: Knot? = null, var visitedByTail: Boolean = false) 
     fun visit(knot: Knot) {
         this.knot = knot
 
-        if(knot == Knot.TAIL) {
+        if (knot == Knot.TAIL || knot == Knot.HEAD_AND_TAIL) {
             visitedByTail = true
         }
     }
 
     fun leave() {
-        knot = if(knot == Knot.HEAD_AND_TAIL) {
+        knot = if (knot == Knot.HEAD_AND_TAIL) {
             Knot.TAIL
         } else {
             null
