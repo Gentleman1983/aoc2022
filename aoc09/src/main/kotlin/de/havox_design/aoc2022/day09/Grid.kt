@@ -28,6 +28,10 @@ data class Grid(var rows: Int, var cols: Int) {
         }
     }
 
+    fun move(row: Int, col: Int, move: Move) {
+        move(row, col, move.direction, move.numberOfFields)
+    }
+
     fun move(row: Int, col: Int, direction: Direction, numberOfFields: Int) {
         for (move in 0 until numberOfFields) {
             move(row, col, direction)
