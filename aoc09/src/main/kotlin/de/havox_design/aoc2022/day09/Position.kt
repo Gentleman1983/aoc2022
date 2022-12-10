@@ -10,6 +10,10 @@ data class Position(var knot: Knot? = null, var visitedByTail: Boolean = false) 
     }
 
     fun leave() {
-        knot = null
+        knot = if(knot == Knot.HEAD_AND_TAIL) {
+            Knot.TAIL
+        } else {
+            null
+        }
     }
 }
