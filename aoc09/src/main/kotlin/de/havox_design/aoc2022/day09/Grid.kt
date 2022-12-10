@@ -6,8 +6,6 @@ data class Grid(var rows: Int, var cols: Int) {
     private var data = init()
     private var posHead = arrayOf(-1, -1)
     private var posTail = arrayOf(-1, -1)
-    private var ROW_INDEX = 0
-    private var COL_INDEX = 1
 
     fun getPosition(row: Int, col: Int): Position =
         data[row][col]
@@ -15,17 +13,23 @@ data class Grid(var rows: Int, var cols: Int) {
     fun visitPosition(row: Int, col: Int, knot: Knot) {
         getPosition(row, col).visit(knot)
 
-        if (Knot.HEAD == knot) {
+        if (Knot.HEAD == knot || Knot.HEAD_AND_TAIL == knot) {
             posHead[ROW_INDEX] = row
             posHead[COL_INDEX] = col
 
             if (posTail[ROW_INDEX] != -1 && posTail[COL_INDEX] != -1) {
                 checkMoveOfTailNeeded()
             }
-        } else if (Knot.TAIL == knot) {
+        }
+
+        if (Knot.TAIL == knot || Knot.HEAD_AND_TAIL == knot) {
             posTail[ROW_INDEX] = row
             posTail[COL_INDEX] = col
         }
+    }
+
+    fun moveHead(move: Move) {
+        move(posHead[ROW_INDEX], posHead[COL_INDEX], move)
     }
 
     fun move(row: Int, col: Int, move: Move) {
@@ -34,7 +38,7 @@ data class Grid(var rows: Int, var cols: Int) {
 
     fun move(row: Int, col: Int, direction: Direction, numberOfFields: Int) {
         for (move in 0 until numberOfFields) {
-            move(row, col, direction)
+            move(row + move * direction.modRow, col + move * direction.modCol, direction)
         }
     }
 
@@ -46,7 +50,10 @@ data class Grid(var rows: Int, var cols: Int) {
     }
 
     private fun move(row: Int, col: Int, targetRow: Int, targetCol: Int) {
-        val knot = getPosition(row, col).knot
+        var knot = getPosition(row, col).knot
+        if (Knot.HEAD_AND_TAIL == knot) {
+            knot = Knot.HEAD
+        }
 
         if (knot != null) {
             getPosition(row, col).leave()
@@ -69,7 +76,7 @@ data class Grid(var rows: Int, var cols: Int) {
                 posTail[ROW_INDEX] += rowDifference / abs(rowDifference)
             }
 
-            getPosition(posTail[ROW_INDEX], posTail[COL_INDEX]).visit(Knot.TAIL)
+            visitPosition(posTail[ROW_INDEX], posTail[COL_INDEX], Knot.TAIL)
         }
     }
 
@@ -87,5 +94,10 @@ data class Grid(var rows: Int, var cols: Int) {
         }
 
         return initialData
+    }
+
+    companion object {
+        private var ROW_INDEX = 0
+        private var COL_INDEX = 1
     }
 }

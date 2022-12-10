@@ -80,6 +80,12 @@ class Day09Test {
         )
     }
 
+    @ParameterizedTest
+    @MethodSource("getDataForTestPart1")
+    fun testPart1(filename: String, expectedVisitedFields: Int) {
+        RopeBridge(filename).processPart1().shouldBe(expectedVisitedFields)
+    }
+
     companion object {
         @JvmStatic
         private fun getDataForTestVisitPosition(): Stream<Arguments> =
@@ -130,12 +136,19 @@ class Day09Test {
                     )
                 )
             )
+
+        @JvmStatic
+        private fun getDataForTestPart1(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sample.txt",13)
+            )
     }
 }
 
 private fun Boolean.shouldBe(expectation: Boolean) = Assertions.assertEquals(expectation, this)
 private fun Direction.shouldBe(expectation: Direction) = Assertions.assertEquals(expectation, this)
 private fun Knot?.shouldBe(expectation: Knot?) = Assertions.assertEquals(expectation, this)
+private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun Collection<*>?.shouldBe(expectation: Collection<*>?) = Assertions.assertEquals(expectation, this)
 private fun Collection<*>.shouldContainAll(expectation: Collection<*>) =
     Assertions.assertTrue(this.containsAll(expectation))
