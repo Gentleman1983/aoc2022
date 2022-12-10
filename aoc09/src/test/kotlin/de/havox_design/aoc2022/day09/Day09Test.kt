@@ -1,5 +1,7 @@
 package de.havox_design.aoc2022.day09
 
+import nl.jqno.equalsverifier.EqualsVerifier
+import nl.jqno.equalsverifier.Warning
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
@@ -95,6 +97,11 @@ class Day09Test {
     @MethodSource("getDataForTestPart2")
     fun testPart2(filename: String, expectedVisitedFields: Int) {
         RopeBridge(filename).processPart2().shouldBe(expectedVisitedFields)
+    }
+
+    @Test
+    fun verifyEqualsContractOnGridClass() {
+        EqualsVerifier.forClass(Grid.javaClass).suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT).verify()
     }
 
     companion object {
