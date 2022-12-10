@@ -28,7 +28,14 @@ data class Grid(var rows: Int, var cols: Int) {
         }
     }
 
-    fun move(row: Int, col: Int, targetRow: Int, targetCol: Int) {
+    fun move(row: Int, col: Int, direction: Direction) {
+        val targetRow = row + direction.modRow
+        val targetCol= col + direction.modCol
+
+        move(row,col,targetRow,targetCol)
+    }
+
+    private fun move(row: Int, col: Int, targetRow: Int, targetCol: Int) {
         val knot = getPosition(row, col).knot
 
         if (knot != null) {

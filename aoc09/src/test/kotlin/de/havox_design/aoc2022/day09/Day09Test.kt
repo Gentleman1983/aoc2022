@@ -41,10 +41,13 @@ class Day09Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTailMovement")
-    fun testTailMovement(grid: Grid, headStartRow:Int, headStartCol:Int, tailStartRow:Int, tailStartCol:Int, headMoveToRow:Int, headMoveToCol: Int, expectedTailRow: Int, expectedTailCol:Int) {
+    fun testTailMovement(grid: Grid, headStartRow:Int, headStartCol:Int, tailStartRow:Int, tailStartCol:Int, direction: Direction, expectedTailRow: Int, expectedTailCol:Int) {
         grid.visitPosition(headStartRow, headStartCol, Knot.HEAD)
         grid.visitPosition(tailStartRow,tailStartCol, Knot.TAIL)
-        grid.move(headStartRow, headStartCol, headMoveToRow, headMoveToCol)
+        grid.move(headStartRow, headStartCol, direction)
+
+        val headMoveToRow = headStartRow + direction.modRow
+        val headMoveToCol= headStartCol + direction.modCol
 
         assertAll(
             {grid.getPosition(headMoveToRow, headMoveToCol).knot.shouldBe(Knot.HEAD)},
@@ -63,10 +66,10 @@ class Day09Test {
         @JvmStatic
         private fun getDataForTailMovement(): Stream<Arguments> =
             Stream.of(
-                Arguments.of(Grid(10,10),1,2,1,1,1,3,1,2),
-                Arguments.of(Grid(10,10),2,1,1,1,3,1,2,1),
-                Arguments.of(Grid(10,10),2,2,3,1,1,3,2,2),
-                Arguments.of(Grid(10,10),2,2,3,1,2,3,2,2)
+                Arguments.of(Grid(10,10),1,2,1,1,Direction.RIGHT,1,2),
+                Arguments.of(Grid(10,10),2,1,1,1,Direction.DOWN,2,1),
+                Arguments.of(Grid(10,10),2,2,3,1,Direction.UP,2,2),
+                Arguments.of(Grid(10,10),2,2,3,1,Direction.RIGHT,2,2)
             )
     }
 }
