@@ -19,10 +19,21 @@ data class Grid(var rows: Int, var cols: Int) {
             posHead[ROW_INDEX] = row
             posHead[COL_INDEX] = col
 
-            checkMoveOfTailNeeded()
+            if (posTail[ROW_INDEX] != -1 && posTail[COL_INDEX] != -1) {
+                checkMoveOfTailNeeded()
+            }
         } else if (Knot.TAIL == knot) {
             posTail[ROW_INDEX] = row
             posTail[COL_INDEX] = col
+        }
+    }
+
+    fun move(row: Int, col: Int, targetRow: Int, targetCol: Int) {
+        val knot = getPosition(row, col).knot
+
+        if (knot != null) {
+            getPosition(row, col).leave()
+            visitPosition(targetRow, targetCol, knot)
         }
     }
 
