@@ -9,11 +9,32 @@ class Monkey(private val id: Int, var startingItems: List<Item> = emptyList<Item
     var falseThrowToMonkey: Int = id
     var trueThrowToMonkey: Int = id
     var operation: (Int) -> Int = { worry -> worry + 1 }
+    val getBored: (Int) -> Int = { worry -> worry / 3}
 
     fun addTestParameter(divisibleBy: Int, trueThrowToMonkey: Int, falseThrowToMonkey: Int) {
         this.divisibleBy = divisibleBy
         this.trueThrowToMonkey = trueThrowToMonkey
         this.falseThrowToMonkey = falseThrowToMonkey
+    }
+
+    fun inspectItems() {
+        for(item in startingItems) {
+            inspectItem(item)
+        }
+    }
+
+    private fun inspectItem(item: Item) {
+        item.worryLevel = operation(item.worryLevel)
+        item.worryLevel = getBored(item.worryLevel)
+
+        var nextMonkey = if(item.worryLevel % divisibleBy == 0) {
+            getMonkeyForId(trueThrowToMonkey)
+        }
+        else {
+            getMonkeyForId(falseThrowToMonkey)
+        }
+        nextMonkey!!.startingItems += item
+        startingItems -= item
     }
 
     override fun equals(other: Any?): Boolean {

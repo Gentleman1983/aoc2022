@@ -3,6 +3,14 @@ package de.havox_design.aoc2022.day11
 class MonkeyInTheMiddle(private var filename: String) {
     val monkeys = readData()
 
+    fun processPart1(rounds: Int) {
+        for(round in 0 until rounds) {
+            for (monkey in monkeys) {
+                monkey.inspectItems()
+            }
+        }
+    }
+
     private fun readData(): List<Monkey> {
         val fileData = getResourceAsText(filename)
         val monkeys = emptyList<Monkey>().toMutableList()
@@ -55,7 +63,7 @@ class MonkeyInTheMiddle(private var filename: String) {
             currentTrueMonkey!!,
             currentFalseMonkey!!
         )
-        monkeys += currentMonkey!!
+        monkeys += currentMonkey
 
         return monkeys
     }
