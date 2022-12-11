@@ -4,7 +4,7 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("please implement me")
+            println("Monkey Business: ${MonkeyInTheMiddle("input.txt").processPart1(20)}")
         }
     }
 }

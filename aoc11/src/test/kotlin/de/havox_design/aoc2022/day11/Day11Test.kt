@@ -32,8 +32,23 @@ class Day11Test {
                 "expected monkey $monkeyId to hold all items ${expectedItems[monkeyId]} but was ${monkey.startingItems} after $numberOfRounds rounds."
             )
         }
-
     }
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestProcessPart1Inspections")
+    fun testProcessPart1Inspections(filename: String, numberOfRounds: Int, expectedInspections: Map<Int, Int>) {
+        MonkeyInTheMiddle(filename).processPart1(numberOfRounds)
+
+        for (monkeyId in expectedInspections.keys) {
+            val monkey = Monkey.getMonkeyForId(monkeyId)!!
+            monkey.numberOfInspectedItems.shouldBe(expectedInspections[monkeyId]!!)
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestProcessPart1")
+    fun testProcessPart1(filename: String, numberOfRounds: Int, expectedInspections: Int) =
+        MonkeyInTheMiddle(filename).processPart1(numberOfRounds).shouldBe(expectedInspections)
 
     @Test
     fun verifyEqualsContractOnGridClass() {
@@ -208,6 +223,46 @@ class Day11Test {
                 )
             )
 
+        @JvmStatic
+        private fun getDataForTestProcessPart1Inspections(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(
+                    "sample1.txt",
+                    1,
+                    mapOf(
+                        Pair(0, 2),
+                        Pair(1, 4),
+                        Pair(2, 3),
+                        Pair(3, 5)
+                    )
+                ),
+                Arguments.of(
+                    "sample1.txt",
+                    20,
+                    mapOf(
+                        Pair(0, 101),
+                        Pair(1, 95),
+                        Pair(2, 7),
+                        Pair(3, 105)
+                    )
+                )
+            )
+
+        @JvmStatic
+        private fun getDataForTestProcessPart1(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(
+                    "sample1.txt",
+                    1,
+                    20
+                ),
+                Arguments.of(
+                    "sample1.txt",
+                    20,
+                    10605
+                )
+            )
+
         private fun toItemList(vararg items: Int): List<Item> =
             toItemList(items.asList())
 
@@ -237,6 +292,7 @@ class Day11Test {
     }
 }
 
+private fun Int.shouldBe(expectation: Int) = org.junit.jupiter.api.Assertions.assertEquals(expectation, this)
 private fun Collection<*>?.shouldBe(expectation: Collection<*>?) = Assertions.assertEquals(expectation, this)
 private fun Collection<*>.shouldContainAll(expectation: Collection<*>) =
     Assertions.assertTrue(this.containsAll(expectation))

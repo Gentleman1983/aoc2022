@@ -3,12 +3,27 @@ package de.havox_design.aoc2022.day11
 class MonkeyInTheMiddle(private var filename: String) {
     val monkeys = readData()
 
-    fun processPart1(rounds: Int) {
+    fun processPart1(rounds: Int): Int {
         for(round in 0 until rounds) {
             for (monkey in monkeys) {
                 monkey.inspectItems()
             }
         }
+
+        // Search the quantity of inspections of two most active monkeys
+        var mostInspections = Int.MIN_VALUE
+        var secondMostInspections = Int.MIN_VALUE
+        for(monkey in monkeys) {
+            if(monkey.numberOfInspectedItems > mostInspections) {
+                secondMostInspections = mostInspections
+                mostInspections = monkey.numberOfInspectedItems
+            }
+            else if(monkey.numberOfInspectedItems > secondMostInspections) {
+                secondMostInspections = monkey.numberOfInspectedItems
+            }
+        }
+
+        return mostInspections * secondMostInspections
     }
 
     private fun readData(): List<Monkey> {

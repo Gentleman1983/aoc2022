@@ -5,6 +5,7 @@ class Monkey(private val id: Int, var startingItems: List<Item> = emptyList<Item
         allMonkeys[id] = this
     }
 
+    var numberOfInspectedItems = 0
     var divisibleBy: Int = 1
     var falseThrowToMonkey: Int = id
     var trueThrowToMonkey: Int = id
@@ -25,6 +26,8 @@ class Monkey(private val id: Int, var startingItems: List<Item> = emptyList<Item
 
     private fun inspectItem(item: Item) {
         item.worryLevel = operation(item.worryLevel)
+        numberOfInspectedItems++
+
         item.worryLevel = getBored(item.worryLevel)
 
         var nextMonkey = if(item.worryLevel % divisibleBy == 0) {
