@@ -1,24 +1,29 @@
 package de.havox_design.aoc2022.day11
 
+import java.math.BigInteger
+
 class MonkeyInTheMiddle(private var filename: String) {
     val monkeys = readData()
 
-    fun processPart1(rounds: Int): Long {
-        for(round in 0 until rounds) {
+    fun processPart1(rounds: Int): BigInteger {
+        for (round in 0 until rounds) {
             for (monkey in monkeys) {
                 monkey.inspectItems()
+            }
+
+            if ((round + 1) % 100 == 0) {
+                println("Done ${round + 1} of $rounds iterations.")
             }
         }
 
         // Search the quantity of inspections of two most active monkeys
-        var mostInspections = Long.MIN_VALUE
-        var secondMostInspections = Long.MIN_VALUE
-        for(monkey in monkeys) {
-            if(monkey.numberOfInspectedItems > mostInspections) {
+        var mostInspections = BigInteger.valueOf(-666)
+        var secondMostInspections = BigInteger.valueOf(-666)
+        for (monkey in monkeys) {
+            if (monkey.numberOfInspectedItems > mostInspections) {
                 secondMostInspections = mostInspections
                 mostInspections = monkey.numberOfInspectedItems
-            }
-            else if(monkey.numberOfInspectedItems > secondMostInspections) {
+            } else if (monkey.numberOfInspectedItems > secondMostInspections) {
                 secondMostInspections = monkey.numberOfInspectedItems
             }
         }
@@ -26,9 +31,9 @@ class MonkeyInTheMiddle(private var filename: String) {
         return mostInspections * secondMostInspections
     }
 
-    fun processPart2(rounds: Int):Long {
-        for(monkey in monkeys) {
-            monkey.getBored = { worry -> worry}
+    fun processPart2(rounds: Int): BigInteger {
+        for (monkey in monkeys) {
+            monkey.modificationOfWorryLevelIfBoredActive = false
         }
 
         return processPart1(rounds)
@@ -40,8 +45,8 @@ class MonkeyInTheMiddle(private var filename: String) {
 
         var currentMonkey: Monkey? = null
         var currentStartingItems: List<Item> = emptyList()
-        var currentOperation: (Long) -> Long = { a -> a }
-        var currentTest: Long? = null
+        var currentOperation: (BigInteger) -> BigInteger = { a -> a }
+        var currentTest: BigInteger? = null
         var currentTrueMonkey: Int? = null
         var currentFalseMonkey: Int? = null
         for (row in fileData) {
@@ -94,8 +99,8 @@ class MonkeyInTheMiddle(private var filename: String) {
     private fun createMonkey(
         currentMonkey: Monkey,
         currentStartingItems: List<Item>,
-        currentOperation: (Long) -> Long,
-        currentTest: Long,
+        currentOperation: (BigInteger) -> BigInteger,
+        currentTest: BigInteger,
         currentTrueMonkey: Int,
         currentFalseMonkey: Int
     ) {
@@ -114,13 +119,13 @@ class MonkeyInTheMiddle(private var filename: String) {
 
         val items = row.trim().split(":")[1].split(",")
         for (item in items) {
-            startingItems += Item(item.trim().toLong())
+            startingItems += Item(BigInteger.valueOf(item.trim().toLong()))
         }
 
         return startingItems
     }
 
-    private fun processOperationsRow(row: String): (Long) -> Long {
+    private fun processOperationsRow(row: String): (BigInteger) -> BigInteger {
         val elements = row.split("new =")[1].trim().split(" ")
 
         return when (elements[1]) {
@@ -146,16 +151,16 @@ class MonkeyInTheMiddle(private var filename: String) {
         }
     }
 
-    private fun processTestRow(row: String): Long =
-        row.split("divisible by")[1].trim().toLong()
+    private fun processTestRow(row: String): BigInteger =
+        BigInteger.valueOf(row.split("divisible by")[1].trim().toLong())
 
     private fun processThrowToMonkeyRow(row: String): Int =
         row.split("throw to monkey")[1].trim().toInt()
 
-    private fun getCorrectValue(value: String, other: Long, paramName: String = "old"): Long {
+    private fun getCorrectValue(value: String, other: BigInteger, paramName: String = "old"): BigInteger {
         val trimmedValue = value.trim()
 
-        return if (trimmedValue == paramName) other else trimmedValue.toLong()
+        return if (trimmedValue == paramName) other else BigInteger.valueOf(trimmedValue.toLong())
     }
 
     private fun getResourceAsText(path: String): List<String> =

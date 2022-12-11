@@ -1,3 +1,5 @@
 package de.havox_design.aoc2022.day11
 
-data class Item(var worryLevel: Long)
+import java.math.BigInteger
+
+data class Item(var worryLevel: BigInteger)
