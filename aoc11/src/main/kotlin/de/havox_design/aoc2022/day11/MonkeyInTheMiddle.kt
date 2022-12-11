@@ -3,7 +3,7 @@ package de.havox_design.aoc2022.day11
 class MonkeyInTheMiddle(private var filename: String) {
     val monkeys = readData()
 
-    fun processPart1(rounds: Int): Int {
+    fun processPart1(rounds: Int): Long {
         for(round in 0 until rounds) {
             for (monkey in monkeys) {
                 monkey.inspectItems()
@@ -11,8 +11,8 @@ class MonkeyInTheMiddle(private var filename: String) {
         }
 
         // Search the quantity of inspections of two most active monkeys
-        var mostInspections = Int.MIN_VALUE
-        var secondMostInspections = Int.MIN_VALUE
+        var mostInspections = Long.MIN_VALUE
+        var secondMostInspections = Long.MIN_VALUE
         for(monkey in monkeys) {
             if(monkey.numberOfInspectedItems > mostInspections) {
                 secondMostInspections = mostInspections
@@ -26,14 +26,22 @@ class MonkeyInTheMiddle(private var filename: String) {
         return mostInspections * secondMostInspections
     }
 
+    fun processPart2(rounds: Int):Long {
+        for(monkey in monkeys) {
+            monkey.getBored = { worry -> worry}
+        }
+
+        return processPart1(rounds)
+    }
+
     private fun readData(): List<Monkey> {
         val fileData = getResourceAsText(filename)
         val monkeys = emptyList<Monkey>().toMutableList()
 
         var currentMonkey: Monkey? = null
         var currentStartingItems: List<Item> = emptyList()
-        var currentOperation: (Int) -> Int = { a -> a }
-        var currentTest: Int? = null
+        var currentOperation: (Long) -> Long = { a -> a }
+        var currentTest: Long? = null
         var currentTrueMonkey: Int? = null
         var currentFalseMonkey: Int? = null
         for (row in fileData) {
@@ -86,8 +94,8 @@ class MonkeyInTheMiddle(private var filename: String) {
     private fun createMonkey(
         currentMonkey: Monkey,
         currentStartingItems: List<Item>,
-        currentOperation: (Int) -> Int,
-        currentTest: Int,
+        currentOperation: (Long) -> Long,
+        currentTest: Long,
         currentTrueMonkey: Int,
         currentFalseMonkey: Int
     ) {
@@ -106,13 +114,13 @@ class MonkeyInTheMiddle(private var filename: String) {
 
         val items = row.trim().split(":")[1].split(",")
         for (item in items) {
-            startingItems += Item(item.trim().toInt())
+            startingItems += Item(item.trim().toLong())
         }
 
         return startingItems
     }
 
-    private fun processOperationsRow(row: String): (Int) -> Int {
+    private fun processOperationsRow(row: String): (Long) -> Long {
         val elements = row.split("new =")[1].trim().split(" ")
 
         return when (elements[1]) {
@@ -138,16 +146,16 @@ class MonkeyInTheMiddle(private var filename: String) {
         }
     }
 
-    private fun processTestRow(row: String): Int =
-        row.split("divisible by")[1].trim().toInt()
+    private fun processTestRow(row: String): Long =
+        row.split("divisible by")[1].trim().toLong()
 
     private fun processThrowToMonkeyRow(row: String): Int =
         row.split("throw to monkey")[1].trim().toInt()
 
-    private fun getCorrectValue(value: String, other: Int, paramName: String = "old"): Int {
+    private fun getCorrectValue(value: String, other: Long, paramName: String = "old"): Long {
         val trimmedValue = value.trim()
 
-        return if (trimmedValue == paramName) other else trimmedValue.toInt()
+        return if (trimmedValue == paramName) other else trimmedValue.toLong()
     }
 
     private fun getResourceAsText(path: String): List<String> =

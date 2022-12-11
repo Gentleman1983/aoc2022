@@ -5,21 +5,21 @@ class Monkey(private val id: Int, var startingItems: List<Item> = emptyList<Item
         allMonkeys[id] = this
     }
 
-    var numberOfInspectedItems = 0
-    var divisibleBy: Int = 1
+    var numberOfInspectedItems = 0L
+    var divisibleBy = 1L
     var falseThrowToMonkey: Int = id
     var trueThrowToMonkey: Int = id
-    var operation: (Int) -> Int = { worry -> worry + 1 }
-    val getBored: (Int) -> Int = { worry -> worry / 3}
+    var operation: (Long) -> Long = { worry -> worry + 1 }
+    var getBored: (Long) -> Long = { worry -> worry / 3 }
 
-    fun addTestParameter(divisibleBy: Int, trueThrowToMonkey: Int, falseThrowToMonkey: Int) {
+    fun addTestParameter(divisibleBy: Long, trueThrowToMonkey: Int, falseThrowToMonkey: Int) {
         this.divisibleBy = divisibleBy
         this.trueThrowToMonkey = trueThrowToMonkey
         this.falseThrowToMonkey = falseThrowToMonkey
     }
 
     fun inspectItems() {
-        for(item in startingItems) {
+        for (item in startingItems) {
             inspectItem(item)
         }
     }
@@ -28,12 +28,12 @@ class Monkey(private val id: Int, var startingItems: List<Item> = emptyList<Item
         item.worryLevel = operation(item.worryLevel)
         numberOfInspectedItems++
 
+
         item.worryLevel = getBored(item.worryLevel)
 
-        var nextMonkey = if(item.worryLevel % divisibleBy == 0) {
+        val nextMonkey = if (item.worryLevel % divisibleBy == 0L) {
             getMonkeyForId(trueThrowToMonkey)
-        }
-        else {
+        } else {
             getMonkeyForId(falseThrowToMonkey)
         }
         nextMonkey!!.startingItems += item
@@ -56,12 +56,12 @@ class Monkey(private val id: Int, var startingItems: List<Item> = emptyList<Item
     }
 
     override fun hashCode(): Int {
-        var result = id
+        var result: Long = id.toLong()
         result = 31 * result + startingItems.hashCode()
         result = 31 * result + divisibleBy
         result = 31 * result + falseThrowToMonkey
         result = 31 * result + trueThrowToMonkey
-        return result
+        return (result % Int.MAX_VALUE.toLong()).toInt()
     }
 
     companion object {
