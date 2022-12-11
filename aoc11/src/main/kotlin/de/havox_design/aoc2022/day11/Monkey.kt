@@ -11,8 +11,8 @@ class Monkey(
         allMonkeys[id] = this
     }
 
-    var numberOfInspectedItems = BigInteger.ZERO
-    var divisibleBy = BigInteger.ONE
+    var numberOfInspectedItems: BigInteger = BigInteger.ZERO
+    var divisibleBy: BigInteger = BigInteger.ONE
     var falseThrowToMonkey: Int = id
     var trueThrowToMonkey: Int = id
     var operation: (BigInteger ) -> BigInteger  = { worry -> worry + BigInteger.ONE }
