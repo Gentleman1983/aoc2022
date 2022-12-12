@@ -37,7 +37,7 @@ data class Searcher(
 
     private fun searchInDirection(position: Position, symbol: String): List<Searcher> {
         return if (landscape.canVisitFieldFrom(currentPosition, position)) {
-            var newMap = map.toMutableList()
+            val newMap = map.toMutableList()
             val row = newMap[currentPosition.y].toMutableList()
             row[currentPosition.x] = symbol
             newMap[currentPosition.y] = row.toList()

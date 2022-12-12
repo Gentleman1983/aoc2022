@@ -192,5 +192,4 @@ class Day12Test {
 
 private fun Boolean.shouldBe(expectation: Boolean) = Assertions.assertEquals(expectation, this)
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
-private fun Collection<*>?.shouldBe(expectation: Collection<*>?) = Assertions.assertEquals(expectation, this)
 private fun Map<*, *>?.shouldBe(expectation: Map<*, *>?) = Assertions.assertEquals(expectation, this)
