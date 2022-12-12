@@ -38,6 +38,11 @@ class Day12Test {
     fun testPart1(filename: String, expectedSteps: Int) =
         HillClimbingAlgorithm(filename).processPart1().shouldBe(expectedSteps)
 
+    @ParameterizedTest
+    @MethodSource("getDataForTestPart2")
+    fun testPart2(filename: String, expectedSteps: Int) =
+        HillClimbingAlgorithm(filename).processPart2().shouldBe(expectedSteps)
+
 
     companion object {
         @JvmStatic
@@ -175,6 +180,12 @@ class Day12Test {
         private fun getDataForTestPart1(): Stream<Arguments> =
             Stream.of(
                 Arguments.of("sample.txt", 31)
+            )
+
+        @JvmStatic
+        private fun getDataForTestPart2(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sample.txt", 29)
             )
     }
 }

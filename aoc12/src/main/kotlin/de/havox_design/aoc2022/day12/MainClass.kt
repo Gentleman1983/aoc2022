@@ -5,6 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Steps to move: ${HillClimbingAlgorithm("input.txt").processPart1()}")
+            println("Optimized steps to move: ${HillClimbingAlgorithm("input.txt").processPart2()}")
         }
     }
 }

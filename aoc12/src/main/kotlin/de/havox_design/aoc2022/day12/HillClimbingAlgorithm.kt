@@ -4,21 +4,37 @@ class HillClimbingAlgorithm(private var filename: String) {
     val landscape = readFile()
     private var movementMap = parseMovementMap()
 
-    fun processPart1(): Int {
-        val startingPosition = findStartingPosition()
+    fun processPart1(): Int =
+        run(findStartingPosition())
+
+    fun processPart2(): Int {
+        val startingPositions = findStartingPositions("S", "a")
+
+        return startingPositions
+            .parallelStream()
+            .mapToInt { startingPosition -> HillClimbingAlgorithm(filename).run(startingPosition) }
+            .min()
+            .asInt
+    }
+
+    private fun run(startingPosition: Position): Int {
         landscape.visit(startingPosition)
 
         var searchers = listOf(Searcher(movementMap, startingPosition, landscape))
 
 
-        while( searchers.none { searcher -> searcher.finished } ) {
+        while (searchers.none { searcher -> searcher.finished }) {
             val nextIteration = emptyList<Searcher>().toMutableList()
 
-            for(searcher in searchers) {
+            for (searcher in searchers) {
                 nextIteration += searcher.search()
             }
 
+            // If we are lost quit
             searchers = nextIteration
+            if (searchers.isEmpty()) {
+                return Int.MAX_VALUE
+            }
         }
 
         return searchers.first { searcher -> searcher.finished }.step
@@ -48,14 +64,19 @@ class HillClimbingAlgorithm(private var filename: String) {
         return movementMap.toList()
     }
 
-    private fun findStartingPosition(): Position {
-        for(entry in landscape.map.entries) {
-            if(entry.value.elevation == "S") {
-                return entry.key
+    private fun findStartingPosition(): Position =
+        findStartingPositions("S")[0]
+
+    private fun findStartingPositions(vararg symbols: String): List<Position> {
+        val startingPositions = emptyList<Position>().toMutableList()
+
+        for (entry in landscape.map.entries) {
+            if (symbols.contains(entry.value.elevation)) {
+                startingPositions += entry.key
             }
         }
 
-        return Position(-666, -666)
+        return startingPositions
     }
 
     private fun getResourceAsText(path: String): List<String> =
