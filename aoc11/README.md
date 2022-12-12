@@ -147,8 +147,10 @@ Monkey 0: 20, 23, 27, 26
 Monkey 1: 2080, 25, 167, 207, 401, 1046
 Monkey 2:
 Monkey 3:
-Monkeys 2 and 3 aren't holding any items at the end of the round; they both inspected items during the round and threw them all before the round ended.
 ```
+
+Monkeys `2` and `3` aren't holding any items at the end of the round; they both inspected items during the round and 
+threw them all before the round ended.
 
 This process continues for a few more rounds:
 
