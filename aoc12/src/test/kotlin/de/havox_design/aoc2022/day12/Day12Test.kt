@@ -21,11 +21,23 @@ class Day12Test {
     @ParameterizedTest
     @MethodSource("getDataForTestGetElevationBySymbol")
     fun testGetElevationBySymbol(one: String, other: String) =
-        HeightMapping.getElevationBySymbol(one).shouldBe(HeightMapping.getElevationBySymbol(other))@ParameterizedTest
+        HeightMapping.getElevationBySymbol(one).shouldBe(HeightMapping.getElevationBySymbol(other))
 
+    @ParameterizedTest
+    @MethodSource("getDataForTestInitLandscape")
+    fun testInitLandscape(data: List<String>, expectedMapData: Map<Position, Field>) =
+        Landscape(data).map.shouldBe(expectedMapData)
+
+    @ParameterizedTest
     @MethodSource("getDataForTestReadFile")
-    fun testGetReadFile(filename: String, expectedMapData: List<List<Field>>) =
+    fun testGetReadFile(filename: String, expectedMapData: Map<Position, Field>) =
         HillClimbingAlgorithm(filename).landscape.map.shouldBe(expectedMapData)
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestPart1")
+    fun testPart1(filename: String, expectedSteps: Int) =
+        HillClimbingAlgorithm(filename).processPart1().shouldBe(expectedSteps)
+
 
     companion object {
         @JvmStatic
@@ -54,32 +66,120 @@ class Day12Test {
             )
 
         @JvmStatic
-        private fun getDataForTestReadFile(): Stream<Arguments> =
+        private fun getDataForTestInitLandscape(): Stream<Arguments> =
             Stream.of(
                 Arguments.of(
-                    "sample.txt",
                     listOf(
-                        listOfFields("S","a","b","q","p","o","n","m"),
-                        listOfFields("a","b","c","r","y","x","x","l"),
-                        listOfFields("a","c","c","s","z","E","x","k"),
-                        listOfFields("a","c","c","t","u","v","w","j"),
-                        listOfFields("a","b","d","e","f","g","h","i")
+                        "Sabqponm",
+                        "abcryxxl",
+                        "accszExk",
+                        "acctuvwj",
+                        "abdefghi"
+                    ),
+                    mapOf(
+                        Pair(Position(0, 0), Field("S")),
+                        Pair(Position(1, 0), Field("a")),
+                        Pair(Position(2, 0),Field( "b")),
+                        Pair(Position(3, 0), Field("q")),
+                        Pair(Position(4, 0), Field("p")),
+                        Pair(Position(5, 0), Field("o")),
+                        Pair(Position(6, 0), Field("n")),
+                        Pair(Position(7, 0), Field("m")),
+                        Pair(Position(0, 1), Field("a")),
+                        Pair(Position(1, 1), Field("b")),
+                        Pair(Position(2, 1), Field("c")),
+                        Pair(Position(3, 1), Field("r")),
+                        Pair(Position(4, 1), Field("y")),
+                        Pair(Position(5, 1), Field("x")),
+                        Pair(Position(6, 1), Field("x")),
+                        Pair(Position(7, 1), Field("l")),
+                        Pair(Position(0, 2), Field("a")),
+                        Pair(Position(1, 2), Field("c")),
+                        Pair(Position(2, 2), Field("c")),
+                        Pair(Position(3, 2), Field("s")),
+                        Pair(Position(4, 2), Field("z")),
+                        Pair(Position(5, 2), Field("E")),
+                        Pair(Position(6, 2), Field("x")),
+                        Pair(Position(7, 2), Field("k")),
+                        Pair(Position(0, 3), Field("a")),
+                        Pair(Position(1, 3), Field("c")),
+                        Pair(Position(2, 3), Field("c")),
+                        Pair(Position(3, 3), Field("t")),
+                        Pair(Position(4, 3), Field("u")),
+                        Pair(Position(5, 3), Field("v")),
+                        Pair(Position(6, 3), Field("w")),
+                        Pair(Position(7, 3), Field("j")),
+                        Pair(Position(0, 4), Field("a")),
+                        Pair(Position(1, 4), Field("b")),
+                        Pair(Position(2, 4), Field("d")),
+                        Pair(Position(3, 4), Field("e")),
+                        Pair(Position(4, 4), Field("f")),
+                        Pair(Position(5, 4), Field("g")),
+                        Pair(Position(6, 4), Field("h")),
+                        Pair(Position(7, 4), Field("i"))
                     )
                 )
             )
 
-        private fun listOfFields(vararg fields: String): List<Field> {
-            val list = emptyList<Field>().toMutableList()
+        @JvmStatic
+        private fun getDataForTestReadFile(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(
+                    "sample.txt",
+                    mapOf(
+                        Pair(Position(0, 0), Field("S")),
+                        Pair(Position(1, 0), Field("a")),
+                        Pair(Position(2, 0),Field( "b")),
+                        Pair(Position(3, 0), Field("q")),
+                        Pair(Position(4, 0), Field("p")),
+                        Pair(Position(5, 0), Field("o")),
+                        Pair(Position(6, 0), Field("n")),
+                        Pair(Position(7, 0), Field("m")),
+                        Pair(Position(0, 1), Field("a")),
+                        Pair(Position(1, 1), Field("b")),
+                        Pair(Position(2, 1), Field("c")),
+                        Pair(Position(3, 1), Field("r")),
+                        Pair(Position(4, 1), Field("y")),
+                        Pair(Position(5, 1), Field("x")),
+                        Pair(Position(6, 1), Field("x")),
+                        Pair(Position(7, 1), Field("l")),
+                        Pair(Position(0, 2), Field("a")),
+                        Pair(Position(1, 2), Field("c")),
+                        Pair(Position(2, 2), Field("c")),
+                        Pair(Position(3, 2), Field("s")),
+                        Pair(Position(4, 2), Field("z")),
+                        Pair(Position(5, 2), Field("E")),
+                        Pair(Position(6, 2), Field("x")),
+                        Pair(Position(7, 2), Field("k")),
+                        Pair(Position(0, 3), Field("a")),
+                        Pair(Position(1, 3), Field("c")),
+                        Pair(Position(2, 3), Field("c")),
+                        Pair(Position(3, 3), Field("t")),
+                        Pair(Position(4, 3), Field("u")),
+                        Pair(Position(5, 3), Field("v")),
+                        Pair(Position(6, 3), Field("w")),
+                        Pair(Position(7, 3), Field("j")),
+                        Pair(Position(0, 4), Field("a")),
+                        Pair(Position(1, 4), Field("b")),
+                        Pair(Position(2, 4), Field("d")),
+                        Pair(Position(3, 4), Field("e")),
+                        Pair(Position(4, 4), Field("f")),
+                        Pair(Position(5, 4), Field("g")),
+                        Pair(Position(6, 4), Field("h")),
+                        Pair(Position(7, 4), Field("i"))
+                    )
+                )
+            )
 
-            for (field in fields) {
-                list += Field(field)
-            }
-
-            return list
-        }
+        @JvmStatic
+        private fun getDataForTestPart1(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sample.txt", 31)
+            )
     }
 }
 
 private fun Boolean.shouldBe(expectation: Boolean) = Assertions.assertEquals(expectation, this)
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun Collection<*>?.shouldBe(expectation: Collection<*>?) = Assertions.assertEquals(expectation, this)
+private fun Map<*, *>?.shouldBe(expectation: Map<*, *>?) = Assertions.assertEquals(expectation, this)

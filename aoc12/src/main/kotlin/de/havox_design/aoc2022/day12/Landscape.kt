@@ -1,31 +1,32 @@
 package de.havox_design.aoc2022.day12
 
-class Landscape(x: Int, y: Int, landscapeData: List<String> = emptyList()) {
-    val map = init(x, y, landscapeData)
+data class Landscape(val landscapeData: List<String>) {
+    val map = emptyMap<Position, Field>().toMutableMap()
 
-    companion object {
-        private fun init(x: Int, y: Int, importData: List<String>): List<List<Field>> {
-            val data = emptyList<List<Field>>().toMutableList()
-
-            for (rowIndex in 0 until y) {
-                val currentRow = emptyList<Field>().toMutableList()
-
-                for (colIndex in 0 until x) {
-                    currentRow += Field()
-                }
-
-                data += currentRow
+    init {
+        for (rowIndex in landscapeData.indices) {
+            for (colIndex in landscapeData[rowIndex].indices) {
+                map[Position(colIndex, rowIndex)] = Field(landscapeData[rowIndex].substring(colIndex, colIndex + 1))
             }
+        }
+    }
 
-            for (rowIndex in importData.indices) {
-                val currentRow = importData[rowIndex]
+    fun canVisitFieldFrom(source: Position, target: Position): Boolean {
+        return if (map.containsKey(source) && map.containsKey(target)) {
+            val startField = map[source]
+            val targetField = map[target]
 
-                for (colIndex in currentRow.indices) {
-                    data[rowIndex][colIndex].elevation = currentRow.substring(colIndex, colIndex + 1)
-                }
-            }
+            startField!!.canVisitField(targetField!!)
+        } else {
+            false
+        }
+    }
 
-            return data
+    fun get(pos: Position): Field? = map[pos]
+
+    fun visit(pos: Position) {
+        if (map.containsKey(pos)) {
+            map[pos]!!.visited = true
         }
     }
 }
