@@ -1,15 +1,14 @@
 package de.havox_design.aoc2022.day17
 
-class Chamber(var width: Int = 7) {
+class Chamber(var width: Long = 7L) {
     var obstacles: Set<Position> = emptySet<Position>().toMutableSet()
 
-    fun getMaxHeight(): Int =
+    fun getMaxHeight(): Long =
         obstacles.maxOfOrNull { position -> position.y + 1 } ?: 0
 
     fun getStartPositionForRock(
-        rock: Rock,
-        distanceToLeftWall: Int = 2,
-        distanceToHeighestObstacle: Int = 3
+        distanceToLeftWall: Long = 2,
+        distanceToHeighestObstacle: Long = 3
     ): Position {
         val maxHeight = getMaxHeight()
 
@@ -29,7 +28,7 @@ class Chamber(var width: Int = 7) {
                     direction == Jet.LEFT
                             && (
                             rockBlockers
-                                .any { pos -> pos.x == 0 }
+                                .any { pos -> pos.x == 0L }
                                     || rockBlockers
                                 .map { pos -> pos + Position.getPositionForJet(Jet.LEFT) }
                                 .any { pos -> obstacles.contains(pos) }
@@ -75,7 +74,7 @@ class Chamber(var width: Int = 7) {
                     direction == Jet.LEFT
                             && (
                             rockBlockers
-                                .any { pos -> pos.x == 0 }
+                                .any { pos -> pos.x == 0L }
                                     || rockBlockers
                                 .map { pos -> pos + Position.getPositionForJet(Jet.LEFT) }
                                 .any { pos -> obstacles.contains(pos) }

@@ -1,6 +1,6 @@
 package de.havox_design.aoc2022.day17
 
-enum class Rock(val dimensionX: Int, val dimensionY: Int, private val structure: Map<Position, String>) {
+enum class Rock(val dimensionX: Long, val dimensionY: Long, private val structure: Map<Position, String>) {
     HORIZONTAL_LINE(
         4,
         1,

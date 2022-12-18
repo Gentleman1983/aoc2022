@@ -16,17 +16,17 @@ class Day17Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
-    fun testProcessPart1(filename: String, expectedResult: Int) =
+    fun testProcessPart1(filename: String, expectedResult: Long) =
         PyroclasticFlow(filename).processPart1().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
-    fun testProcessPart2(filename: String, expectedResult: Int) =
+    fun testProcessPart2(filename: String, expectedResult: Long) =
         PyroclasticFlow(filename).processPart2().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestRocks")
-    fun testRocks(rock: Rock, expectedWidth: Int, expectedHeigth: Int, expectedBlockedElements: Set<Position>) =
+    fun testRocks(rock: Rock, expectedWidth: Long, expectedHeigth: Long, expectedBlockedElements: Set<Position>) =
         assertAll(
             { rock.dimensionX.shouldBe(expectedWidth) },
             { rock.dimensionY.shouldBe(expectedHeigth) },
@@ -46,7 +46,7 @@ class Day17Test {
     @ParameterizedTest
     @MethodSource("getDataForTestRockSpawning")
     fun testRockSpawning(rock: Rock, expectedPosition: Position) =
-        Chamber().getStartPositionForRock(rock).shouldBe(expectedPosition)
+        Chamber().getStartPositionForRock().shouldBe(expectedPosition)
 
     @ParameterizedTest
     @MethodSource("getDataForTestStatusAfterStone")
@@ -291,7 +291,7 @@ class Day17Test {
                     val letter = row[colIndex]
 
                     if (letter == '#') {
-                        result += Position(colIndex, rows.size - rowIndex - 1)
+                        result += Position(colIndex.toLong(), (rows.size - rowIndex - 1).toLong())
                     }
                 }
             }
@@ -301,9 +301,9 @@ class Day17Test {
     }
 }
 
-private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun Jet.shouldBe(expectation: Jet) = Assertions.assertEquals(expectation, this)
 private fun List<*>.shouldBe(expectation: List<*>) = Assertions.assertEquals(expectation, this)
+private fun Long.shouldBe(expectation: Long) = Assertions.assertEquals(expectation, this)
 private fun Position.shouldBe(expectation: Position) = Assertions.assertEquals(expectation, this)
 private fun Set<*>.shouldBe(expectation: Set<*>) = Assertions.assertEquals(expectation, this)
 private fun Set<*>.shouldContainAll(expectation: Collection<*>) =

@@ -2,11 +2,11 @@ package de.havox_design.aoc2022.day17
 
 class PyroclasticFlow(private var filename: String) {
     val jetPattern = readFile()
-    private var numberOfJetsPerformed: Int = 0
+    private var numberOfJetsPerformed: Long = 0
     private val rockSequence = arrayOf(Rock.HORIZONTAL_LINE, Rock.PLUS, Rock.ARROW, Rock.VERTICAL_LINE, Rock.BOX)
     val chamber = Chamber()
 
-    fun processPart1(numberOfStones: Int = 2022): Int {
+    fun processPart1(numberOfStones: Int = 2022): Long {
         var counter = 0
 
         while (counter < numberOfStones) {
@@ -19,17 +19,17 @@ class PyroclasticFlow(private var filename: String) {
         return chamber.getMaxHeight()
     }
 
-    fun processPart2(): Int =
+    fun processPart2(): Long =
         0
 
     private fun performRock(rock: Rock) {
-        var currentPosition = chamber.getStartPositionForRock(rock)
-        var currentJet = jetPattern[numberOfJetsPerformed % jetPattern.size]
+        var currentPosition = chamber.getStartPositionForRock()
+        var currentJet = jetPattern[(numberOfJetsPerformed % jetPattern.size).toInt()]
 
         while (!chamber.addRockToObstaclesIfItCollides(rock, currentPosition, currentJet)) {
             numberOfJetsPerformed++
             currentPosition += Position.getPositionForJet(chamber.getRealDirection(rock, currentPosition, currentJet))
-            currentJet = jetPattern[numberOfJetsPerformed % jetPattern.size]
+            currentJet = jetPattern[(numberOfJetsPerformed % jetPattern.size).toInt()]
 
             // Drop a row
             if (chamber.addRockToObstaclesIfItCollides(rock, currentPosition, Jet.DOWN)) {
