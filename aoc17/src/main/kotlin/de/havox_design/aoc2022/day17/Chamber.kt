@@ -16,37 +16,11 @@ class Chamber(var width: Long = 7L) {
     }
 
     fun addRockToObstaclesIfItCollides(rock: Rock, position: Position, direction: Jet): Boolean {
-        var realDirection = direction
         val rockBlockers = rock
             .getBlockedPositions()
             .map { pos -> pos + position }
             .toList()
-
-        // We cannot be blown out of the tunnel
-        if (
-            (
-                    direction == Jet.LEFT
-                            && (
-                            rockBlockers
-                                .any { pos -> pos.x == 0L }
-                                    || rockBlockers
-                                .map { pos -> pos + Position.getPositionForJet(Jet.LEFT) }
-                                .any { pos -> obstacles.contains(pos) }
-                            )
-                    )
-            || (
-                    direction == Jet.RIGHT
-                            && (
-                            rockBlockers
-                                .any { pos -> pos.x == width - 1 }
-                                    || rockBlockers
-                                .map { pos -> pos + Position.getPositionForJet(Jet.RIGHT) }
-                                .any { pos -> obstacles.contains(pos) }
-                            )
-                    )
-        ) {
-            realDirection = Jet.UNKNOWN
-        }
+        val realDirection = getRealDirection(rock, position, direction)
 
         // Do we collide with floor or another stone?
         if (
