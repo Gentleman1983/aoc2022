@@ -5,7 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Surface area: ${BoilingBoulders("input.txt").processPart1()}")
-            println("???: ${BoilingBoulders("input.txt").processPart2()}")
+            println("Surface lava droplet: ${BoilingBoulders("input.txt").processPart2()}")
         }
     }
 }
