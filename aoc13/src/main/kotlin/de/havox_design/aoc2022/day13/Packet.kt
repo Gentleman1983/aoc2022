@@ -1,12 +1,17 @@
 package de.havox_design.aoc2022.day13
 
+import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
+import java.lang.IllegalArgumentException
 
 sealed class Packet : Comparable<Packet> {
     data class PacketLiteral(val value: Int) : Packet() {
         override fun compareTo(other: Packet): Int = when (other) {
             is PacketLiteral -> this.value compareTo other.value
             is PacketList -> PacketList(listOf(this)) compareTo other
+            else -> {
+                throw IllegalArgumentException("Expected ${other::class} to be either ${PacketLiteral::class} or ${PacketList::class}.")
+            }
         }
 
         override fun hashCode(): Int =
@@ -15,6 +20,12 @@ sealed class Packet : Comparable<Packet> {
                 .toHashCode()
 
         override fun equals(other: Any?): Boolean {
+            if (other is PacketLiteral) {
+                return EqualsBuilder()
+                    .append(value, other.value)
+                    .build()
+            }
+
             return super.equals(other)
         }
     }
@@ -32,6 +43,9 @@ sealed class Packet : Comparable<Packet> {
                     }
                     thisListIndex.hasNext() compareTo otherListIndex.hasNext()
                 }
+                else -> {
+                    throw IllegalArgumentException("Expected ${other::class} to be either ${PacketLiteral::class} or ${PacketList::class}.")
+                }
             }
         }
 
@@ -41,6 +55,12 @@ sealed class Packet : Comparable<Packet> {
                 .toHashCode()
 
         override fun equals(other: Any?): Boolean {
+            if (other is PacketList) {
+                return EqualsBuilder()
+                    .append(valueList, other.valueList)
+                    .build()
+            }
+
             return super.equals(other)
         }
     }
