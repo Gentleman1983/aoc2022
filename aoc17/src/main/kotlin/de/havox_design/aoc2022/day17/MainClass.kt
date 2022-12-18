@@ -5,7 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Tower size: ${PyroclasticFlow("input.txt").processPart1()}")
-            println("???: ${PyroclasticFlow("input.txt").processPart2()}")
+            println("Tower size 2: ${PyroclasticFlow("input.txt").processPart2()}")
         }
     }
 }
