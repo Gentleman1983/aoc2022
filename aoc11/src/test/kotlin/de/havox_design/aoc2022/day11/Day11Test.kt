@@ -13,7 +13,7 @@ import java.util.stream.Stream
 class Day11Test {
     @Test
     fun testMainClass() {
-        MainClass.main(arrayOf(), true)
+        MainClass.main(true)
     }
 
     @ParameterizedTest
