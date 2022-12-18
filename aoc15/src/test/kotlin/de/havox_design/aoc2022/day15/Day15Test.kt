@@ -20,8 +20,8 @@ class Day15Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
-    fun testProcessPart2(filename: String, expectedResult: Int) =
-        BeaconExclusionZone(filename).processPart2().shouldBe(expectedResult)
+    fun testProcessPart2(filename: String, caveSize: Int, expectedResult: Long) =
+        BeaconExclusionZone(filename).processPart2(caveSize).shouldBe(expectedResult)
 
     companion object {
         @JvmStatic
@@ -33,9 +33,10 @@ class Day15Test {
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", 20, 56000011L)
             )
     }
 }
 
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
+private fun Long.shouldBe(expectation: Long) = Assertions.assertEquals(expectation, this)

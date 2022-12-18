@@ -1,15 +1,27 @@
 package de.havox_design.aoc2022.day15
 
 class BeaconExclusionZone(private var filename: String) {
-    val data = readFile()
+    private val data = readFile()
 
     fun processPart1(desiredRow: Int): Int =
         data.mapNotNull { it.findRange(desiredRow) }
             .reduce()
             .sumOf { it.last - it.first }
 
-    fun processPart2(): Int =
-        0
+    fun processPart2(caveSize: Int): Long {
+        val cave = (0..caveSize)
+
+        return data.firstNotNullOf { sensor ->
+            val up = Point2D(sensor.location.x, sensor.location.y - sensor.distance - 1)
+            val right = Point2D(sensor.location.x + sensor.distance + 1, sensor.location.y)
+            val down = Point2D(sensor.location.x, sensor.location.y + sensor.distance + 1)
+            val left = Point2D(sensor.location.x - sensor.distance - 1, sensor.location.y)
+
+            (up.lineTo(right) + right.lineTo(down) + down.lineTo(left) + left.lineTo(up))
+                .filter { location -> location.x in cave && location.y in cave }
+                .firstOrNull { possibleLocation -> data.none { sensor -> sensor.isInRange(possibleLocation) } }
+        }.calculateTuningFrequency()
+    }
 
     private fun readFile(): Set<Sensor> {
         val fileData = getResourceAsText(filename)
