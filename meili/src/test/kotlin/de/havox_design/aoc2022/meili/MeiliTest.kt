@@ -1,4 +1,4 @@
-package de.havox_design.aoc2022.day25
+package de.havox_design.aoc2022.meili
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -15,19 +15,19 @@ class MeiliTest {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
-    fun testProcessPart1(filename: String, expectedResult: Int) =
-        Day(filename).processPart1().shouldBe(expectedResult)
+    fun testProcessPart1(filename: String, expectedResult: String) =
+        MeiliSearch(filename).processPart1().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
     fun testProcessPart2(filename: String, expectedResult: Int) =
-        Day(filename).processPart2().shouldBe(expectedResult)
+        MeiliSearch(filename).processPart2().shouldBe(expectedResult)
 
     companion object {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", "0")
             )
 
         @JvmStatic
@@ -39,3 +39,4 @@ class MeiliTest {
 }
 
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
+private fun String.shouldBe(expectation: String) = Assertions.assertEquals(expectation, this)

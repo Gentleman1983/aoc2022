@@ -1,11 +1,11 @@
-package de.havox_design.aoc2022.day25
+package de.havox_design.aoc2022.meili
 
 class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("Kid: ${Day("input.txt").processPart1()}")
-            println("???: ${Day("input.txt").processPart2()}")
+            println("Kid: ${MeiliSearch("input.txt").processPart1()}")
+            println("???: ${MeiliSearch("input.txt").processPart2()}")
         }
     }
 }
