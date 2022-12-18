@@ -2,7 +2,6 @@ package de.havox_design.aoc2022.day13
 
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
-import java.lang.IllegalArgumentException
 
 sealed class Packet : Comparable<Packet> {
     data class PacketLiteral(val value: Int) : Packet() {
