@@ -25,6 +25,11 @@ class Day13Test {
     fun testProcessPart1(filename: String, expectedResult: Int) =
         DistressSignal(filename).processPart1().shouldBe(expectedResult)
 
+    @ParameterizedTest
+    @MethodSource("getDataForTestProcessPart2")
+    fun testProcessPart2(filename: String, expectedResult: Int) =
+        DistressSignal(filename).processPart2().shouldBe(expectedResult)
+
     companion object {
         @JvmStatic
         private fun getDataForTestPacketCreation(): Stream<Arguments> =
@@ -267,6 +272,12 @@ class Day13Test {
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
                 Arguments.of("sample.txt", 13)
+            )
+
+        @JvmStatic
+        private fun getDataForTestProcessPart2(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sample.txt", 140)
             )
     }
 }

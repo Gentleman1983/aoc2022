@@ -10,8 +10,17 @@ class DistressSignal(private var filename: String) {
             .filter { currentPacket -> currentPacket.value }
             .sumOf { currentPacket -> currentPacket.index + 1 }
 
-    fun processPart2(): Int =
-        0
+    fun processPart2(): Int {
+        var positionOfLowerDecoderPacket = 1
+        var positionOfUpperDecoderPacket = 1
+        for (packet in packetList) {
+            when {
+                packet < Packet.decoderPackets[0] -> positionOfLowerDecoderPacket++
+                packet < Packet.decoderPackets[1] -> positionOfUpperDecoderPacket++
+            }
+        }
+        return positionOfLowerDecoderPacket * (positionOfLowerDecoderPacket + positionOfUpperDecoderPacket)
+    }
 
     private fun readFile(): List<Packet> {
         val fileInput = getResourceAsText(filename)

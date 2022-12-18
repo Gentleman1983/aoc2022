@@ -8,6 +8,7 @@ sealed class Packet : Comparable<Packet> {
             is PacketLiteral -> this.value compareTo other.value
             is PacketList -> PacketList(listOf(this)) compareTo other
         }
+
         override fun hashCode(): Int =
             HashCodeBuilder()
                 .append(value)
@@ -33,6 +34,7 @@ sealed class Packet : Comparable<Packet> {
                 }
             }
         }
+
         override fun hashCode(): Int =
             HashCodeBuilder()
                 .append(valueList)
@@ -45,9 +47,15 @@ sealed class Packet : Comparable<Packet> {
 
     override fun equals(other: Any?): Boolean =
         (other is Packet) && (compareTo(other) == 0)
+
     abstract override fun hashCode(): Int
 
     companion object {
+        val decoderPackets = arrayOf(
+            PacketList(listOf(PacketList(listOf(PacketLiteral(2))))),
+            PacketList(listOf(PacketList(listOf(PacketLiteral(6)))))
+        )
+
         private val parser = DeepRecursiveFunction<IndexedValue<String>, IndexedValue<Packet>> { (startIndex, string) ->
             if (string[startIndex] == '[') {
                 var index = startIndex + 1
