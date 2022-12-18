@@ -9,9 +9,6 @@ sealed class Packet : Comparable<Packet> {
         override fun compareTo(other: Packet): Int = when (other) {
             is PacketLiteral -> this.value compareTo other.value
             is PacketList -> PacketList(listOf(this)) compareTo other
-            else -> {
-                throw IllegalArgumentException("Expected ${other::class} to be either ${PacketLiteral::class} or ${PacketList::class}.")
-            }
         }
 
         override fun hashCode(): Int =
@@ -42,9 +39,6 @@ sealed class Packet : Comparable<Packet> {
                         if (comparison != 0) return comparison
                     }
                     thisListIndex.hasNext() compareTo otherListIndex.hasNext()
-                }
-                else -> {
-                    throw IllegalArgumentException("Expected ${other::class} to be either ${PacketLiteral::class} or ${PacketList::class}.")
                 }
             }
         }
