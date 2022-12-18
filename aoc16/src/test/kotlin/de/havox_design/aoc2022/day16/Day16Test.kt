@@ -10,7 +10,7 @@ import java.util.stream.Stream
 class Day16Test {
     @Test
     fun testMainClass() {
-        MainClass.main(arrayOf())
+        MainClass.main(arrayOf("testing"))
     }
 
     @ParameterizedTest
@@ -43,7 +43,7 @@ class Day16Test {
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", 1707)
             )
 
         @JvmStatic

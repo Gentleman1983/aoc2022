@@ -10,7 +10,7 @@ class ProboscideaVolcanium(private var filename: String) {
         traverse(minutes = 30)
 
     fun processPart2(): Int =
-        0
+        traverse(minutes = 26, elephantGoesNext = true)
 
     private fun traverse(
         minutes: Int,
