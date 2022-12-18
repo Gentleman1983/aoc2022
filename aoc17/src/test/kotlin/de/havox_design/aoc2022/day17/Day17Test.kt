@@ -33,6 +33,11 @@ class Day17Test {
             { rock.getBlockedPositions().shouldBe(expectedBlockedElements) }
         )
 
+    @ParameterizedTest
+    @MethodSource("getDataForTestJets")
+    fun testJets(code: String, expectedJet: Jet) =
+        Jet.getJetForCode(code).shouldBe(expectedJet)
+
     companion object {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
@@ -54,6 +59,16 @@ class Day17Test {
                 Arguments.of(Rock.HORIZONTAL_LINE, 4, 1, getBlockedFieldsForString("####")),
                 Arguments.of(Rock.PLUS, 3, 3, getBlockedFieldsForString(".#.\n###\n.#.")),
                 Arguments.of(Rock.VERTICAL_LINE, 1, 4, getBlockedFieldsForString("#\n#\n#\n#"))
+            )
+
+        @JvmStatic
+        private fun getDataForTestJets(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("<", Jet.LEFT),
+                Arguments.of(">", Jet.RIGHT),
+                Arguments.of("foo", Jet.UNKNOWN),
+                Arguments.of("bar", Jet.UNKNOWN),
+                Arguments.of(".", Jet.UNKNOWN)
             )
 
         private fun getBlockedFieldsForString(data: String): Set<Position> {
@@ -79,4 +94,5 @@ class Day17Test {
 }
 
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
+private fun Jet.shouldBe(expectation: Jet) = Assertions.assertEquals(expectation, this)
 private fun Set<*>.shouldBe(expectation: Set<*>) = Assertions.assertEquals(expectation, this)
