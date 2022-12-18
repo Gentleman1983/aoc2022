@@ -5,7 +5,10 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Pressure: ${ProboscideaVolcanium("input.txt").processPart1()}")
-            println("???: ${ProboscideaVolcanium("input.txt").processPart2()}")
+
+            if(!args.contains("testing")) {
+                println("Pressure (elephant helping): ${ProboscideaVolcanium("input.txt").processPart2()}")
+            }
         }
     }
 }
