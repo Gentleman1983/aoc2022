@@ -101,7 +101,7 @@ class Day09Test {
 
     @Test
     fun verifyEqualsContractOnGridClass() {
-        EqualsVerifier.forClass(Grid.Companion.javaClass).suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT).verify()
+        EqualsVerifier.forClass(Grid::class.java).suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT).verify()
     }
 
     companion object {
