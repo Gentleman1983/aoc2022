@@ -47,7 +47,7 @@ class Day17Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestRockSpawning")
-    fun testRockSpawning(rock: Rock, expectedPosition: Position) =
+    fun testRockSpawning(expectedPosition: Position) =
         Chamber().getStartPositionForRock().shouldBe(expectedPosition)
 
     @ParameterizedTest
@@ -102,11 +102,7 @@ class Day17Test {
         @JvmStatic
         private fun getDataForTestRockSpawning(): Stream<Arguments> =
             Stream.of(
-                Arguments.of(Rock.ARROW, Position(2, 3)),
-                Arguments.of(Rock.BOX, Position(2, 3)),
-                Arguments.of(Rock.HORIZONTAL_LINE, Position(2, 3)),
-                Arguments.of(Rock.PLUS, Position(2, 3)),
-                Arguments.of(Rock.VERTICAL_LINE, Position(2, 3))
+                Arguments.of(Position(2, 3))
             )
 
         @JvmStatic
