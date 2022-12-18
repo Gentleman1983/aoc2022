@@ -4,8 +4,8 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("Number of positions: ${Day("input.txt").processPart1()}")
-            println("???: ${Day("input.txt").processPart2()}")
+            println("Number of positions: ${BeaconExclusionZone("input.txt").processPart1()}")
+            println("???: ${BeaconExclusionZone("input.txt").processPart2()}")
         }
     }
 }

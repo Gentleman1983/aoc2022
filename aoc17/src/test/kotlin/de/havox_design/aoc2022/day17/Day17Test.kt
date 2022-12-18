@@ -16,12 +16,12 @@ class Day17Test {
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
     fun testProcessPart1(filename: String, expectedResult: Int) =
-        Day(filename).processPart1().shouldBe(expectedResult)
+        PyroclasticFlow(filename).processPart1().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
     fun testProcessPart2(filename: String, expectedResult: Int) =
-        Day(filename).processPart2().shouldBe(expectedResult)
+        PyroclasticFlow(filename).processPart2().shouldBe(expectedResult)
 
     companion object {
         @JvmStatic

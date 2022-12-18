@@ -4,8 +4,8 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("Tower size: ${Day("input.txt").processPart1()}")
-            println("???: ${Day("input.txt").processPart2()}")
+            println("Tower size: ${PyroclasticFlow("input.txt").processPart1()}")
+            println("???: ${PyroclasticFlow("input.txt").processPart2()}")
         }
     }
 }
