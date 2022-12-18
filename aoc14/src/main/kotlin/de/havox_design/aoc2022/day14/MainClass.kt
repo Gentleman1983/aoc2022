@@ -5,7 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Units of sand: ${RegolithReservoir("input.txt").processPart1()}")
-            println("???: ${RegolithReservoir("input.txt").processPart2()}")
+            println("Units of sand at rest: ${RegolithReservoir("input.txt").processPart2()}")
         }
     }
 }

@@ -8,8 +8,15 @@ class RegolithReservoir(private var filename: String) {
     fun processPart1(): Int =
         dropSand(maxY + 1)
 
-    fun processPart2(): Int =
-        0
+    fun processPart2(): Int {
+        val minX = cave.minOf { it.x }
+        val maxX = cave.maxOf { it.x }
+        cave
+            .addAll(Point2D(minX - maxY, maxY + 2)
+                .lineTo(Point2D(maxX + maxY, maxY + 2))
+            )
+        return dropSand(maxY + 3) + 1
+    }
 
     private fun readFile(): MutableSet<Point2D> {
         val fileData = getResourceAsText(filename)
