@@ -4,19 +4,8 @@ import kotlin.math.absoluteValue
 import kotlin.math.sign
 
 data class Point2D(val x: Int = 0, val y: Int = 0) {
-    fun cardinalNeighbors(): Set<Point2D> =
-        setOf(
-            copy(x = x + 1),
-            copy(x = x - 1),
-            copy(y = y + 1),
-            copy(y = y - 1)
-        )
-
     operator fun plus(other: Point2D): Point2D =
         Point2D(x + other.x, y + other.y)
-
-    fun distanceTo(other: Point2D): Int =
-        (x - other.x).absoluteValue + (y - other.y).absoluteValue
 
     fun lineTo(other: Point2D): List<Point2D> {
         val deltaX = (other.x - x).sign
