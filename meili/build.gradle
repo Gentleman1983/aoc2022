@@ -1,0 +1,62 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.22'
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+}
+
+tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+        freeCompilerArgs = ['-Xjsr305=strict']
+        jvmTarget = '17'
+    }
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+
+    testLogging {
+        exceptionFormat = TestExceptionFormat.FULL
+        events("passed", "failed", "skipped")
+    }
+
+    reports {
+        junitXml.required = true
+        html.required = true
+    }
+
+    jacocoTestReport.dependsOn(it)
+}
+
+jacocoTestReport {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        xml.outputLocation.set(file("${buildDir}/jacoco/jacoco.xml"))
+    }
+
+    rootProject.tasks.sonar.dependsOn(it)
+}
+
+
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': project.name
+        attributes 'Implementation-Version': project.version
+        attributes 'Main-Class': 'de.havox_design.aoc2022.day25.MainClass'
+    }
+}
+
+application {
+    mainClass = 'de.havox_design.aoc2022.day25.MainClass'
+}
