@@ -15,8 +15,8 @@ class Day15Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
-    fun testProcessPart1(filename: String, expectedResult: Int) =
-        BeaconExclusionZone(filename).processPart1().shouldBe(expectedResult)
+    fun testProcessPart1(filename: String, desiredRow: Int, expectedResult: Int) =
+        BeaconExclusionZone(filename).processPart1(desiredRow).shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
@@ -27,7 +27,7 @@ class Day15Test {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", 10, 26)
             )
 
         @JvmStatic
