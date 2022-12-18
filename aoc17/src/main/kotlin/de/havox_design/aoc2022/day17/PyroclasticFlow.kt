@@ -1,6 +1,6 @@
-package de.havox_design.aoc2022.day15
+package de.havox_design.aoc2022.day17
 
-class Day(private var filename: String) {
+class PyroclasticFlow(private var filename: String) {
     val data = readFile()
 
     fun processPart1(): Int =

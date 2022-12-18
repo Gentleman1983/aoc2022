@@ -4,8 +4,8 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("Units of sand: ${Day("input.txt").processPart1()}")
-            println("???: ${Day("input.txt").processPart2()}")
+            println("Units of sand: ${RegolithReservoir("input.txt").processPart1()}")
+            println("???: ${RegolithReservoir("input.txt").processPart2()}")
         }
     }
 }

@@ -1,6 +1,6 @@
-package de.havox_design.aoc2022.day17
+package de.havox_design.aoc2022.day14
 
-class Day(private var filename: String) {
+class RegolithReservoir(private var filename: String) {
     val data = readFile()
 
     fun processPart1(): Int =
