@@ -4,11 +4,11 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            main(args, false)
+            main(false)
         }
 
         @JvmStatic
-        fun main(args: Array<String>, runningTests: Boolean) {
+        fun main(runningTests: Boolean) {
             println("Monkey Business: ${MonkeyInTheMiddle("input.txt").processPart1(20)}")
             val numberOfRuns = if (runningTests) 100 else 10000
             println("If running many iterations this may take some time... Current runs: $numberOfRuns")
