@@ -38,6 +38,11 @@ class Day17Test {
     fun testJets(code: String, expectedJet: Jet) =
         Jet.getJetForCode(code).shouldBe(expectedJet)
 
+    @ParameterizedTest
+    @MethodSource("getDataForTestReadData")
+    fun testReadData(filename: String, expectedJets: List<Jet>) =
+        PyroclasticFlow(filename).data.shouldBe(expectedJets)
+
     companion object {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
@@ -71,6 +76,22 @@ class Day17Test {
                 Arguments.of(".", Jet.UNKNOWN)
             )
 
+        @JvmStatic
+        private fun getDataForTestReadData(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of("sample.txt", toJetList(">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>"))
+            )
+
+        private fun toJetList(data: String): List<Jet> {
+            val jets = emptyList<Jet>().toMutableList()
+
+            for(index in data.indices) {
+                jets += Jet.getJetForCode(data.substring(index, index + 1))
+            }
+
+            return jets
+        }
+
         private fun getBlockedFieldsForString(data: String): Set<Position> {
             val result: MutableSet<Position> = emptySet<Position>().toMutableSet()
 
@@ -95,4 +116,5 @@ class Day17Test {
 
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun Jet.shouldBe(expectation: Jet) = Assertions.assertEquals(expectation, this)
+private fun List<*>.shouldBe(expectation: List<*>) = Assertions.assertEquals(expectation, this)
 private fun Set<*>.shouldBe(expectation: Set<*>) = Assertions.assertEquals(expectation, this)
