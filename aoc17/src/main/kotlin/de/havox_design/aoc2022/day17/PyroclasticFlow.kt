@@ -6,7 +6,7 @@ class PyroclasticFlow(private var filename: String) {
     private val rockSequence = arrayOf(Rock.HORIZONTAL_LINE, Rock.PLUS, Rock.ARROW, Rock.VERTICAL_LINE, Rock.BOX)
     val chamber = Chamber()
 
-    fun processPart1(numberOfStones: Int = 2022): Long {
+    fun processPart1(numberOfStones: Long = 2022): Long {
         var counter = 0
 
         while (counter < numberOfStones) {
@@ -18,9 +18,6 @@ class PyroclasticFlow(private var filename: String) {
 
         return chamber.getMaxHeight()
     }
-
-    fun processPart2(): Long =
-        0
 
     private fun performRock(rock: Rock) {
         var currentPosition = chamber.getStartPositionForRock()
