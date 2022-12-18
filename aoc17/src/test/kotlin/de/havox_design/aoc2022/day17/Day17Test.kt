@@ -41,13 +41,27 @@ class Day17Test {
     @ParameterizedTest
     @MethodSource("getDataForTestReadData")
     fun testReadData(filename: String, expectedJets: List<Jet>) =
-        PyroclasticFlow(filename).data.shouldBe(expectedJets)
+        PyroclasticFlow(filename).jetPattern.shouldBe(expectedJets)
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestRockSpawning")
+    fun testRockSpawning(rock: Rock, expectedPosition: Position) =
+        Chamber().getStartPositionForRock(rock).shouldBe(expectedPosition)
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestStatusAfterStone")
+    fun testStatusAfterStone(filename: String, stones: Int, expectedBlockers: Set<Position>) {
+        val objectUnderTest = PyroclasticFlow(filename)
+        objectUnderTest.processPart1(stones)
+
+        objectUnderTest.chamber.obstacles.shouldContainAll(expectedBlockers)
+    }
 
     companion object {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", 3068)
             )
 
         @JvmStatic
@@ -71,6 +85,7 @@ class Day17Test {
             Stream.of(
                 Arguments.of("<", Jet.LEFT),
                 Arguments.of(">", Jet.RIGHT),
+                Arguments.of("v", Jet.DOWN),
                 Arguments.of("foo", Jet.UNKNOWN),
                 Arguments.of("bar", Jet.UNKNOWN),
                 Arguments.of(".", Jet.UNKNOWN)
@@ -82,10 +97,182 @@ class Day17Test {
                 Arguments.of("sample.txt", toJetList(">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>"))
             )
 
+        @JvmStatic
+        private fun getDataForTestRockSpawning(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(Rock.ARROW, Position(2, 3)),
+                Arguments.of(Rock.BOX, Position(2, 3)),
+                Arguments.of(Rock.HORIZONTAL_LINE, Position(2, 3)),
+                Arguments.of(Rock.PLUS, Position(2, 3)),
+                Arguments.of(Rock.VERTICAL_LINE, Position(2, 3))
+            )
+
+        @JvmStatic
+        private fun getDataForTestStatusAfterStone(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(
+                    "sample.txt",
+                    1,
+                    getBlockedFieldsForString("..####.")
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    2,
+                    getBlockedFieldsForString(
+                        "...#...\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    3,
+                    getBlockedFieldsForString(
+                        "..#....\n" +
+                                "..#....\n" +
+                                "####...\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    4,
+                    getBlockedFieldsForString(
+                        "....#..\n" +
+                                "..#.#..\n" +
+                                "..#.#..\n" +
+                                "#####..\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    5,
+                    getBlockedFieldsForString(
+                        "....##.\n" +
+                                "....##.\n" +
+                                "....#..\n" +
+                                "..#.#..\n" +
+                                "..#.#..\n" +
+                                "#####..\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    6,
+                    getBlockedFieldsForString(
+                        ".####..\n" +
+                                "....##.\n" +
+                                "....##.\n" +
+                                "....#..\n" +
+                                "..#.#..\n" +
+                                "..#.#..\n" +
+                                "#####..\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    7,
+                    getBlockedFieldsForString(
+                        "..#....\n" +
+                                ".###...\n" +
+                                "..#....\n" +
+                                ".####..\n" +
+                                "....##.\n" +
+                                "....##.\n" +
+                                "....#..\n" +
+                                "..#.#..\n" +
+                                "..#.#..\n" +
+                                "#####..\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    8,
+                    getBlockedFieldsForString(
+                        ".....#.\n" +
+                                ".....#.\n" +
+                                "..####.\n" +
+                                ".###...\n" +
+                                "..#....\n" +
+                                ".####..\n" +
+                                "....##.\n" +
+                                "....##.\n" +
+                                "....#..\n" +
+                                "..#.#..\n" +
+                                "..#.#..\n" +
+                                "#####..\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    9,
+                    getBlockedFieldsForString(
+                        "....#..\n" +
+                                "....#..\n" +
+                                "....##.\n" +
+                                "....##.\n" +
+                                "..####.\n" +
+                                ".###...\n" +
+                                "..#....\n" +
+                                ".####..\n" +
+                                "....##.\n" +
+                                "....##.\n" +
+                                "....#..\n" +
+                                "..#.#..\n" +
+                                "..#.#..\n" +
+                                "#####..\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    10,
+                    getBlockedFieldsForString(
+                        "....#..\n" +
+                                "....#..\n" +
+                                "....##.\n" +
+                                "##..##.\n" +
+                                "######.\n" +
+                                ".###...\n" +
+                                "..#....\n" +
+                                ".####..\n" +
+                                "....##.\n" +
+                                "....##.\n" +
+                                "....#..\n" +
+                                "..#.#..\n" +
+                                "..#.#..\n" +
+                                "#####..\n" +
+                                "..###..\n" +
+                                "...#...\n" +
+                                "..####."
+                    )
+                )
+            )
+
         private fun toJetList(data: String): List<Jet> {
             val jets = emptyList<Jet>().toMutableList()
 
-            for(index in data.indices) {
+            for (index in data.indices) {
                 jets += Jet.getJetForCode(data.substring(index, index + 1))
             }
 
@@ -104,7 +291,7 @@ class Day17Test {
                     val letter = row[colIndex]
 
                     if (letter == '#') {
-                        result += Position(colIndex, rowIndex)
+                        result += Position(colIndex, rows.size - rowIndex - 1)
                     }
                 }
             }
@@ -117,4 +304,7 @@ class Day17Test {
 private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
 private fun Jet.shouldBe(expectation: Jet) = Assertions.assertEquals(expectation, this)
 private fun List<*>.shouldBe(expectation: List<*>) = Assertions.assertEquals(expectation, this)
+private fun Position.shouldBe(expectation: Position) = Assertions.assertEquals(expectation, this)
 private fun Set<*>.shouldBe(expectation: Set<*>) = Assertions.assertEquals(expectation, this)
+private fun Set<*>.shouldContainAll(expectation: Collection<*>) =
+    Assertions.assertTrue(this.containsAll(expectation))

@@ -15,50 +15,50 @@ enum class Rock(val dimensionX: Int, val dimensionY: Int, private val structure:
         3,
         3,
         mapOf(
-            Pair(Position(0,0), "."),
-            Pair(Position(1,0), "#"),
-            Pair(Position(2,0), "."),
+            Pair(Position(0,2), "."),
+            Pair(Position(1,2), "#"),
+            Pair(Position(2,2), "."),
             Pair(Position(0,1), "#"),
             Pair(Position(1,1), "#"),
             Pair(Position(2,1), "#"),
-            Pair(Position(0,2), "."),
-            Pair(Position(1,2), "#"),
-            Pair(Position(2,2), ".")
+            Pair(Position(0,0), "."),
+            Pair(Position(1,0), "#"),
+            Pair(Position(2,0), ".")
         )
     ),
     ARROW(
         3,
         3,
         mapOf(
-            Pair(Position(0,0), "."),
-            Pair(Position(1,0), "."),
-            Pair(Position(2,0), "#"),
+            Pair(Position(0,2), "."),
+            Pair(Position(1,2), "."),
+            Pair(Position(2,2), "#"),
             Pair(Position(0,1), "."),
             Pair(Position(1,1), "."),
             Pair(Position(2,1), "#"),
-            Pair(Position(0,2), "#"),
-            Pair(Position(1,2), "#"),
-            Pair(Position(2,2), "#")
+            Pair(Position(0,0), "#"),
+            Pair(Position(1,0), "#"),
+            Pair(Position(2,0), "#")
         )
     ),
     VERTICAL_LINE(
         1,
         4,
         mapOf(
-            Pair(Position(0,0), "#"),
-            Pair(Position(0,1), "#"),
+            Pair(Position(0,3), "#"),
             Pair(Position(0,2), "#"),
-            Pair(Position(0,3), "#")
+            Pair(Position(0,1), "#"),
+            Pair(Position(0,0), "#")
         )
     ),
     BOX(
         2,
         2,
         mapOf(
-            Pair(Position(0,0), "#"),
-            Pair(Position(1,0), "#"),
             Pair(Position(0,1), "#"),
-            Pair(Position(1,1), "#")
+            Pair(Position(1,1), "#"),
+            Pair(Position(0,0), "#"),
+            Pair(Position(1,0), "#")
         )
     );
 
