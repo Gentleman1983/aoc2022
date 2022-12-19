@@ -5,7 +5,7 @@ class NotEnoughMinerals(private var filename: String) {
 
     fun processPart1(): Int =
         blueprints
-            .sumOf { blueprint -> BlueprintSimulationFast(blueprint).simulateBlueprint() }
+            .sumOf { blueprint -> BlueprintSimulation(blueprint).simulateBlueprint() }
 
 
     fun processPart2(leftBlueprints: Int = 3): Int =

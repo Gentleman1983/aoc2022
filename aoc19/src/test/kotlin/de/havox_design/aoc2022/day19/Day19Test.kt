@@ -33,6 +33,7 @@ class Day19Test {
     fun testReadFile(filename: String, expectedResult: List<Blueprint>) =
         NotEnoughMinerals(filename).blueprints.shouldBe(expectedResult)
 
+    @Disabled
     @ParameterizedTest
     @MethodSource("getDataForTestBlueprintSimulation")
     fun testBlueprintSimulation(filename: String, blueprintId: Int, minutes: Int, expectedQualityLevel: Int) =
@@ -45,6 +46,7 @@ class Day19Test {
             .simulateBlueprint()
             .shouldBe(expectedQualityLevel)
 
+    @Disabled
     @ParameterizedTest
     @MethodSource("getDataForTestBlueprintSimulation")
     fun testBlueprintSimulationFast(filename: String, blueprintId: Int, minutes: Int, expectedQualityLevel: Int) =

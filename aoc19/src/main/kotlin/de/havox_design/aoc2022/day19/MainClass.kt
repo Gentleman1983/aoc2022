@@ -6,7 +6,7 @@ class MainClass {
         fun main(args: Array<String>) {
             if(!args.contains("testing")) {
                 val instance = NotEnoughMinerals("input.txt")
-                //println("Sum of all quality levels: ${instance.processPart1()}")
+                println("Sum of all quality levels: ${instance.processPart1()}")
                 println("Product: ${instance.processPart2()}")
             }
         }
