@@ -5,8 +5,9 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             if(!args.contains("testing")) {
-                println("Sum of all quality levels: ${NotEnoughMinerals("input.txt").processPart1()}")
-                println("Product: ${NotEnoughMinerals("input.txt").processPart2()}")
+                val instance = NotEnoughMinerals("input.txt")
+                //println("Sum of all quality levels: ${instance.processPart1()}")
+                println("Product: ${instance.processPart2()}")
             }
         }
     }

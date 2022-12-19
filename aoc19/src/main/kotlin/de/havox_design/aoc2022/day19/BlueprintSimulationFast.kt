@@ -15,20 +15,20 @@ class BlueprintSimulationFast(var blueprint: Blueprint, var minutes: Int = 24) {
         queue.add(StateFast(timeLeft = initialTimeLeft))
 
         val bestRobots = PriorityQueue<StateFast>()
-        val visited: MutableSet<StateFast> = mutableSetOf()
+        val visited: MutableSet<Int> = mutableSetOf()
 
         fun addState(state: StateFast) {
-            if (state in visited) {
+            if (state.hashCode() in visited) {
                 return
             }
-            visited.add(state)
+            visited.add(state.hashCode())
             for (robot in bestRobots) {
                 if (robot.isBetterThan(state)) {
                     return
                 }
             }
             bestRobots.add(state)
-            if (bestRobots.size > 1000) {
+            if (bestRobots.size > 250) {
                 bestRobots.poll()
             }
             queue.add(state)
