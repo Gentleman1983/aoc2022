@@ -28,7 +28,7 @@ class BlueprintSimulation(var blueprint: Blueprint, var minutes: Int = 24) {
                 }
             }
             bestRobots.add(state)
-            if (bestRobots.size > 500) {
+            if (bestRobots.size > 1000) {
                 bestRobots.poll()
             }
             queue.add(state)
@@ -42,7 +42,9 @@ class BlueprintSimulation(var blueprint: Blueprint, var minutes: Int = 24) {
                 best = maxOf(best, minute.money.geode)
                 continue
             }
-            if (state.money >= blueprint.costGeodeRobot)
+            if (state.money >= blueprint.costGeodeRobot
+                && state.money.obsidian >= blueprint.costGeodeRobot.obsidian
+            )
                 minute.copy(
                     money = minute.money - blueprint.costGeodeRobot,
                     workers = minute.workers + RobotWorkers(numberGeodeRobots = 1)

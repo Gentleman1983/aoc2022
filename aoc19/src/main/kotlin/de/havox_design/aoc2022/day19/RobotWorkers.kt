@@ -3,7 +3,7 @@ package de.havox_design.aoc2022.day19
 import org.apache.commons.lang3.builder.EqualsBuilder
 import org.apache.commons.lang3.builder.HashCodeBuilder
 
-data class RobotWorkers (
+data class RobotWorkers(
     var numberOreRobots: Int = 0,
     var numberClayRobots: Int = 0,
     var numberObsidianRobots: Int = 0,
