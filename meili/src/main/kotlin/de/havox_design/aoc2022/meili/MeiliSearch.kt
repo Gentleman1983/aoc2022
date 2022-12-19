@@ -1,10 +1,10 @@
-package de.havox_design.aoc2022.day19
+package de.havox_design.aoc2022.meili
 
-class Day(private var filename: String) {
+class MeiliSearch(private var filename: String) {
     val data = readFile()
 
-    fun processPart1(): Int =
-        0
+    fun processPart1(): String =
+        "0"
 
     fun processPart2(): Int =
         0
