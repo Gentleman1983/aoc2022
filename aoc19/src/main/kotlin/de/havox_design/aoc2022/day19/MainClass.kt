@@ -6,7 +6,7 @@ class MainClass {
         fun main(args: Array<String>) {
             if(!args.contains("testing")) {
                 println("Sum of all quality levels: ${NotEnoughMinerals("input.txt").processPart1()}")
-                println("???: ${NotEnoughMinerals("input.txt").processPart2()}")
+                println("Product: ${NotEnoughMinerals("input.txt").processPart2()}")
             }
         }
     }
