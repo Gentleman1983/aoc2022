@@ -4,8 +4,8 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("Sum of all quality levels: ${Day("input.txt").processPart1()}")
-            println("???: ${Day("input.txt").processPart2()}")
+            println("Sum of all quality levels: ${NotEnoughMinerals("input.txt").processPart1()}")
+            println("???: ${NotEnoughMinerals("input.txt").processPart2()}")
         }
     }
 }
