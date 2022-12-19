@@ -59,4 +59,5 @@ jar {
 
 application {
     mainClass = 'de.havox_design.aoc2022.day19.MainClass'
+    applicationDefaultJvmArgs += []
 }

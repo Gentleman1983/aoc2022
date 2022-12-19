@@ -2,16 +2,17 @@ package de.havox_design.aoc2022.day19
 
 class NotEnoughMinerals(private var filename: String) {
     val blueprints = readFile()
-    val qualityLevels = emptyMap<Blueprint, Int>().toMutableMap()
 
-    fun processPart1(): Int {
-        val data = blueprints.map { blueprint -> BlueprintSimulation(blueprint).simulateBlueprint() }.toList()
-        return data.sum()
-    }
+    fun processPart1(): Int =
+        blueprints
+            .sumOf { blueprint -> BlueprintSimulationFast(blueprint).simulateBlueprint() }
 
 
-    fun processPart2(): Int =
-        0
+    fun processPart2(leftBlueprints: Int = 3): Int =
+        blueprints
+            .slice(0 until leftBlueprints)
+            .map { blueprint -> BlueprintSimulationFast(blueprint, 32).simulateBlueprint(false) }
+            .reduce { a, b -> a * b }
 
     private fun readFile(): List<Blueprint> {
         val fileData = getResourceAsText(filename)

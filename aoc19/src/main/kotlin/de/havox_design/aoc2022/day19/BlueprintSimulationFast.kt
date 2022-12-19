@@ -2,22 +2,22 @@ package de.havox_design.aoc2022.day19
 
 import java.util.PriorityQueue
 
-class BlueprintSimulation(var blueprint: Blueprint, var minutes: Int = 24) {
+class BlueprintSimulationFast(var blueprint: Blueprint, var minutes: Int = 24) {
     fun simulateBlueprint(calculateQuality: Boolean = true): Int =
         if (calculateQuality) {
-            findMaxNumberOfGeodes(blueprint, minutes) * blueprint.id
+            findMaxNumberOfGeodes(BlueprintFast.getFor(blueprint), minutes) * blueprint.id
         } else {
-            findMaxNumberOfGeodes(blueprint, minutes)
+            findMaxNumberOfGeodes(BlueprintFast.getFor(blueprint), minutes)
         }
 
-    private fun findMaxNumberOfGeodes(blueprint: Blueprint, initialTimeLeft: Int): Int {
-        val queue = ArrayDeque<State>()
-        queue.add(State(initialTimeLeft))
+    private fun findMaxNumberOfGeodes(blueprint: BlueprintFast, initialTimeLeft: Int): Int {
+        val queue = ArrayDeque<StateFast>()
+        queue.add(StateFast(timeLeft = initialTimeLeft))
 
-        val bestRobots = PriorityQueue<State>()
-        val visited: MutableSet<State> = mutableSetOf()
+        val bestRobots = PriorityQueue<StateFast>()
+        val visited: MutableSet<StateFast> = mutableSetOf()
 
-        fun addState(state: State) {
+        fun addState(state: StateFast) {
             if (state in visited) {
                 return
             }
@@ -39,31 +39,35 @@ class BlueprintSimulation(var blueprint: Blueprint, var minutes: Int = 24) {
             val state = queue.removeFirst()
             val minute = state.copy().handleMinute()
             if (minute.timeLeft == 0) {
-                best = maxOf(best, minute.money.geode)
+                best = maxOf(best, minute.moneyGeode)
                 continue
             }
-            if (state.money >= blueprint.costGeodeRobot
-                && state.money.obsidian >= blueprint.costGeodeRobot.obsidian
+            if (state.moneyOre >= blueprint.costOreForGeodeRobot
+                && state.moneyObsidian >= blueprint.costObsidianForGeodeRobot
             )
                 minute.copy(
-                    money = minute.money - blueprint.costGeodeRobot,
-                    workers = minute.workers + RobotWorkers(numberGeodeRobots = 1)
+                    moneyOre = minute.moneyOre - blueprint.costOreForGeodeRobot,
+                    moneyObsidian = minute.moneyObsidian - blueprint.costObsidianForGeodeRobot,
+                    workersGeode = minute.workersGeode + 1
                 ).run(::addState)
-            if (state.money >= blueprint.costObsidianRobot)
+            if (state.moneyOre >= blueprint.costOreForObsidianRobot
+                && state.moneyClay >= blueprint.costClayForObsidianRobot
+            )
                 minute.copy(
-                    money = minute.money - blueprint.costObsidianRobot,
-                    workers = minute.workers + RobotWorkers(numberObsidianRobots = 1)
+                    moneyOre = minute.moneyOre - blueprint.costOreForObsidianRobot,
+                    moneyClay = minute.moneyClay - blueprint.costClayForObsidianRobot,
+                    workersObsidian = minute.workersObsidian + 1
                 ).run(::addState)
-            if (state.money >= blueprint.costClayRobot) {
+            if (state.moneyOre >= blueprint.costOreForClayRobot) {
                 minute.copy(
-                    money = minute.money - blueprint.costClayRobot,
-                    workers = minute.workers + RobotWorkers(numberClayRobots = 1)
+                    moneyOre = minute.moneyOre - blueprint.costOreForClayRobot,
+                    workersClay = minute.workersClay + 1
                 ).run(::addState)
             }
-            if (state.money >= blueprint.costOreRobot) {
+            if (state.moneyOre >= blueprint.costOreForOreRobot) {
                 minute.copy(
-                    money = minute.money - blueprint.costOreRobot,
-                    workers = minute.workers + RobotWorkers(numberOreRobots = 1)
+                    moneyOre = minute.moneyOre - blueprint.costOreForOreRobot,
+                    workersOre = minute.workersOre + 1
                 ).run(::addState)
             }
             addState(minute.copy())

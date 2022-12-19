@@ -3,6 +3,7 @@ package de.havox_design.aoc2022.day19
 import nl.jqno.equalsverifier.EqualsVerifier
 import nl.jqno.equalsverifier.Warning
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -15,15 +16,17 @@ class Day19Test {
         MainClass.main(arrayOf("testing"))
     }
 
+    @Disabled
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
     fun testProcessPart1(filename: String, expectedResult: Int) =
         NotEnoughMinerals(filename).processPart1().shouldBe(expectedResult)
 
+    @Disabled
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
     fun testProcessPart2(filename: String, expectedResult: Int) =
-        NotEnoughMinerals(filename).processPart2().shouldBe(expectedResult)
+        NotEnoughMinerals(filename).processPart2(2).shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestReadFile")
@@ -34,6 +37,18 @@ class Day19Test {
     @MethodSource("getDataForTestBlueprintSimulation")
     fun testBlueprintSimulation(filename: String, blueprintId: Int, minutes: Int, expectedQualityLevel: Int) =
         BlueprintSimulation(
+            blueprint = NotEnoughMinerals(filename)
+                .blueprints
+                .first { blueprint -> blueprint.id == blueprintId },
+            minutes = minutes
+        )
+            .simulateBlueprint()
+            .shouldBe(expectedQualityLevel)
+
+    @ParameterizedTest
+    @MethodSource("getDataForTestBlueprintSimulation")
+    fun testBlueprintSimulationFast(filename: String, blueprintId: Int, minutes: Int, expectedQualityLevel: Int) =
+        BlueprintSimulationFast(
             blueprint = NotEnoughMinerals(filename)
                 .blueprints
                 .first { blueprint -> blueprint.id == blueprintId },
@@ -68,7 +83,7 @@ class Day19Test {
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", 56)
             )
 
         @JvmStatic
