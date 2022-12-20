@@ -15,12 +15,12 @@ class Day20Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
-    fun testProcessPart1(filename: String, expectedResult: Int) =
+    fun testProcessPart1(filename: String, expectedResult: Long) =
         GrovePositioningSystem(filename).processPart1().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
-    fun testProcessPart2(filename: String, expectedResult: Int) =
+    fun testProcessPart2(filename: String, expectedResult: Long) =
         GrovePositioningSystem(filename).processPart2().shouldBe(expectedResult)
 
     @ParameterizedTest
@@ -32,13 +32,13 @@ class Day20Test {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 3)
+                Arguments.of("sample.txt", 3L)
             )
 
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", 1623178306L)
             )
 
         @JvmStatic
@@ -60,5 +60,5 @@ class Day20Test {
     }
 }
 
-private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
+private fun Long.shouldBe(expectation: Long) = Assertions.assertEquals(expectation, this)
 private fun List<*>.shouldBe(expectation: List<*>) = Assertions.assertEquals(expectation, this)

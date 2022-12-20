@@ -5,7 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Sum of grove coordinates: ${GrovePositioningSystem("input.txt").processPart1()}")
-            println("???: ${GrovePositioningSystem("input.txt").processPart2()}")
+            println("Sum of decrypted grove coordinates: ${GrovePositioningSystem("input.txt").processPart2()}")
         }
     }
 }
