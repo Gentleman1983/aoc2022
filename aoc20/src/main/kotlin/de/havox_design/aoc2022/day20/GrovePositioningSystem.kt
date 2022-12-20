@@ -1,6 +1,6 @@
 package de.havox_design.aoc2022.day20
 
-class Day(private var filename: String) {
+class GrovePositioningSystem(private var filename: String) {
     val data = readFile()
 
     fun processPart1(): Int =
