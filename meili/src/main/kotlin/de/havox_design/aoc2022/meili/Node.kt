@@ -56,7 +56,7 @@ class Node(
             }
         }
 
-        if(left != null) {
+        if (left != null) {
             result += left!!.find(*values)
         }
         if (right != null) {
