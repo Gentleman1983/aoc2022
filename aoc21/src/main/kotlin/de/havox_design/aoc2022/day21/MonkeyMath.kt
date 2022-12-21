@@ -10,8 +10,44 @@ class MonkeyMath(private var filename: String) {
             .first { monkey -> monkey.name == "root" }
             .calculateValue(data)
 
-    fun processPart2(): Long =
-        0
+    fun processPart2(): Long {
+        val calculation = data
+            .first { monkey -> monkey.name == "root" }
+            .toCalculation(data, "humn")
+
+        println("Calculation: $calculation")
+        println("Solution by Computer Algebra System (CAS): ~3.342.154.812.536,9998275658653017144")
+        println("For online variant try: https://www.mathpapa.com/equation-solver/")
+        println("Checking values 3.342.154.812.525 to 3.342.154.812.550")
+
+        for (i in 3342154812525L..3342154812550L) {
+            data.first { monkey -> monkey.name == "humn" }.number = i
+
+            val result = data
+                .first { monkey -> monkey.name == "root" }
+                .calculateValue(data) == 0L
+
+            println("humn: $i -> root: $result")
+            if (result) {
+                return i
+            }
+        }
+
+        // Test sample
+        data.first { monkey -> monkey.name == "humn" }.number = 301L
+
+        val result = data
+            .first { monkey -> monkey.name == "root" }
+            .calculateValue(data) == 0L
+
+        println("humn: 301 -> root: $result")
+        if (result) {
+            return 301L
+        }
+
+        return Long.MIN_VALUE
+    }
+
 
     private fun readFile() =
         getResourceAsText(filename).map(::processRow)

@@ -13,4 +13,31 @@ data class Riddle(private var operandA: String, private var operation: Operator,
             Operator.EQUALS -> monkeyA.calculateValue(monkeys).compareTo(monkeyB.calculateValue(monkeys)).toLong()
         }
     }
+
+    fun toCalculation(monkeys: Collection<Monkey>, variablesMonkey: String): String {
+        val monkeyA = monkeys.first{monkey -> monkey.name == operandA }
+        val monkeyB = monkeys.first{monkey -> monkey.name == operandB }
+
+        var monkeyAString = monkeyA.toCalculation(monkeys, variablesMonkey)
+        val operatorString = when(operation) {
+            Operator.PLUS -> "+"
+            Operator.MINUS -> "-"
+            Operator.MULTIPLY -> "*"
+            Operator.DIVIDE -> "/"
+            Operator.EQUALS -> "="
+        }
+        var monkeyBString = monkeyB.toCalculation(monkeys, variablesMonkey)
+        val leftBraces = if (operatorString.equals(Operator.EQUALS)) "" else "("
+        val rightBraces = if (operatorString.equals(Operator.EQUALS)) "" else ")"
+
+        if(!monkeyAString.contains(" x ")) {
+            monkeyAString = monkeyA.calculateValue(monkeys).toString()
+        }
+        if(!monkeyBString.contains(" x ")) {
+            monkeyBString = monkeyB.calculateValue(monkeys).toString()
+        }
+
+        return "$leftBraces$monkeyAString $operatorString $monkeyBString$rightBraces"
+    }
+
 }
