@@ -54,4 +54,4 @@ Total: 40 ⭐
 ## Status Meili Riddle for AoC 2022
 | Year | Part 1 | Part 2 |
 | ---- |--------|--------|
-| 2022 | ⭐     |❌        |
+| 2022 | ⭐     |⭐      |

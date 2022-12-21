@@ -30,7 +30,7 @@ class MeiliSearch(private var filename: String) {
         var optimalWay = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
         for (info in possibleCandidates.values) {
             val compressedPath = compressPath(info.path)
-            if(compressedPath < optimalWay) {
+            if (compressedPath < optimalWay) {
                 optimalWay = compressedPath
             }
         }
@@ -55,40 +55,54 @@ class MeiliSearch(private var filename: String) {
         }
 
 
-        currentChild =  if(args.contains("testing")) processPart1() else "bearach"
+        currentChild = if (args.contains("testing")) processPart1() else "bearach"
         val currentHops = distanceMap[currentChild]!!.hops
         val currentPath = distanceMap[currentChild]!!.path
         way[currentChild] = WayInformation(hops = currentHops, path = currentPath)
         var children = distanceMap.keys.filter { kid -> !way.containsKey(kid) }
 
-        while(children.isNotEmpty()) {
-            findNextChild(currentChild, distanceMap, children)
+        while (children.isNotEmpty()) {
+            if (children.size % 100 == 0) {
+                println("${children.size}/${data.keys.size} to process")
+            }
 
+            findNextChild(currentChild, distanceMap, children)
 
             children = distanceMap.keys.filter { kid -> !way.containsKey(kid) }
         }
 
-        for(entry in way) {
+        for (entry in way) {
             neededHops += entry.value.hops
         }
 
         return neededHops
     }
 
-    private fun findNextChild(currentChild: String, distanceMap: MutableMap<String, WayInformation>, children: List<String>) {
+    private fun findNextChild(
+        currentChild: String,
+        distanceMap: MutableMap<String, WayInformation>,
+        children: List<String>
+    ) {
         val currentChildPath = distanceMap[currentChild]!!.path
         var nextChild = ""
-        var nextChildPath = ""
+        var nextChildPath = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
         var nextChildHops = Int.MAX_VALUE
 
-        for(child in children) {
+        for (child in children) {
             val childPath = distanceMap[child]!!.path
             val pathToChild = computePathToChild(childPath, currentChildPath)
             val pathToChildHops = computeHopsToChild(pathToChild)
 
-            if(pathToChildHops < nextChildHops
+            if (pathToChildHops < nextChildHops
                 || (pathToChildHops == nextChildHops
-                        && compressPath(pathToChild) < compressPath(nextChildPath))) {
+                        && compressPath(distanceMap[child]!!.path) < compressPath(
+                    if (nextChild.isEmpty()) {
+                        nextChildPath
+                    } else {
+                        distanceMap[nextChild]!!.path
+                    }
+                ))
+            ) {
                 nextChild = child
                 nextChildPath = pathToChild
                 nextChildHops = pathToChildHops
@@ -103,13 +117,11 @@ class MeiliSearch(private var filename: String) {
         pathToChild.split(" - ").size - 1
 
     private fun computePathToChild(childPath: String, currentChildPath: String): String {
-        if(childPath == currentChildPath) {
+        if (childPath == currentChildPath) {
             return ""
-        }
-        else if(childPath.contains(currentChildPath)) {
+        } else if (childPath.contains(currentChildPath)) {
             return childPath.replace("$currentChildPath", "")
-        }
-        else if(currentChildPath.contains(childPath)) {
+        } else if (currentChildPath.contains(childPath)) {
             return currentChildPath.replace("$childPath", "")
         }
 
@@ -122,12 +134,12 @@ class MeiliSearch(private var filename: String) {
             while (childPathSteps[firstNodeDifferent] == currentPathSteps[firstNodeDifferent]) {
                 firstNodeDifferent++
             }
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             // ignore
         }
 
-        for(index in firstNodeDifferent until currentPathSteps.size) {
-            if(index != firstNodeDifferent) {
+        for (index in firstNodeDifferent until currentPathSteps.size) {
+            if (index != firstNodeDifferent) {
                 path = " - $path"
             }
             path = "${currentPathSteps[index]}$path"
