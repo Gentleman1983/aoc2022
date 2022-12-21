@@ -10,7 +10,7 @@ import java.util.stream.Stream
 class MeiliTest {
     @Test
     fun testMainClass() {
-        MainClass.main(arrayOf())
+        MainClass.main(arrayOf("testing"))
     }
 
     @ParameterizedTest
@@ -21,7 +21,7 @@ class MeiliTest {
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
     fun testProcessPart2(filename: String, expectedResult: Int) =
-        MeiliSearch(filename).processPart2().shouldBe(expectedResult)
+        MeiliSearch(filename).processPart2(arrayOf("testing")).shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestReadData")
@@ -43,7 +43,7 @@ class MeiliTest {
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", 21)
             )
 
         @JvmStatic

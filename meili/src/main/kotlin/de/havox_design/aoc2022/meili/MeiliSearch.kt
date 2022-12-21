@@ -1,9 +1,11 @@
 package de.havox_design.aoc2022.meili
 
-import java.lang.Integer.min
+import java.lang.Exception
 
 class MeiliSearch(private var filename: String) {
     val data = readFile()
+    private val way = emptyMap<String, WayInformation>().toMutableMap()
+    private var currentChild = ""
 
     fun processPart1(): String {
         val tree = Node.treeOf(data)
@@ -13,7 +15,7 @@ class MeiliSearch(private var filename: String) {
             val node = tree.find(kid).first()
             val path = node.detectPath()
             val hops = node.detectHops()
-            distanceMap[kid] = WayInformation(path, hops)
+            distanceMap[kid] = WayInformation(path, hops, node)
         }
 
         var currentMinimalPathLength = Int.MAX_VALUE
@@ -39,10 +41,105 @@ class MeiliSearch(private var filename: String) {
         return possibleCandidates.keys.min()
     }
 
-    fun processPart2(): Int =
-        0
+    fun processPart2(args: Array<String>): Int {
+        var neededHops = 0
 
-    fun compressPath(path: String): String =
+        val tree = Node.treeOf(data)
+        val distanceMap = emptyMap<String, WayInformation>().toMutableMap()
+
+        for (kid in data.keys) {
+            val node = tree.find(kid).first()
+            val path = node.detectPath()
+            val hops = node.detectHops()
+            distanceMap[kid] = WayInformation(path, hops, node)
+        }
+
+
+        currentChild =  if(args.contains("testing")) processPart1() else "bearach"
+        val currentHops = distanceMap[currentChild]!!.hops
+        val currentPath = distanceMap[currentChild]!!.path
+        way[currentChild] = WayInformation(hops = currentHops, path = currentPath)
+        var children = distanceMap.keys.filter { kid -> !way.containsKey(kid) }
+
+        while(children.isNotEmpty()) {
+            findNextChild(currentChild, distanceMap, children)
+
+
+            children = distanceMap.keys.filter { kid -> !way.containsKey(kid) }
+        }
+
+        for(entry in way) {
+            neededHops += entry.value.hops
+        }
+
+        return neededHops
+    }
+
+    private fun findNextChild(currentChild: String, distanceMap: MutableMap<String, WayInformation>, children: List<String>) {
+        val currentChildPath = distanceMap[currentChild]!!.path
+        var nextChild = ""
+        var nextChildPath = ""
+        var nextChildHops = Int.MAX_VALUE
+
+        for(child in children) {
+            val childPath = distanceMap[child]!!.path
+            val pathToChild = computePathToChild(childPath, currentChildPath)
+            val pathToChildHops = computeHopsToChild(pathToChild)
+
+            if(pathToChildHops < nextChildHops
+                || (pathToChildHops == nextChildHops
+                        && compressPath(pathToChild) < compressPath(nextChildPath))) {
+                nextChild = child
+                nextChildPath = pathToChild
+                nextChildHops = pathToChildHops
+            }
+        }
+
+        this.currentChild = nextChild
+        way[nextChild] = WayInformation(path = nextChildPath, hops = nextChildHops)
+    }
+
+    private fun computeHopsToChild(pathToChild: String): Int =
+        pathToChild.split(" - ").size - 1
+
+    private fun computePathToChild(childPath: String, currentChildPath: String): String {
+        if(childPath == currentChildPath) {
+            return ""
+        }
+        else if(childPath.contains(currentChildPath)) {
+            return childPath.replace("$currentChildPath", "")
+        }
+        else if(currentChildPath.contains(childPath)) {
+            return currentChildPath.replace("$childPath", "")
+        }
+
+        val childPathSteps = childPath.split(" - ")
+        val currentPathSteps = currentChildPath.split(" - ")
+        var path = ""
+
+        var firstNodeDifferent = 0
+        try {
+            while (childPathSteps[firstNodeDifferent] == currentPathSteps[firstNodeDifferent]) {
+                firstNodeDifferent++
+            }
+        }catch (e: Exception) {
+            // ignore
+        }
+
+        for(index in firstNodeDifferent until currentPathSteps.size) {
+            if(index != firstNodeDifferent) {
+                path = " - $path"
+            }
+            path = "${currentPathSteps[index]}$path"
+        }
+        for (index in firstNodeDifferent - 1 until childPathSteps.size) {
+            path = "$path - ${childPathSteps[index]}"
+        }
+
+        return path
+    }
+
+    private fun compressPath(path: String): String =
         path.replace(" - ", "").replace("root", "")
 
     private fun readFile(): Map<String, String> {
