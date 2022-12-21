@@ -25,7 +25,7 @@ class MeiliSearch(private var filename: String) {
             }
         }
 
-        var possibleCandidates = distanceMap.filter { (kids, info) -> info.hops == currentMinimalPathLength }
+        var possibleCandidates = distanceMap.filter { (_, info) -> info.hops == currentMinimalPathLength }
 
         var optimalWay = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
         for (info in possibleCandidates.values) {
@@ -36,7 +36,7 @@ class MeiliSearch(private var filename: String) {
         }
 
         possibleCandidates =
-            possibleCandidates.filter { (kids, info) -> compressPath(info.path) == optimalWay }
+            possibleCandidates.filter { (_, info) -> compressPath(info.path) == optimalWay }
 
         return possibleCandidates.keys.min()
     }

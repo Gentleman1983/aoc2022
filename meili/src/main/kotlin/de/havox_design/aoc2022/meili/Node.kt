@@ -87,20 +87,19 @@ class Node(
     }
 
     fun optimize() {
-        if (parent != null && parent?.key != "root") {
-            if (parent!!.kids.isEmpty()
-                && (parent!!.left == null && parent!!.right != null
-                        || parent!!.left != null && parent!!.right == null)
-            ) {
-                key = "${parent!!.key}$key"
+        if (parent != null && parent?.key != "root"
+            && parent!!.kids.isEmpty()
+            && (parent!!.left == null && parent!!.right != null
+                    || parent!!.left != null && parent!!.right == null)
+        ) {
+            key = "${parent!!.key}$key"
 
-                when {
-                    parent!!.parent!!.left == parent -> parent!!.parent!!.left = this
-                    parent!!.parent!!.right == parent -> parent!!.parent!!.right = this
-                }
-
-                parent = parent!!.parent
+            when {
+                parent!!.parent!!.left == parent -> parent!!.parent!!.left = this
+                parent!!.parent!!.right == parent -> parent!!.parent!!.right = this
             }
+
+            parent = parent!!.parent
         }
 
         left?.optimize()
