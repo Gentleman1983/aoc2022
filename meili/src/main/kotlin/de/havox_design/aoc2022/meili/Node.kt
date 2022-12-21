@@ -56,9 +56,11 @@ class Node(
             }
         }
 
-        when {
-            left != null -> result += left!!.find(*values)
-            right != null -> result += right!!.find(*values)
+        if(left != null) {
+            result += left!!.find(*values)
+        }
+        if (right != null) {
+            result += right!!.find(*values)
         }
 
         return result

@@ -37,7 +37,7 @@ class MeiliTest {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", "0")
+                Arguments.of("sample.txt", "tommy")
             )
 
         @JvmStatic
