@@ -5,10 +5,12 @@ import java.lang.IllegalArgumentException
 class MonkeyMath(private var filename: String) {
     val data = readFile()
 
-    fun processPart1(): Int =
-        0
+    fun processPart1(): Long =
+        data
+            .first { monkey -> monkey.name == "root" }
+            .calculateValue(data)
 
-    fun processPart2(): Int =
+    fun processPart2(): Long =
         0
 
     private fun readFile() =
@@ -20,7 +22,7 @@ class MonkeyMath(private var filename: String) {
         val monkeyValue = row
             .substringAfter(": ")
         var monkeyRiddle: Riddle? = null
-        var monkeyNumber: Int? = null
+        var monkeyNumber: Long? = null
         if (monkeyValue.contains(" ")) {
             val monkeyValues = monkeyValue
                 .split(" ")
@@ -36,7 +38,7 @@ class MonkeyMath(private var filename: String) {
             monkeyRiddle = Riddle(firstOperand, operator, secondOperand)
         } else {
             monkeyNumber = monkeyValue
-                .toInt()
+                .toLong()
         }
 
         return Monkey(monkeyName, monkeyRiddle, monkeyNumber)

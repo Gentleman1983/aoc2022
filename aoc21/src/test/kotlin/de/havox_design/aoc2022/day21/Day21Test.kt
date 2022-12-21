@@ -16,12 +16,12 @@ class Day21Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
-    fun testProcessPart1(filename: String, expectedResult: Int) =
+    fun testProcessPart1(filename: String, expectedResult: Long) =
         MonkeyMath(filename).processPart1().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
-    fun testProcessPart2(filename: String, expectedResult: Int) =
+    fun testProcessPart2(filename: String, expectedResult: Long) =
         MonkeyMath(filename).processPart2().shouldBe(expectedResult)
 
     @ParameterizedTest
@@ -43,7 +43,7 @@ class Day21Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestCalculateMonkeyValues")
-    fun testCalculateMonkeyValues(filename: String, monkeyName: String, expectedResult: Int) {
+    fun testCalculateMonkeyValues(filename: String, monkeyName: String, expectedResult: Long) {
         val data = MonkeyMath(filename).data
         val objectUnderTest = data.first { monkey -> monkey.name == monkeyName }
         objectUnderTest.calculateValue(data).shouldBe(expectedResult)
@@ -54,7 +54,7 @@ class Day21Test {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sample.txt", 152)
             )
 
         @JvmStatic
@@ -143,6 +143,6 @@ class Day21Test {
 }
 
 private fun Boolean.shouldBe(expectation: Boolean) = Assertions.assertEquals(expectation, this)
-private fun Int.shouldBe(expectation: Int) = Assertions.assertEquals(expectation, this)
+private fun Long.shouldBe(expectation: Long) = Assertions.assertEquals(expectation, this)
 private fun Collection<*>.shouldContainAll(expectation: Collection<*>) =
     Assertions.assertTrue(this.containsAll(expectation))
