@@ -72,6 +72,11 @@ class MeiliTest {
                     "sample.txt",
                     false,
                     getUnoptimizedTree()
+                ),
+                Arguments.of(
+                    "sample.txt",
+                    true,
+                    getOptimizedTree()
                 )
             )
 

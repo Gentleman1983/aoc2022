@@ -85,7 +85,24 @@ class Node(
     }
 
     fun optimize() {
-        println("implement me")
+        if (parent != null && parent?.key != "root") {
+            if (parent!!.kids.isEmpty()
+                && (parent!!.left == null && parent!!.right != null
+                        || parent!!.left != null && parent!!.right == null)
+            ) {
+                key = "${parent!!.key}$key"
+
+                when {
+                    parent!!.parent!!.left == parent -> parent!!.parent!!.left = this
+                    parent!!.parent!!.right == parent -> parent!!.parent!!.right = this
+                }
+
+                parent = parent!!.parent
+            }
+        }
+
+        left?.optimize()
+        right?.optimize()
     }
 
     override fun hashCode(): Int =
@@ -126,6 +143,10 @@ class Node(
 
             for (entry in data.entries) {
                 root.insert(path = entry.value, kid = entry.key)
+            }
+
+            if (optimized) {
+                root.optimize()
             }
 
             return root
