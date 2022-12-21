@@ -1,5 +1,7 @@
 package de.havox_design.aoc2022.meili
 
+import nl.jqno.equalsverifier.EqualsVerifier
+import nl.jqno.equalsverifier.Warning
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -32,6 +34,15 @@ class MeiliTest {
     @MethodSource("getDataForTestBuildTree")
     fun testBuildTree(filename: String, optimize: Boolean, expectedResult: Node) =
         Node.treeOf(MeiliSearch(filename).data, optimize).shouldBe(expectedResult)
+
+    @Test
+    fun verifyEqualsContractOnNodeClass() =
+        EqualsVerifier
+            .simple()
+            .forClass(Node::class.java)
+            .withPrefabValues(Node::class.java, Node(key = "Foo"), Node(key = "Bar"))
+            .suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT)
+            .verify()
 
     companion object {
         @JvmStatic
