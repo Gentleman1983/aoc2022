@@ -10,6 +10,7 @@ data class Riddle(private var operandA: String, private var operation: Operator,
             Operator.MINUS -> monkeyA.calculateValue(monkeys) - monkeyB.calculateValue(monkeys)
             Operator.MULTIPLY -> monkeyA.calculateValue(monkeys) * monkeyB.calculateValue(monkeys)
             Operator.DIVIDE -> monkeyA.calculateValue(monkeys) / monkeyB.calculateValue(monkeys)
+            Operator.EQUALS -> monkeyA.calculateValue(monkeys).compareTo(monkeyB.calculateValue(monkeys)).toLong()
         }
     }
 }

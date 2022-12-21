@@ -32,6 +32,7 @@ class MonkeyMath(private var filename: String) {
                 "-" -> Operator.MINUS
                 "*" -> Operator.MULTIPLY
                 "/" -> Operator.DIVIDE
+                "=" -> Operator.EQUALS
                 else -> throw IllegalArgumentException("Unknown operand '${monkeyValues[1]}'")
             }
             val secondOperand = monkeyValues[2]

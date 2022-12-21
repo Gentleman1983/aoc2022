@@ -54,20 +54,20 @@ class Day21Test {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 152)
+                Arguments.of("samplePart1.txt", 152)
             )
 
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("samplePart2.txt", 0)
             )
 
         @JvmStatic
         private fun getDataForTestReadData(): Stream<Arguments> =
             Stream.of(
                 Arguments.of(
-                    "sample.txt",
+                    "samplePart1.txt",
                     listOf(
                         Monkey("root", Riddle("pppw", PLUS, "sjmn")),
                         Monkey("dbpl", number = 5),
@@ -85,6 +85,26 @@ class Day21Test {
                         Monkey("drzm", Riddle("hmdt", MINUS, "zczc")),
                         Monkey("hmdt", number = 32)
                     )
+                ),
+                Arguments.of(
+                    "samplePart2.txt",
+                    listOf(
+                        Monkey("root", Riddle("pppw", EQUALS, "sjmn")),
+                        Monkey("dbpl", number = 5),
+                        Monkey("cczh", Riddle("sllz", PLUS, "lgvd")),
+                        Monkey("zczc", number = 2),
+                        Monkey("ptdq", Riddle("humn", MINUS, "dvpt")),
+                        Monkey("dvpt", number = 3),
+                        Monkey("lfqf", number = 4),
+                        Monkey("humn", number = 301),
+                        Monkey("ljgn", number = 2),
+                        Monkey("sjmn", Riddle("drzm", MULTIPLY, "dbpl")),
+                        Monkey("sllz", number = 4),
+                        Monkey("pppw", Riddle("cczh", DIVIDE, "lfqf")),
+                        Monkey("lgvd", Riddle("ljgn", MULTIPLY, "ptdq")),
+                        Monkey("drzm", Riddle("hmdt", MINUS, "zczc")),
+                        Monkey("hmdt", number = 32)
+                    )
                 )
             )
 
@@ -92,7 +112,7 @@ class Day21Test {
         private fun getDataForTestMonkeysHaveRiddle(): Stream<Arguments> =
             Stream.of(
                 Arguments.of(
-                    "sample.txt",
+                    "samplePart1.txt",
                     true,
                     listOf(
                         Monkey("root", Riddle("pppw", PLUS, "sjmn")),
@@ -105,7 +125,7 @@ class Day21Test {
                     )
                 ),
                 Arguments.of(
-                    "sample.txt",
+                    "samplePart1.txt",
                     false,
                     listOf(
                         Monkey("dbpl", number = 5),
@@ -117,27 +137,69 @@ class Day21Test {
                         Monkey("sllz", number = 4),
                         Monkey("hmdt", number = 32)
                     )
+                ),
+                Arguments.of(
+                    "samplePart2.txt",
+                    true,
+                    listOf(
+                        Monkey("root", Riddle("pppw", EQUALS, "sjmn")),
+                        Monkey("cczh", Riddle("sllz", PLUS, "lgvd")),
+                        Monkey("ptdq", Riddle("humn", MINUS, "dvpt")),
+                        Monkey("sjmn", Riddle("drzm", MULTIPLY, "dbpl")),
+                        Monkey("pppw", Riddle("cczh", DIVIDE, "lfqf")),
+                        Monkey("lgvd", Riddle("ljgn", MULTIPLY, "ptdq")),
+                        Monkey("drzm", Riddle("hmdt", MINUS, "zczc"))
+                    )
+                ),
+                Arguments.of(
+                    "samplePart2.txt",
+                    false,
+                    listOf(
+                        Monkey("dbpl", number = 5),
+                        Monkey("zczc", number = 2),
+                        Monkey("dvpt", number = 3),
+                        Monkey("lfqf", number = 4),
+                        Monkey("humn", number = 301),
+                        Monkey("ljgn", number = 2),
+                        Monkey("sllz", number = 4),
+                        Monkey("hmdt", number = 32)
+                    )
                 )
             )
 
         @JvmStatic
         private fun getDataForTestCalculateMonkeyValues(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", "root", 152),
-                Arguments.of("sample.txt", "dbpl", 5),
-                Arguments.of("sample.txt", "cczh", 8),
-                Arguments.of("sample.txt", "zczc", 2),
-                Arguments.of("sample.txt", "ptdq", 2),
-                Arguments.of("sample.txt", "dvpt", 3),
-                Arguments.of("sample.txt", "lfqf", 4),
-                Arguments.of("sample.txt", "humn", 5),
-                Arguments.of("sample.txt", "ljgn", 2),
-                Arguments.of("sample.txt", "sjmn", 150),
-                Arguments.of("sample.txt", "sllz", 4),
-                Arguments.of("sample.txt", "pppw", 2),
-                Arguments.of("sample.txt", "lgvd", 4),
-                Arguments.of("sample.txt", "drzm", 30),
-                Arguments.of("sample.txt", "hmdt", 32)
+                Arguments.of("samplePart1.txt", "root", 152),
+                Arguments.of("samplePart1.txt", "dbpl", 5),
+                Arguments.of("samplePart1.txt", "cczh", 8),
+                Arguments.of("samplePart1.txt", "zczc", 2),
+                Arguments.of("samplePart1.txt", "ptdq", 2),
+                Arguments.of("samplePart1.txt", "dvpt", 3),
+                Arguments.of("samplePart1.txt", "lfqf", 4),
+                Arguments.of("samplePart1.txt", "humn", 5),
+                Arguments.of("samplePart1.txt", "ljgn", 2),
+                Arguments.of("samplePart1.txt", "sjmn", 150),
+                Arguments.of("samplePart1.txt", "sllz", 4),
+                Arguments.of("samplePart1.txt", "pppw", 2),
+                Arguments.of("samplePart1.txt", "lgvd", 4),
+                Arguments.of("samplePart1.txt", "drzm", 30),
+                Arguments.of("samplePart1.txt", "hmdt", 32),
+                Arguments.of("samplePart2.txt", "root", 0),
+                Arguments.of("samplePart2.txt", "dbpl", 5),
+                Arguments.of("samplePart2.txt", "cczh", 600),
+                Arguments.of("samplePart2.txt", "zczc", 2),
+                Arguments.of("samplePart2.txt", "ptdq", 298),
+                Arguments.of("samplePart2.txt", "dvpt", 3),
+                Arguments.of("samplePart2.txt", "lfqf", 4),
+                Arguments.of("samplePart2.txt", "humn", 301),
+                Arguments.of("samplePart2.txt", "ljgn", 2),
+                Arguments.of("samplePart2.txt", "sjmn", 150),
+                Arguments.of("samplePart2.txt", "sllz", 4),
+                Arguments.of("samplePart2.txt", "pppw", 150),
+                Arguments.of("samplePart2.txt", "lgvd", 596),
+                Arguments.of("samplePart2.txt", "drzm", 30),
+                Arguments.of("samplePart2.txt", "hmdt", 32)
             )
     }
 }
