@@ -25,10 +25,6 @@ class MeiliSearch(private var filename: String) {
 
         var possibleCandidates = distanceMap.filter { (kids, info) -> info.hops == currentMinimalPathLength }
 
-        for (entry in possibleCandidates) {
-            println(entry)
-        }
-
         var optimalWay = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
         for (info in possibleCandidates.values) {
             val compressedPath = compressPath(info.path)
@@ -39,12 +35,6 @@ class MeiliSearch(private var filename: String) {
 
         possibleCandidates =
             possibleCandidates.filter { (kids, info) -> compressPath(info.path) == optimalWay }
-
-        println("L < R: ${"L"<"R"}")
-        println("L < Z: ${"L"<"Z"}")
-        println("R < Z: ${"R"<"Z"}")
-        println(possibleCandidates.keys.size)
-        println(compressPath(possibleCandidates.values.first().path))
 
         return possibleCandidates.keys.min()
     }

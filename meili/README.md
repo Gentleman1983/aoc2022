@@ -66,3 +66,131 @@ To determine who is first in the structure, you must use the
 [lexicographical comparison](https://doc.rust-lang.org/stable/std/cmp/trait.Ord.html#lexicographical-comparison) 
 between their path. In this case, `LLL` appears before `RLRLR`. In case a path is a subset of another, the shorter 
 wins.
+
+# --- Part2 ---
+
+You are able to find the closest kids! But what about the others? The old GPS became so slow that we would not have 
+been able to deliver all the gifts on time!
+
+Now, you need to count how many stops it'll take Santa to go from the closest to the next closest kid until there are 
+no kids remaining. Even kids in Antarctica must receive their well deserved gifts!
+
+**You need to find how many stops Santa will make.** The number of stops will help Santa know how many carrots they 
+needs to bring for their beloved reindeers.
+
+```
+Step 0: We're at Santa house.
+
+           LL - - - - -  tommy
+          /   L - - - -  chayaline, thomas
+         /   /
+        /   L - - - - -  caro
+       /   / \
+      /   /   R - - - -  kero
+     L - R - RR - - - -  luna
+    /
+/      L - - - - - -  loic
+o      /
+\    L - R - - - - -  lena
+\  /
+RL - RLR - - - - -  tamo
+
+Step 1: tommy is the closest, 2 stops away.
+
+           LL - - - - -  2 stops in total
+          /   L - - - -  chayaline, thomas
+         /   /
+        /   L - - - - -  caro
+       /   / \
+      /   /   R - - - -  kero
+     L - R - RR - - - -  luna
+    /
+/      L - - - - - -  loic
+o      /
+\    L - R - - - - -  lena
+\  /
+RL - RLR - - - - -  tamo
+
+Step 2: caro is the closest, 3 stops away.
+
+              L - - - -  chayaline, thomas
+             /
+            L - - - - -  5 stops in total
+           / \
+          /   R - - - -  kero
+     L - R - RR - - - -  luna
+    /
+/      L - - - - - -  loic
+o      /
+\    L - R - - - - -  lena
+\  /
+RL - RLR - - - - -  tamo
+
+Step 3: chayaline and thomas are the closest, 1 stops away.
+
+              L  - - - - 6 stops in total
+             /
+            L
+           / \
+          /   R - - - -  kero
+     L - R - RR - - - -  luna
+    /
+/      L - - - - - -  loic
+o      /
+\    L - R - - - - -  lena
+\  /
+RL - RLR - - - - -  tamo
+
+Step 4: kero is the closest, 2 stops away.
+
+            L
+           / \
+          /   R - - - -  8 stops in total
+     L - R - RR - - - -  luna
+    /
+/      L - - - - - -  loic
+o      /
+\    L - R - - - - -  lena
+\  /
+RL - RLR - - - - -  tamo
+
+
+Step 5: luna is the closest, 3 stops away.
+
+     L - R - RR - - - -  11 stops in total
+    /
+/      L - - - - - -  loic
+o      /
+\    L - R - - - - -  lena
+\  /
+RL - RLR - - - - -  tamo
+
+Step 6: tamo is the closest, 5 stops away.
+
+          L - - - - - -  loic
+o      /
+\    L - R - - - - -  lena
+\  /
+RL - RLR - - - - -  16 stops in total
+
+Step 7: loic is the closest, 3 stops away.
+
+          L - - - - - -  19 stops in total
+o      /
+\    L - R - - - - -  lena
+\  /
+RL
+
+
+Step 8: lena is the closest, 2 stops away.
+
+o
+\    L - R - - - - -  21 stops in total
+\  /
+RL
+```
+
+In the example above, we have **`21` stops** in total.
+
+Don't forget: If two kids are at the same distance, you still need to deliver your gift to the kid that's first, in 
+the lexicographical order from the point of view of Santa's house.
