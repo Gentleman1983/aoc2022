@@ -52,6 +52,6 @@ To run all solutions, simply run `./gradlew run`. If you want to run the solutio
 Total: 40 ⭐
 
 ## Status Meili Riddle for AoC 2022
-| Year | Part 1 |
-| ---- |--------|
-| 2022 | ❌     |
+| Year | Part 1 | Part 2 |
+| ---- |--------|--------|
+| 2022 | ⭐     |❌        |
