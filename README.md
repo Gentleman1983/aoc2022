@@ -42,12 +42,12 @@ To run all solutions, simply run `./gradlew run`. If you want to run the solutio
 | 18  | ⭐        | ⭐        |
 | 19  | ⭐        | ⭐        |
 | 20  | ⭐        | ⭐        |
-| 21  | ❌        | ❌        |
+| 21  | ⭐        | ⭐        |
 | 22  | ❌        | ❌        |
 | 23  | ❌        | ❌        |
 | 24  | ❌        | ❌        |
 | 25  | ❌        | ❌        |
-| **SUM** | **20 ⭐** | **20 ⭐** |
+| **SUM** | **21 ⭐** | **21 ⭐** |
 
 Total: 40 ⭐
 
