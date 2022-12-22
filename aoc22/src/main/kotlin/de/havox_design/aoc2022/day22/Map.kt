@@ -36,24 +36,58 @@ class Map(private var import: List<String>) {
         }
     }
 
-    fun tryMoveUp() =
+    fun evaluatePosition(): Int {
+        val rowNo = currentPosition.y
+        val colNo = currentPosition.x
+
+        return rowNo * 1000 + colNo * 4 + map[rowNo][colNo].value
+    }
+
+    private fun tryMoveUp() =
         tryMove(targetX = currentPosition.x, targetY = currentPosition.y - 1, targetDirection = Field.UP)
 
-    fun tryMoveRight() =
+    private fun tryMoveRight() =
         tryMove(targetX = currentPosition.x + 1, targetY = currentPosition.y, targetDirection = Field.RIGHT)
 
-    fun tryMoveDown() =
+    private fun tryMoveDown() =
         tryMove(targetX = currentPosition.x, targetY = currentPosition.y + 1, targetDirection = Field.DOWN)
 
-    fun tryMoveLeft() =
+    private fun tryMoveLeft() =
         tryMove(targetX = currentPosition.x - 1, targetY = currentPosition.y, targetDirection = Field.LEFT)
 
     private fun tryMove(targetX: Int, targetY: Int, targetDirection: Field) {
+        // Handle map borders
+        if(targetY >= map.size) {
+            tryMove(targetX = targetX, targetY = 1, targetDirection = targetDirection)
+            return
+        }
+        if(targetY < 0) {
+            tryMove(targetX = targetX, targetY = map.size - 1, targetDirection = targetDirection)
+            return
+        }
+        if(targetX >= map[0].size) {
+            tryMove(targetX = 1, targetY = targetY, targetDirection = targetDirection)
+            return
+        }
+        if(targetX < 0) {
+            tryMove(targetX = map[0].size - 1, targetY = targetY, targetDirection = targetDirection)
+            return
+        }
+
         val targetField = map[targetY][targetX]
 
         if (targetField != Field.BLOCKED && targetField != Field.UNAVAILABLE) {
             map[targetY][targetX] = targetDirection
             currentPosition = Position(targetX, targetY)
+        }
+        if(targetField == Field.UNAVAILABLE) {
+            when(targetDirection) {
+                Field.UP -> tryMove(targetX = targetX, targetY = targetY - 1, targetDirection = targetDirection)
+                Field.RIGHT -> tryMove(targetX = targetX + 1, targetY = targetY, targetDirection = targetDirection)
+                Field.DOWN -> tryMove(targetX = targetX, targetY = targetY + 1, targetDirection = targetDirection)
+                Field.LEFT -> tryMove(targetX = targetX - 1, targetY = targetY, targetDirection = targetDirection)
+                else -> throw IllegalArgumentException("This should never happen")
+            }
         }
     }
 

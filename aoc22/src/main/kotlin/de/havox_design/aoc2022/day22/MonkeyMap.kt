@@ -4,8 +4,24 @@ class MonkeyMap(private var filename: String) {
     val data = readFile()
     val orders = readOrders()
 
-    fun processPart1(): Int =
-        0
+    fun processPart1(): Int {
+        val map = Map(data)
+
+        // perform orders
+        for(order in orders) {
+            if(order.isMove()) {
+                map.move(order.toInt())
+            }
+            else {
+                when(order) {
+                    "R" -> map.turnRight()
+                    "L" -> map.turnLeft()
+                }
+            }
+        }
+
+        return map.evaluatePosition()
+    }
 
     fun processPart2(): Int =
         0
@@ -56,4 +72,7 @@ class MonkeyMap(private var filename: String) {
 
     private fun getResourceAsText(path: String): List<String> =
         this.javaClass.classLoader.getResourceAsStream(path)!!.bufferedReader().readLines()
+
+    private fun String.isMove(): Boolean =
+        this.isEmpty() || this[0].isDigit()
 }
