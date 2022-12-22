@@ -15,7 +15,7 @@ data class State(
     override fun compareTo(other: State) =
         compareValuesBy(this, other) { it.heuristicScore() }
 
-    private fun heuristicScore() =
+    fun heuristicScore() =
         workers.numberOreRobots + workers.numberClayRobots + workers.numberObsidianRobots + workers.numberGeodeRobots
 
     fun isBetterThan(other: State): Boolean =

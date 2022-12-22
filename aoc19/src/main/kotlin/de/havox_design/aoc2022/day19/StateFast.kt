@@ -28,7 +28,7 @@ data class StateFast(
         moneyGeode += workersGeode
     }
 
-    private fun heuristicScore() =
+    fun heuristicScore() =
         workersOre + workersClay + workersObsidian + workersGeode
 
     fun isBetterThan(other: StateFast): Boolean =
