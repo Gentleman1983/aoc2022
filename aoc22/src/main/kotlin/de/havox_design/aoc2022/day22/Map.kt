@@ -1,8 +1,10 @@
 package de.havox_design.aoc2022.day22
 
-class Map(var import: List<String>) {
-    private var map = buildMap()
-    var currentPosition = Position(0, 0)
+import java.lang.IllegalArgumentException
+
+class Map(private var import: List<String>) {
+    var map = buildMap()
+    var currentPosition = setStartPosition()
 
     fun turnRight() {
         when (map[currentPosition.y][currentPosition.x]) {
@@ -55,37 +57,56 @@ class Map(var import: List<String>) {
         }
     }
 
-    private fun buildMap(): Array<Array<Field>> {
-        val columns = import[0].length
-
-        val rows = emptyArray<Array<Field>>()
-        var currentRow = emptyArray<Field>()
-        for (col in 0..columns + 1) {
-            currentRow[col] = Field.UNAVAILABLE
+    private fun setStartPosition(): Position {
+        for(fieldIndex in map[1].indices) {
+            val field = map[1][fieldIndex]
+            if(field != Field.BLOCKED
+                && field != Field.UNAVAILABLE) {
+                map[1][fieldIndex] = Field.RIGHT
+                return Position(y = 1, x = fieldIndex)
+            }
         }
-        rows[0] = currentRow
+
+        throw IllegalArgumentException("Expected to have a valid start field in row 1.")
+    }
+
+    private fun buildMap(): Array<Array<Field>> {
+        val columns = import.maxOf { row -> row.length }
+
+        val rows = emptyList<Array<Field>>().toMutableList()
+        var currentRow = emptyList<Field>().toMutableList()
+        for (col in 0..columns + 1) {
+            currentRow += Field.UNAVAILABLE
+        }
+        rows += currentRow.toTypedArray()
 
         for (row in 1..import.size) {
-            currentRow = emptyArray<Field>()
-            currentRow[0] = Field.UNAVAILABLE
+            currentRow = emptyList<Field>().toMutableList()
+            currentRow += Field.UNAVAILABLE
 
             for (col in 1..columns) {
-                when (import[row - 1][col - 1].toString()) {
-                    Field.FREE.symbol -> currentRow[col] = Field.FREE
-                    Field.BLOCKED.symbol -> currentRow[col] = Field.BLOCKED
-                    else -> currentRow[col] = Field.UNAVAILABLE
+                if(row <= import.size &&
+                    col <= import[row - 1].length) {
+                    currentRow += when (import[row - 1][col - 1].toString()) {
+                        Field.FREE.symbol -> Field.FREE
+                        Field.BLOCKED.symbol -> Field.BLOCKED
+                        else -> Field.UNAVAILABLE
+                    }
+                }
+                else {
+                    currentRow += Field.UNAVAILABLE
                 }
             }
-            currentRow[columns + 1] = Field.UNAVAILABLE
-            rows[row] = currentRow
+            currentRow += Field.UNAVAILABLE
+            rows += currentRow.toTypedArray()
         }
 
-        currentRow = emptyArray<Field>()
+        currentRow = emptyList<Field>().toMutableList()
         for (col in 0..columns + 1) {
-            currentRow[col] = Field.UNAVAILABLE
+            currentRow += Field.UNAVAILABLE
         }
-        rows[import.size + 1] = currentRow
+        rows += currentRow.toTypedArray()
 
-        return rows
+        return rows.toTypedArray()
     }
 }

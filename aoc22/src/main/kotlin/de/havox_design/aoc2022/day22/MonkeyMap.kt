@@ -14,6 +14,8 @@ class MonkeyMap(private var filename: String) {
         val input = getResourceAsText(filename).toMutableList()
         val orderRow = input[input.size - 1]
         input -= orderRow
+        // remove empty row at the end
+        input.removeAt(input.size - 1)
 
         return input
     }
@@ -27,7 +29,29 @@ class MonkeyMap(private var filename: String) {
     }
 
     private fun parseOrders(orderRow: String): List<String> {
-        return listOf<String>()
+        val orders = emptyList<String>().toMutableList()
+        var isFirstLetter = true
+        var isDigit = false
+        var currentOrder = ""
+
+        for(char in orderRow){
+            if(isFirstLetter) {
+                isDigit = char.isDigit()
+                isFirstLetter = false
+            }
+
+            val currentCharIsDigit = char.isDigit()
+            if(currentCharIsDigit != isDigit) {
+                orders += currentOrder
+                currentOrder = ""
+                isDigit = currentCharIsDigit
+            }
+
+            currentOrder += char.toString()
+        }
+        orders += currentOrder
+
+        return orders
     }
 
     private fun getResourceAsText(path: String): List<String> =
