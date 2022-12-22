@@ -16,12 +16,12 @@ class Day22Test {
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
     fun testProcessPart1(filename: String, expectedResult: Int) =
-        Day(filename).processPart1().shouldBe(expectedResult)
+        MonkeyMap(filename).processPart1().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
     fun testProcessPart2(filename: String, expectedResult: Int) =
-        Day(filename).processPart2().shouldBe(expectedResult)
+        MonkeyMap(filename).processPart2().shouldBe(expectedResult)
 
     companion object {
         @JvmStatic
