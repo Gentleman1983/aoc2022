@@ -43,7 +43,7 @@ To run all solutions, simply run `./gradlew run`. If you want to run the solutio
 | 19  | ⭐        | ⭐        |
 | 20  | ⭐        | ⭐        |
 | 21  | ⭐        | ⭐        |
-| 22  | ❌        | ❌        |
+| 22  | ⭐        | ❌        |
 | 23  | ❌        | ❌        |
 | 24  | ❌        | ❌        |
 | 25  | ❌        | ❌        |
