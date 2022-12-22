@@ -43,15 +43,15 @@ To run all solutions, simply run `./gradlew run`. If you want to run the solutio
 | 19  | ⭐        | ⭐        |
 | 20  | ⭐        | ⭐        |
 | 21  | ⭐        | ⭐        |
-| 22  | ❌        | ❌        |
+| 22  | ⭐        | ❌        |
 | 23  | ❌        | ❌        |
 | 24  | ❌        | ❌        |
 | 25  | ❌        | ❌        |
-| **SUM** | **21 ⭐** | **21 ⭐** |
+| **SUM** | **22 ⭐** | **21 ⭐** |
 
-Total: 40 ⭐
+Total: 43 ⭐
 
 ## Status Meili Riddle for AoC 2022
-| Year | Part 1 |
-| ---- |--------|
-| 2022 | ❌     |
+| Year | Part 1 | Part 2 |
+| ---- |--------|--------|
+| 2022 | ⭐     |⭐      |
