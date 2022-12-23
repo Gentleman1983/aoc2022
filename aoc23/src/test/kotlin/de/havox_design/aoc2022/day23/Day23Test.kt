@@ -15,8 +15,8 @@ class Day23Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
-    fun testProcessPart1(filename: String, expectedResult: Int) =
-        UnstableDiffusion(filename).processPart1().shouldBe(expectedResult)
+    fun testProcessPart1(filename: String, endInRound:Int, expectedResult: Int) =
+        UnstableDiffusion(filename).processPart1(endInRound).shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
@@ -27,8 +27,8 @@ class Day23Test {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sampleSmall.txt", 0),
-                Arguments.of("sampleLarge.txt", 0)
+                Arguments.of("sampleSmall.txt", 10, 25),
+                Arguments.of("sampleLarge.txt", 10, 110)
             )
 
         @JvmStatic
