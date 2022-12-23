@@ -109,3 +109,7 @@ updates:
     directory: "/aoc25/"
     schedule:
       interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/meili/"
+    schedule:
+      interval: "daily"
