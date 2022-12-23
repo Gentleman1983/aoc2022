@@ -5,7 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Empty ground tiles: ${UnstableDiffusion("input.txt").processPart1()}")
-            println("???: ${UnstableDiffusion("input.txt").processPart2()}")
+            println("Out of possible moves in round: ${UnstableDiffusion("input.txt").processPart2()}")
         }
     }
 }
