@@ -15,25 +15,27 @@ class Day23Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
-    fun testProcessPart1(filename: String, expectedResult: Int) =
-        Day(filename).processPart1().shouldBe(expectedResult)
+    fun testProcessPart1(filename: String, endInRound:Int, expectedResult: Int) =
+        UnstableDiffusion(filename).processPart1(endInRound).shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
     fun testProcessPart2(filename: String, expectedResult: Int) =
-        Day(filename).processPart2().shouldBe(expectedResult)
+        UnstableDiffusion(filename).processPart2().shouldBe(expectedResult)
 
     companion object {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sampleSmall.txt", 10, 25),
+                Arguments.of("sampleLarge.txt", 10, 110)
             )
 
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sampleSmall.txt", 4),
+                Arguments.of("sampleLarge.txt", 20)
             )
     }
 }
