@@ -8,5 +8,9 @@ enum class Direction(val symbol: String, val direction: Pair<Int, Int>) {
     SOUTH_EAST("SE", Pair(1, 1)),
     SOUTH("S", Pair(1, 0)),
     SOUTH_WEST("SW", Pair(1, -1)),
-    WEST("W", Pair(0, -1))
+    WEST("W", Pair(0, -1));
+
+    override fun toString(): String {
+        return symbol
+    }
 }
