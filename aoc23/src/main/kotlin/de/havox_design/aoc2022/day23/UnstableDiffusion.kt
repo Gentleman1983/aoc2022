@@ -25,10 +25,13 @@ class UnstableDiffusion(private var filename: String) {
         return (maxY - minY + 1) * (maxX - minX + 1) - data.size
     }
 
-    fun processPart2(): Int =
-        0
+    fun processPart2(): Int {
+        data = readFile()
 
-    private fun processElves(endInRound: Int = Int.MAX_VALUE) {
+        return processElves()
+    }
+
+    private fun processElves(endInRound: Int = Int.MAX_VALUE): Int {
         var round = 0
 
         while (true) {
@@ -71,6 +74,8 @@ class UnstableDiffusion(private var filename: String) {
                 break
             }
         }
+
+        return round
     }
 
     private fun readFile() =
