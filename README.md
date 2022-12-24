@@ -45,11 +45,11 @@ To run all solutions, simply run `./gradlew run`. If you want to run the solutio
 | 21  | ⭐        | ⭐        |
 | 22  | ⭐        | ❌        |
 | 23  | ⭐        | ⭐        |
-| 24  | ❌        | ❌        |
+| 24  | ⭐        | ❌        |
 | 25  | ❌        | ❌        |
-| **SUM** | **23 ⭐** | **22 ⭐** |
+| **SUM** | **24 ⭐** | **22 ⭐** |
 
-Total: 45 ⭐
+Total: 46 ⭐
 
 ## Status Meili Riddle for AoC 2022
 | Year | Part 1 | Part 2 |
