@@ -16,24 +16,26 @@ class Day24Test {
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart1")
     fun testProcessPart1(filename: String, expectedResult: Int) =
-        Day(filename).processPart1().shouldBe(expectedResult)
+        BlizzardBasin(filename).processPart1().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
     fun testProcessPart2(filename: String, expectedResult: Int) =
-        Day(filename).processPart2().shouldBe(expectedResult)
+        BlizzardBasin(filename).processPart2().shouldBe(expectedResult)
 
     companion object {
         @JvmStatic
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sampleEasy.txt", 0),
+                        Arguments.of("sampleComplex.txt", 0)
             )
 
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of("sampleEasy.txt", 0),
+                Arguments.of("sampleComplex.txt", 0)
             )
     }
 }
