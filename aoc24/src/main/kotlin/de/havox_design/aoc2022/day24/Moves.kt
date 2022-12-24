@@ -11,7 +11,5 @@ enum class Moves(private val function: (Pair<Int, Int>) -> Pair<Int, Int>) {
         function(pos)
 }
 
-private fun Pair<Int, Int>.getX(): Int =
-    this.first
-private fun Pair<Int, Int>.getY(): Int =
-    this.second
+private fun Pair<Int, Int>.getX(): Int = this.first
+private fun Pair<Int, Int>.getY(): Int = this.second

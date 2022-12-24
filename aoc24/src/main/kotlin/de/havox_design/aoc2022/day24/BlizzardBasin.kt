@@ -1,18 +1,28 @@
 package de.havox_design.aoc2022.day24
 
 import java.util.*
-import kotlin.NoSuchElementException
 import kotlin.math.abs
 import de.havox_design.aoc2022.day24.Moves.*
 
 class BlizzardBasin(private var filename: String) {
-    val data = readFile()
+    private val data = readFile()
 
     fun processPart1(): Int =
         findWay(getStart(), getEnd())
 
-    fun processPart2(): Int =
-        0
+    fun processPart2(): Array<Int> {
+        val timeAfterSearch1 = findWay(getStart(), getEnd())
+        val timeAfterSearch2 = findWay(getEnd(), getStart(), timeAfterSearch1)
+        val timeAfterSearch3 = findWay(getStart(), getEnd(), timeAfterSearch2)
+
+        return arrayOf(
+            timeAfterSearch1,
+            timeAfterSearch2 - timeAfterSearch1,
+            timeAfterSearch3 - timeAfterSearch2,
+            timeAfterSearch3
+        )
+    }
+
 
     fun getStart(): Position =
         Position(data.first().indexOf('.'), 0)
@@ -73,8 +83,5 @@ class BlizzardBasin(private var filename: String) {
         this.javaClass.classLoader.getResourceAsStream(path)!!.bufferedReader().readLines()
 }
 
-private fun Pair<Int, Int>.getX(): Int =
-    this.first
-
-private fun Pair<Int, Int>.getY(): Int =
-    this.second
+private fun Pair<Int, Int>.getX(): Int = this.first
+private fun Pair<Int, Int>.getY(): Int = this.second
