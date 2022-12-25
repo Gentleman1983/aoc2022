@@ -43,13 +43,13 @@ To run all solutions, simply run `./gradlew run`. If you want to run the solutio
 | 19  | ⭐        | ⭐        |
 | 20  | ⭐        | ⭐        |
 | 21  | ⭐        | ⭐        |
-| 22  | ⭐        | ❌        |
+| 22  | ⭐        | ⭐        |
 | 23  | ⭐        | ⭐        |
 | 24  | ⭐        | ⭐        |
-| 25  | ❌        | ❌        |
-| **SUM** | **24 ⭐** | **23 ⭐** |
+| 25  | ⭐        | ⭐        |
+| **SUM** | **25 ⭐** | **25 ⭐** |
 
-Total: 47 ⭐
+Total: 50 ⭐
 
 ## Status Meili Riddle for AoC 2022
 | Year | Part 1 | Part 2 |

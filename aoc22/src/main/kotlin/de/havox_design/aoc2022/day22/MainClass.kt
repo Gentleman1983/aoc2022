@@ -5,7 +5,7 @@ class MainClass {
         @JvmStatic
         fun main(args: Array<String>) {
             println("Password: ${MonkeyMap("input.txt").processPart1()}")
-            println("???: ${MonkeyMap("input.txt").processPart2()}")
+            println("Password: ${MonkeyMap("input.txt").processPart2()}")
         }
     }
 }

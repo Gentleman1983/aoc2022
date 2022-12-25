@@ -1,5 +1,8 @@
 package de.havox_design.aoc2022.day22
 
+import java.io.File
+import java.lang.IllegalArgumentException
+
 class MonkeyMap(private var filename: String) {
     val data = readFile()
     val orders = readOrders()
@@ -24,7 +27,7 @@ class MonkeyMap(private var filename: String) {
     }
 
     fun processPart2(): Int =
-        0
+        MonkeyCubeSolver().solvePart2(File("src/main/resources/input.txt"))
 
     private fun readFile(): List<String> {
         val input = getResourceAsText(filename).toMutableList()
