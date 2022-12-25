@@ -4,8 +4,21 @@ class MainClass {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("SNAFU number: ${FullOfHotAir("input.txt").processPart1()}")
-            println("???: ${FullOfHotAir("input.txt").processPart2()}")
+            val inputFileName = "input.txt"
+
+            val part1Result = FullOfHotAir(inputFileName).processPart1()
+            println("SNAFU number: ${SNAFUNumber.toSnafu(part1Result).toReadableString()} ($part1Result)")
+            println("???: ${FullOfHotAir(inputFileName).processPart2()}")
         }
     }
+}
+
+private fun List<SNAFUNumber>.toReadableString(): String {
+    var result = ""
+
+    for(digit in this) {
+        result += digit.toSnafuSymbol()
+    }
+
+    return result
 }
