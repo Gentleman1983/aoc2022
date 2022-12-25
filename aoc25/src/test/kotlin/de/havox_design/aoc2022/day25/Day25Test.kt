@@ -24,12 +24,6 @@ class Day25Test {
             { SNAFUNumber.toSnafu(FullOfHotAir(filename).processPart1()).shouldBe(expectedResultSnafu) }
         )
 
-
-    @ParameterizedTest
-    @MethodSource("getDataForTestProcessPart2")
-    fun testProcessPart2(filename: String, expectedResult: Int) =
-        FullOfHotAir(filename).processPart2().shouldBe(expectedResult)
-
     @ParameterizedTest
     @MethodSource("getDataForTestConvertStringToSnafu")
     fun testConvertStringToSnafu(input: String, expectedResult: List<SNAFUNumber>) =
@@ -50,12 +44,6 @@ class Day25Test {
         private fun getDataForTestProcessPart1(): Stream<Arguments> =
             Stream.of(
                 Arguments.of("sample.txt", 4890, SNAFUNumber.toSnafu("2=-1=0"))
-            )
-
-        @JvmStatic
-        private fun getDataForTestProcessPart2(): Stream<Arguments> =
-            Stream.of(
-                Arguments.of("sample.txt", 0)
             )
 
         @JvmStatic

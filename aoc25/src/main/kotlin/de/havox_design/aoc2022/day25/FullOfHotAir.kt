@@ -12,10 +12,6 @@ class FullOfHotAir(private var filename: String) {
         return decimalData.sum()
     }
 
-
-    fun processPart2(): Int =
-        0
-
     private fun readFile() =
         getResourceAsText(filename)
             .map { snafuValue -> SNAFUNumber.toSnafu(snafuValue) }

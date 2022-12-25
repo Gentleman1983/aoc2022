@@ -8,7 +8,6 @@ class MainClass {
 
             val part1Result = FullOfHotAir(inputFileName).processPart1()
             println("SNAFU number: ${SNAFUNumber.toSnafu(part1Result).toReadableString()} ($part1Result)")
-            println("???: ${FullOfHotAir(inputFileName).processPart2()}")
         }
     }
 }
