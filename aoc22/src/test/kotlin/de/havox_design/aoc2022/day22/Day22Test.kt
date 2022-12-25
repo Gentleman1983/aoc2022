@@ -22,7 +22,7 @@ class Day22Test {
 
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
-    fun testProcessPart2(filename: String, expectedResult: Int) =
+    fun testProcessPart2(expectedResult: Int) =
         MonkeyMap("").processPart2().shouldBe(expectedResult)
 
     @ParameterizedTest
