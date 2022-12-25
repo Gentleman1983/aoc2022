@@ -1,7 +1,6 @@
 package de.havox_design.aoc2022.day22
 
 import java.io.File
-import java.lang.IllegalArgumentException
 
 class MonkeyMap(private var filename: String) {
     val data = readFile()
