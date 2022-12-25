@@ -23,7 +23,7 @@ class Day22Test {
     @ParameterizedTest
     @MethodSource("getDataForTestProcessPart2")
     fun testProcessPart2(filename: String, expectedResult: Int) =
-        MonkeyMap(filename).processPart2().shouldBe(expectedResult)
+        MonkeyMap("").processPart2().shouldBe(expectedResult)
 
     @ParameterizedTest
     @MethodSource("getDataForTestReadOrders")
@@ -61,7 +61,7 @@ class Day22Test {
         @JvmStatic
         private fun getDataForTestProcessPart2(): Stream<Arguments> =
             Stream.of(
-                Arguments.of("sample.txt", 0)
+                Arguments.of(55267)
             )
 
         @JvmStatic
