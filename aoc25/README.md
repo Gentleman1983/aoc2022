@@ -137,4 +137,11 @@ fruit from your pack onto the table.
 As you do, a very young Elf - one you recognize from the expedition team - approaches the table and holds up a single 
 **star** fruit he found. The head smoothie chef places it in the blender.
 
-## HAVE TO SOLVE MISSING RIDDLE
+Only 49 stars to go.
+
+You have enough stars to **\[Start the Blender]**.
+
+You make a smoothie with all **fifty stars** and deliver it to the reindeer! The sleigh is already warmed up by the 
+time they finish eating.
+
+**Congratulations! You've finished every puzzle in Advent of Code 2022!**
