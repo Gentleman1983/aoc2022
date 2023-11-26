@@ -6,6 +6,7 @@ class SupplyStacks(private val filename: String) {
     var data: Map<Int, Stack> = emptyMap()
     var procedure: List<Step> = emptyList()
 
+    @SuppressWarnings("kotlin:S6611")
     fun readData() {
         val rows = getResourceAsText(filename)
 
@@ -88,6 +89,7 @@ class SupplyStacks(private val filename: String) {
         }
     }
 
+    @SuppressWarnings("kotlin:S6611")
     fun evaluateTask1(): String {
         var solution = ""
 
@@ -101,6 +103,7 @@ class SupplyStacks(private val filename: String) {
         return solution
     }
 
+    @SuppressWarnings("kotlin:S6611")
     fun evaluateTask2(): String {
         var solution = ""
 
