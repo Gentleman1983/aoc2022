@@ -55,3 +55,9 @@ Total: 50 ⭐
 | Year | Part 1 | Part 2 |
 | ---- |--------|--------|
 | 2022 | ⭐     |⭐      |
+
+## Prior Years contribution:
+
+| Year | Language(s)                                  | Total Stars | Link to repository                                   |
+|------|----------------------------------------------|-------------|------------------------------------------------------|
+| 2015 | Java, Kotlin, Python, Gradle, GitHub Actions | 50 ⭐        | [aoc2015](https://github.com/Gentleman1983/aoc2015)  |
