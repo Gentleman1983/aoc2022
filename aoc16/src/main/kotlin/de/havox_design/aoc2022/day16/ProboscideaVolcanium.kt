@@ -12,6 +12,7 @@ class ProboscideaVolcanium(private var filename: String) {
     fun processPart2(): Int =
         traverse(minutes = 26, elephantGoesNext = true)
 
+    @SuppressWarnings("kotlin:S6611")
     private fun traverse(
         minutes: Int,
         current: Valve = valves.getValue("AA"),
@@ -35,6 +36,7 @@ class ProboscideaVolcanium(private var filename: String) {
         }
     }
 
+    @SuppressWarnings("kotlin:S6611")
     private fun computeDistances(): Map<String, Map<String, Int>> =
         valves
             .keys
