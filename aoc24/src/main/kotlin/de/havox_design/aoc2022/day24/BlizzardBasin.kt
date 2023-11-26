@@ -30,6 +30,7 @@ class BlizzardBasin(private var filename: String) {
     fun getEnd(): Position =
         Position(data.last().lastIndexOf('.'), data.lastIndex)
 
+    @SuppressWarnings("kotlin:S6529")
     private fun findWay(startPosition: Position, endPosition: Position, startTime: Int = 0): Int {
         val seen = mutableSetOf(IndexedValue(startTime, startPosition))
         val queue = PriorityQueue(compareBy(IndexedValue<IndexedValue<Position>>::index))
