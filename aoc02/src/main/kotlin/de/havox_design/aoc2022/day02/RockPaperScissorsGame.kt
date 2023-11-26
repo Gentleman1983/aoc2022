@@ -46,6 +46,7 @@ class RockPaperScissorsGame(private val filename: String) {
         return score
     }
 
+    @SuppressWarnings("kotlin:S6511")
     private fun getScoreByResult(opponentTurn: RockPaperScissorsFigures, yourTurn: RockPaperScissorsFigures): Int {
         return if (opponentTurn == RockPaperScissorsFigures.ROCK && yourTurn == RockPaperScissorsFigures.SCISSORS) {
             RockPaperScissorsResult.LOSS.score
@@ -64,6 +65,7 @@ class RockPaperScissorsGame(private val filename: String) {
         }
     }
 
+    @SuppressWarnings("kotlin:S6510", "kotlin:S6511")
     private fun getTurnByExpectedResult(
         opponentTurn: RockPaperScissorsFigures,
         expectedResult: RockPaperScissorsResult
