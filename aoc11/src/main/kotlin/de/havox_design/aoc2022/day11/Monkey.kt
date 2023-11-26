@@ -75,6 +75,7 @@ class Monkey(
     companion object {
         private val allMonkeys = emptyMap<Int, Monkey>().toMutableMap()
 
+        @SuppressWarnings("kotlin:S6611")
         fun getMonkeyForId(id: Int): Monkey =
             allMonkeys[id]!!
     }

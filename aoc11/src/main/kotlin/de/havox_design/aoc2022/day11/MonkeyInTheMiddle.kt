@@ -39,6 +39,7 @@ class MonkeyInTheMiddle(private var filename: String) {
         return processPart1(rounds)
     }
 
+    @SuppressWarnings("kotlin:S6511")
     private fun readData(): List<Monkey> {
         val fileData = getResourceAsText(filename)
         val monkeys = emptyList<Monkey>().toMutableList()
