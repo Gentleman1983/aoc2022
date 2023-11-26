@@ -24,6 +24,7 @@ data class Landscape(val landscapeData: List<String>) {
 
     fun get(pos: Position): Field? = map[pos]
 
+    @SuppressWarnings("kotlin:S6611")
     fun visit(pos: Position) {
         if (map.containsKey(pos)) {
             map[pos]!!.visited = true
