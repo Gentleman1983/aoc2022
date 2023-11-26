@@ -41,6 +41,7 @@ class MeiliSearch(private var filename: String) {
         return possibleCandidates.keys.min()
     }
 
+    @SuppressWarnings("kotlin:S6611")
     fun processPart2(args: Array<String>): Int {
         var neededHops = 0
 
@@ -78,6 +79,7 @@ class MeiliSearch(private var filename: String) {
         return neededHops
     }
 
+    @SuppressWarnings("kotlin:S6611")
     private fun findNextChild(
         currentChild: String,
         distanceMap: MutableMap<String, WayInformation>,
@@ -116,6 +118,7 @@ class MeiliSearch(private var filename: String) {
     private fun computeHopsToChild(pathToChild: String): Int =
         pathToChild.split(" - ").size - 1
 
+    @SuppressWarnings("kotlin:S6511")
     private fun computePathToChild(childPath: String, currentChildPath: String): String {
         if (childPath == currentChildPath) {
             return ""
