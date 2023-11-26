@@ -5,6 +5,7 @@ class CathodeRayTube(private var filename: String, var registerX: Int = 1) {
     private var cycle = 0
     private val registerXLog = emptyMap<Int, Int>().toMutableMap()
 
+    @SuppressWarnings("kotlin:S6611")
     fun processPart1(): Int {
         for (instruction in instructions) {
             cycle++
@@ -29,6 +30,7 @@ class CathodeRayTube(private var filename: String, var registerX: Int = 1) {
         return sum
     }
 
+    @SuppressWarnings("kotlin:S6611")
     fun processPart2(): String {
         processPart1()
         var output = ""
