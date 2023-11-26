@@ -71,6 +71,7 @@ class NoSpaceLeftOnDevice(private var filename: String) {
         }
     }
 
+    @SuppressWarnings("kotlin:S6511")
     private fun readSystemCall(call: String) {
         if (call == "cd /") {
             currentPosition = filesystem
