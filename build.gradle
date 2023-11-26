@@ -15,7 +15,7 @@ wrapper {
 sonarqube {
     properties {
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.projectkey", "de.havox_design.aoc2022:advent_of_code_2022"
+        property "sonar.projectKey", "de.havox_design.aoc2022:advent_of_code_2022"
         property "sonar.organization", "havox"
         property "sonar.sourceEncoding", "UTF-8"
     }
