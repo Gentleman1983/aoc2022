@@ -31,6 +31,7 @@ class UnstableDiffusion(private var filename: String) {
         return processElves()
     }
 
+    @SuppressWarnings("kotlin:S6611")
     private fun processElves(endInRound: Int = Int.MAX_VALUE): Int {
         var round = 0
 
