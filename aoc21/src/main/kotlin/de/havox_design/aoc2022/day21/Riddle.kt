@@ -14,6 +14,7 @@ data class Riddle(private var operandA: String, private var operation: Operator,
         }
     }
 
+    @SuppressWarnings("kotlin:S6519")
     fun toCalculation(monkeys: Collection<Monkey>, variablesMonkey: String): String {
         val monkeyA = monkeys.first { monkey -> monkey.name == operandA }
         val monkeyB = monkeys.first { monkey -> monkey.name == operandB }
