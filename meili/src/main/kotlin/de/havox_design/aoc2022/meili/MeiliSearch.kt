@@ -82,7 +82,7 @@ class MeiliSearch(private var filename: String) {
     @SuppressWarnings("kotlin:S6611")
     private fun findNextChild(
         currentChild: String,
-        distanceMap: MutableMap<String, WayInformation>,
+        distanceMap: Map<String, WayInformation>,
         children: List<String>
     ) {
         val currentChildPath = distanceMap[currentChild]!!.path
