@@ -38,7 +38,7 @@ To run all solutions, simply run `./gradlew run`. If you want to run the solutio
 | 14  | ⭐        | ⭐                                                                                                                         |
 | 15  | ⭐        | ⭐                                                                                                                         |
 | 16  | ⭐        | ⭐ <img src="https://scalacenter.github.io/scala-advent-of-code/img/scala-icon.png" width="15" height="15" alt="Scala" />  |
-| 17  | ⭐        | ⭐                                                                                                                         |
+| 17  | ⭐        | ⭐ <img src="https://scalacenter.github.io/scala-advent-of-code/img/scala-icon.png" width="15" height="15" alt="Scala" />  |
 | 18  | ⭐        | ⭐                                                                                                                         |
 | 19  | ⭐        | ⭐                                                                                                                         |
 | 20  | ⭐        | ⭐                                                                                                                         |
